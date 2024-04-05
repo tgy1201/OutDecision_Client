@@ -1,0 +1,23 @@
+.container {
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 1080px) {
+    .pc_ourteam {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .mobile_ourteam {
+        display: none;
+    }
+}
+
+@media (max-width: 1079px) {
+    .pc_ourteam {
+        display: none; 
+    }
+    .mobile_ourteam {
+        display: block;
+    }
+}

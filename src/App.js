@@ -13,6 +13,7 @@ import Ranking from './pages/ranking/Ranking';
 import SocialSignup from './pages/signup/SocialSignup';
 import SignupSuccess from './pages/signupSuccess/SignupSuccess';
 import FloatingBanner from './component/floatingBanner/FloatingBanner';
+import Ourteam from './pages/ourteam/Ourteam';
 
 function App() {
   const [category, setCategory] = useState('');
@@ -30,6 +31,7 @@ function App() {
           <Route path='/mypage' element={<Mypage />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory}/>}></Route>
           <Route path="/ranking" element={<Ranking />}></Route>
+          <Route path="/ourteam" element={<Ourteam />}></Route>
         </Routes>
       </div>
       <Footer />
