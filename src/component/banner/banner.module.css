@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+}
+
+.banner {
+    --swiper-theme-color: #ac2323;
+}
+
+.banner img {
+    width: 100%;
+}
+
+@media (min-width: 1080px) {
+    .container {
+        background-color: #d9d9d9;
+    }
+
+    .banner {
+        max-width: 1150px;
+
+        position: relative;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 1079px) {
+    .banner {
+        position: relative;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+}

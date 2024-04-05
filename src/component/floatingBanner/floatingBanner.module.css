@@ -1,0 +1,38 @@
+@media (max-width: 1079px) {
+    .container {
+        display: none;
+    }
+}
+
+@media (min-width: 1080px) {
+    .container {
+        position: fixed;
+        bottom : 12px;
+        right : 15px;
+        width: 140px;
+        height: 45px;
+        background-color: #ac2323;
+        color: white;
+        border-radius: 10px;
+        z-index: 10000;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+    }
+}
+
+.write_wrap {
+    display: flex;
+    align-items: center;
+}
+.write_img {
+    width: 30px;
+    position: relative;
+    margin-right: 5px;
+}
+
+.write_img img {
+    width: 100%;
+}

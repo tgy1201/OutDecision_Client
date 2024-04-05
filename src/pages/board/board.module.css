@@ -1,0 +1,23 @@
+.container {
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 1080px) {
+    .pc_board {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .mobile_board {
+        display: none;
+    }
+}
+
+@media (max-width: 1079px) {
+    .pc_board {
+        display: none; 
+    }
+    .mobile_board {
+        display: block;
+    }
+}

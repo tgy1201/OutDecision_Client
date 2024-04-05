@@ -1,0 +1,23 @@
+.container {
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 1080px) {
+    .pc_ranking {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .mobile_ranking {
+        display: none;
+    }
+}
+
+@media (max-width: 1079px) {
+    .pc_ranking {
+        display: none; 
+    }
+    .mobile_ranking {
+        display: block;
+    }
+}

@@ -1,0 +1,38 @@
+.container {
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 1080px) {
+    .pc_mypage {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 35px 0 60px;
+    }
+    .mobile_mypage {
+        display: none;
+    }
+    .sidebar_wrap {
+        float: left;
+        width: 220px;
+        padding: 0;
+        margin: 0 60px 0 0;
+    }
+
+    .content {
+        float: left;
+        width: calc(100% - 280px);
+        padding: 0;
+        margin: 0;
+        background-color: bisque;
+    }
+}
+
+@media (max-width: 1079px) {
+    .pc_mypage {
+        display: none; 
+    }
+    .mobile_mypage {
+        display: block;
+    }
+}

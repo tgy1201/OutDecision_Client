@@ -1,0 +1,219 @@
+/* content와 title_wrap 제외 동일*/
+.container {
+    width: 100%;
+    height: auto;
+}
+
+.main {
+    display: block;
+}
+
+.title_wrap > div {
+    display: block;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 35px;
+    padding-bottom: 9px;
+}
+
+
+.profile_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.profile_image_wrap {
+    width: 150px;
+    height: 150px;
+    border-radius: 70%;
+    border: 1px solid lightgray;
+    overflow: hidden;
+    background-color: #f7f7f7;
+}
+
+.profile_image_wrap img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.filebox label {
+    cursor: pointer;
+    position:absolute;
+    width: 45px;
+    height: 45px;
+    background-color: #333;
+    border-radius: 70%;
+    top: 113px;
+    margin-left: 18px;
+}
+
+.filebox label img {
+    width: 70%;
+    margin-left: 7px;
+    margin-top: 8px;
+}
+
+.filebox input {
+    display: none;
+    white-space: nowrap;
+}
+
+.profile_wrap > button {
+    margin-top: 14px;
+    color: gray;
+}
+
+.nickname {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nickname input {
+    width: 75%;
+    height: 60px;
+    padding: 0 10px;
+    border-radius: 4px;
+    border: solid 2px #333;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
+
+.nickname button {
+    width: 22%;
+    height: 60px;
+    padding: 0 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #686767;
+    background-color: #d6d3d3;
+    white-space: nowrap;
+}
+
+.nickname_check {
+    position: absolute;
+    bottom: -20px;
+    font-size: 0.8rem;
+}
+
+.signup > input {
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+    border-radius: 4px;
+    border: solid 2px #333;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 20px;
+}
+
+.signup > button {
+    width: 100%;
+    background-color: #ac2323;
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 1.0rem;
+    margin-top: 25px;
+}
+
+.account {
+    font-size: 0.9rem;
+    margin-top: 7px;
+    text-align: center;
+    letter-spacing: -0.7px;
+}
+
+.account > a {
+    color: #ac2323;
+    text-decoration-line: underline;
+    font-weight: 500;
+}
+
+.signup > p {
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+    height: 16px;
+    letter-spacing: -.4px;
+    line-height: 1.57;
+    line-height: 0;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.signup > p:before {
+    background-color: rgba(0, 0, 0, .1);
+    content: "";
+    display: inline-block;
+    height: 1px;
+    width: 100%;
+}
+
+.signup > p span {
+    background-color: #fff;
+    padding: 0 15px;
+}
+
+.social_wrap {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 40px 0;
+    width: 100%;
+}
+
+.social_wrap a {
+    width: 40px;
+    height: 40px;
+    border-radius: 80%;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.social_wrap a img {
+    width: 100%;
+}
+
+@media (min-width: 1080px) {
+    .cotent {
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    .title_wrap {
+        position: relative;
+        padding-top: 40px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 1079px) {
+    .cotent {
+        padding: 5px 20px;
+        position: relative;
+    }
+
+    .title_wrap {
+        position: relative;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
