@@ -172,8 +172,8 @@ header {
         display: none;
     }
     .mobile_header {
-        display: "";
-        padding: 5px 20px;
+        display: block;
+        padding: 7px 20px;
         position: relative;
     }
 
@@ -181,13 +181,14 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        min-height: 44px;
     }
 
     .logo {
         position: relative;
         display: inline-block;
         vertical-align: middle;
-        width: 120px;
+        width: 106px;
         min-width: 60px;
     }
 

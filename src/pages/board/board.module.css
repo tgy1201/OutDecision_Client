@@ -19,5 +19,6 @@
     }
     .mobile_board {
         display: block;
+        padding: 5px 20px;
     }
 }

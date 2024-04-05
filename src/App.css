@@ -22,14 +22,10 @@ button {
     outline: inherit;
 }
 
-.App {
-    height: 100%;
-}
-
 @media (min-width: 1080px) {
     .main {
         display: block;
-        padding-top: 141px;
+        padding-top: 136px;
         position: relative;
         min-height: calc(100vh - 70px);
     }
@@ -38,7 +34,7 @@ button {
 @media (max-width: 1079px) {
     .main {
         display: block;
-        padding: 80px 20px 0 20px;
+        padding-top: 73px;
         position: relative;
         min-height: calc(100vh - 159.9px);
     }
