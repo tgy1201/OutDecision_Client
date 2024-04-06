@@ -5,9 +5,119 @@
 
 @media (min-width: 1080px) {
     .pc_ranking {
-        max-width: 1200px;
+        max-width: 1080px;
         margin: 0 auto;
     }
+
+    .decoration {
+        font-weight: 1000;
+        font-size: 33px;
+    }
+
+    .rankingtitle {
+        font-size: 30px;
+        font-weight: 600;
+        color: #ac2323;
+        margin: 25px 0 25px 0;
+    }
+
+    .rankinghead {
+        background-color: #f7f7f7;
+        min-width: 1000px;
+        display: table;
+        width: 100%;
+    }
+
+    .rankingtable {
+        border-collapse: collapse;
+        min-width: 1000px;
+    }
+
+    .rankingtable th {
+        border-top: 2px solid #ac2323;
+        border-bottom: 1px solid #ac2323;
+        padding: 10px 0 10px 0;
+    }
+
+    .rankingtable th:nth-child(2) {
+        text-align: left;
+        padding-left: 60px;
+    }
+
+    .rankingtable td {
+        padding: 10px 5px 10px 5px;
+        border-bottom: 1px solid lightgray;
+        text-align: center;
+    }
+
+    .rankingtable td:nth-child(2) {
+        text-align: left;
+        padding-left: 30px;
+    }
+
+    .rankingtable td:nth-child(4) {
+        color: #ac2323;
+        font-weight: 600;
+        text-align: right;
+        padding-right: 20px;
+    }
+
+    .imgbox {
+        width: 26px;
+        height: 26px;
+        border-radius: 70%;
+        overflow: hidden;
+        background-color: white;
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
+        float: left;
+    }
+
+    .imgbox img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .rankingtable tbody {
+        display: block;
+        max-height: 500px;
+        overflow-y: scroll;
+    }
+
+    .rankingtable tbody tr {
+        display: table;
+        width: 100%;
+    }
+
+    .rankingtable th:nth-child(1),
+    .rankingtable td:nth-child(1) {
+        width: 7%;
+    }
+
+    .rankingtable th:nth-child(2),
+    .rankingtable td:nth-child(2) {
+        width: 70%;
+    }
+
+    .rankingtable th:nth-child(3),
+    .rankingtable td:nth-child(3) {
+        width: 10%;
+    }
+
+    .rankingtable th:nth-child(4),
+    .rankingtable td:nth-child(4) {
+        width: 13%;
+    }
+
+    .rankingtable tfoot {
+        background-color: #DFDDDD;
+        border: 2px solid #ac2323;
+        display: table;
+        width: 98%;
+    }
+
     .mobile_ranking {
         display: none;
     }
@@ -15,9 +125,110 @@
 
 @media (max-width: 1079px) {
     .pc_ranking {
-        display: none; 
+        display: none;
     }
+
     .mobile_ranking {
+        min-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .rankinghead {
+        background-color: #ac2323;
+        min-width: 400px;
+        display: table;
+        width: 100%;
+    }
+
+    .rankingtable {
+        border-collapse: collapse;
+        min-width: 400px;
+        max-height: 500px;
+        border: 1px solid #000000;
+    }
+
+    .rankingtable th {
+        border-top: 2px solid #ac2323;
+        border-bottom: 1px solid #ac2323;
+        padding: 10px 0 10px 0;
+    }
+
+    .rankingtable th:nth-child(2) {
+        text-align: left;
+        padding-left: 60px;
+    }
+
+    .rankingtable td {
+        padding: 10px 5px 10px 5px;
+        border-bottom: 1px solid lightgray;
+        text-align: center;
+    }
+
+    .rankingtable td:nth-child(2) {
+        text-align: left;
+        padding-left: 30px;
+    }
+
+    .rankingtable td:nth-child(4) {
+        color: #ac2323;
+        font-weight: 600;
+        text-align: right;
+        padding-right: 20px;
+    }
+
+    .imgbox {
+        width: 26px;
+        height: 26px;
+        border-radius: 70%;
+        overflow: hidden;
+        background-color: white;
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
+        float: left;
+    }
+
+    .imgbox img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .rankingtable tbody {
         display: block;
+        max-height: 1200px;
+        overflow-y: scroll;
+    }
+
+    .rankingtable tbody tr {
+        display: table;
+        width: 100%;
+    }
+
+    .rankingtable th:nth-child(1),
+    .rankingtable td:nth-child(1) {
+        width: 7%;
+    }
+
+    .rankingtable th:nth-child(2),
+    .rankingtable td:nth-child(2) {
+        width: 70%;
+    }
+
+    .rankingtable th:nth-child(3),
+    .rankingtable td:nth-child(3) {
+        width: 5%;
+    }
+
+    .rankingtable th:nth-child(4),
+    .rankingtable td:nth-child(4) {
+        width: 13%;
+    }
+
+    .rankingtable tfoot {
+        background-color: #ac2323;
+        border: 2px solid #000000;
+        display: table;
+        width: 98%;
     }
 }
