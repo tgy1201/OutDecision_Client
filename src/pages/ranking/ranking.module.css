@@ -199,25 +199,9 @@
         border: 2px solid;
     }
 
-    caption {
-        display: table-caption;
-        text-align: -webkit-center;
-        unicode-bidi: isolate;
-    }
-
     table {
         border-collapse: collapse;
         border-spacing: 0;
-    }
-
-    colgroup {
-        display: table-column-group;
-        unicode-bidi: isolate;
-    }
-
-    col {
-        display: table-column;
-        unicode-bidi: isolate;
     }
 
     thead {
@@ -301,4 +285,34 @@
         width: 100%;
         object-fit: cover;
     }
+
+    .rankinfoswrap {
+        width: 100%;
+        float: left;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        padding: 0 40px;
+        margin: 0 auto;
+    }
+
+    .button {
+        font-size: 20px;
+        color: black;
+        margin-top: 20px;
+        width: 100%;
+        float: left;
+        text-align: center;
+    }
+
+    .infotitle {
+        font-size: 20px;
+        color: black;
+        margin-top: 20px;
+        width: 100%;
+        float: left;
+        text-align: center;
+    }
+
+
 }

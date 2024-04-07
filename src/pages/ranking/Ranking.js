@@ -312,11 +312,16 @@ function Ranking() {
                                 </tfoot>
                             </table>
                         </div>
-                        <div className={styles.rankinfowrap}>
-                            <table className={styles.rankinfo}>
-                                일일랭킹보상 주간랭킹보상
-                            </table>
-                        </div>
+                    </div>
+                </div>
+                <div className={styles.rankinfowrap}>
+                    <button className={styles.button} onclick="change_btn(event)">일일랭킹보상</button>
+                    <button className={styles.button} onclick="change_btn(event)">주간랭킹보상</button>
+                    <h1 className={styles.infotitle}>
+                        일일랭킹보상 주간랭킹보상
+                    </h1>
+                    <div className={styles.rankinfowrap}>
+
                     </div>
                 </div>
             </div>
