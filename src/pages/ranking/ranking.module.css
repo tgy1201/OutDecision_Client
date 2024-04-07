@@ -158,6 +158,9 @@
         float: left;
         height: 100%;
         position: relative;
+        overflow: hidden;
+        padding: 0 40px;
+        margin: 0 auto;
     }
 
     .contitle {
