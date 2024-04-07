@@ -317,9 +317,6 @@ function Ranking() {
                 <div className={styles.rankinfowrap}>
                     <button className={styles.button} onclick="change_btn(event)">일일랭킹보상</button>
                     <button className={styles.button} onclick="change_btn(event)">주간랭킹보상</button>
-                    <h1 className={styles.infotitle}>
-                        일일랭킹보상 주간랭킹보상
-                    </h1>
                     <div className={styles.rankinfowrap}>
 
                     </div>

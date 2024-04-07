@@ -299,20 +299,12 @@
     .button {
         font-size: 20px;
         color: black;
-        margin-top: 20px;
+        margin-top: 10px;
         width: 100%;
         float: left;
         text-align: center;
     }
 
-    .infotitle {
-        font-size: 20px;
-        color: black;
-        margin-top: 20px;
-        width: 100%;
-        float: left;
-        text-align: center;
-    }
 
 
 }
