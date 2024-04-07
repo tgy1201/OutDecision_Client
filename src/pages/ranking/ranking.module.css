@@ -5,8 +5,12 @@
 
 @media (min-width: 1080px) {
     .pc_ranking {
-        max-width: 1080px;
+        max-width: 1200px;
         margin: 0 auto;
+    }
+
+    .mobile_ranking {
+        display: none;
     }
 
     .decoration {
@@ -18,14 +22,7 @@
         font-size: 30px;
         font-weight: 600;
         color: #ac2323;
-        margin: 25px 0 25px 0;
-    }
-
-    .rankinghead {
-        background-color: #f7f7f7;
-        min-width: 1000px;
-        display: table;
-        width: 100%;
+        margin: 25px 0;
     }
 
     .rankingtable {
@@ -33,21 +30,49 @@
         min-width: 1000px;
     }
 
+    .rankinghead {
+        min-width: 1000px;
+        display: table;
+
+    }
+
     .rankingtable th {
-        border-top: 2px solid #ac2323;
-        border-bottom: 1px solid #ac2323;
-        padding: 10px 0 10px 0;
+        border-top: 2px solid black;
+        border-bottom: 1px solid black;
+        padding: 10px 0;
+        background-color: #ac2323;
+        color: white;
     }
 
     .rankingtable th:nth-child(2) {
-        text-align: left;
-        padding-left: 60px;
+        padding-left: 10px;
     }
 
     .rankingtable td {
-        padding: 10px 5px 10px 5px;
+        padding: 10px 5px;
         border-bottom: 1px solid lightgray;
         text-align: center;
+    }
+
+    .profile {
+        width: 30px;
+        height: 30px;
+        border-radius: 70%;
+        background-color: white;
+        display: flex;
+        float: left;
+        position: relative;
+        overflow: hidden;
+        align-items: center;
+        margin-right: 8px;
+        margin-left: 40px;
+        margin-top: 0px !important;
+    }
+
+    .profile img {
+        position: absolute;
+        width: 100%;
+        object-fit: cover;
     }
 
     .rankingtable td:nth-child(2) {
@@ -58,31 +83,11 @@
     .rankingtable td:nth-child(4) {
         color: #ac2323;
         font-weight: 600;
-        text-align: right;
-        padding-right: 20px;
-    }
-
-    .imgbox {
-        width: 26px;
-        height: 26px;
-        border-radius: 70%;
-        overflow: hidden;
-        background-color: white;
-        margin-right: 8px;
-        display: flex;
-        align-items: center;
-        float: left;
-    }
-
-    .imgbox img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
     }
 
     .rankingtable tbody {
         display: block;
-        max-height: 500px;
+        max-height: 400px;
         overflow-y: scroll;
     }
 
@@ -111,16 +116,12 @@
         width: 13%;
     }
 
-    .rankingtable tfoot {
-        background-color: #DFDDDD;
+    tfoot {
+        display: block;
         border: 2px solid #ac2323;
-        display: table;
-        width: 98%;
     }
 
-    .mobile_ranking {
-        display: none;
-    }
+
 }
 
 @media (max-width: 1079px) {
@@ -129,106 +130,172 @@
     }
 
     .mobile_ranking {
-        min-width: 1000px;
+        display: block;
+    }
+
+    .wrap {
+        float: left;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .containerinner {
+        float: left;
+        width: 100%;
+        height: 100%;
+    }
+
+    .divinner {
+        position: relative;
+        padding: 0 40px;
+        width: 100%;
+        height: 100%;
         margin: 0 auto;
     }
 
-    .rankinghead {
-        background-color: #ac2323;
-        min-width: 400px;
-        display: table;
+    .contentswrap {
         width: 100%;
-    }
-
-    .rankingtable {
-        border-collapse: collapse;
-        min-width: 400px;
-        max-height: 500px;
-        border: 1px solid #000000;
-    }
-
-    .rankingtable th {
-        border-top: 2px solid #ac2323;
-        border-bottom: 1px solid #ac2323;
-        padding: 10px 0 10px 0;
-    }
-
-    .rankingtable th:nth-child(2) {
-        text-align: left;
-        padding-left: 60px;
-    }
-
-    .rankingtable td {
-        padding: 10px 5px 10px 5px;
-        border-bottom: 1px solid lightgray;
-        text-align: center;
-    }
-
-    .rankingtable td:nth-child(2) {
-        text-align: left;
-        padding-left: 30px;
-    }
-
-    .rankingtable td:nth-child(4) {
-        color: #ac2323;
-        font-weight: 600;
-        text-align: right;
-        padding-right: 20px;
-    }
-
-    .imgbox {
-        width: 26px;
-        height: 26px;
-        border-radius: 70%;
-        overflow: hidden;
-        background-color: white;
-        margin-right: 8px;
-        display: flex;
-        align-items: center;
         float: left;
-    }
-
-    .imgbox img {
-        width: 100%;
         height: 100%;
-        object-fit: cover;
+        position: relative;
     }
 
-    .rankingtable tbody {
+    .contitle {
+        font-size: 20px;
+        color: black;
+        margin-top: 20px;
+        width: 100%;
+        float: left;
+        margin-bottom: 30px;
+        height: 40px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border: 0;
+        text-decoration: none;
+        letter-spacing: -0.03em;
+    }
+
+    div {
         display: block;
-        max-height: 1200px;
+        unicode-bidi: isolate;
+    }
+
+    .ranktablewrap {
+        width: 100%;
+        float: left;
+        height: 100%;
+    }
+
+    .ranktable {
+        width: 100%;
+        float: left;
+        border: 2px solid;
+    }
+
+    caption {
+        display: table-caption;
+        text-align: -webkit-center;
+        unicode-bidi: isolate;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    colgroup {
+        display: table-column-group;
+        unicode-bidi: isolate;
+    }
+
+    col {
+        display: table-column;
+        unicode-bidi: isolate;
+    }
+
+    thead {
+        display: table-header-group;
+        vertical-align: middle;
+        unicode-bidi: isolate;
+    }
+
+    tr {
+        display: table-row;
+        vertical-align: inherit;
+        unicode-bidi: isolate;
+        background-color: rgb(236, 236, 236);
+    }
+
+    th {
+        display: table-cell;
+        vertical-align: inherit;
+        unicode-bidi: isolate;
+    }
+
+    .ranktable tr th {
+        font-weight: bold;
+        font-size: 18px;
+        color: white;
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+        background-color: #ac2323;
+    }
+
+    .ranktable tbody {
+        display: table-row-group;
+        unicode-bidi: isolate;
+        display: block;
+        max-height: 400px;
         overflow-y: scroll;
     }
 
-    .rankingtable tbody tr {
-        display: table;
-        width: 100%;
+    .ranktable tfoot {
+        display: table-row-group;
+        vertical-align: middle;
+        unicode-bidi: isolate;
     }
 
-    .rankingtable th:nth-child(1),
-    .rankingtable td:nth-child(1) {
-        width: 7%;
-    }
-
-    .rankingtable th:nth-child(2),
-    .rankingtable td:nth-child(2) {
-        width: 70%;
-    }
-
-    .rankingtable th:nth-child(3),
-    .rankingtable td:nth-child(3) {
-        width: 5%;
-    }
-
-    .rankingtable th:nth-child(4),
-    .rankingtable td:nth-child(4) {
-        width: 13%;
-    }
-
-    .rankingtable tfoot {
+    tfoot tr td {
         background-color: #ac2323;
-        border: 2px solid #000000;
-        display: table;
-        width: 98%;
+    }
+
+    td {
+        display: table-cell;
+        unicode-bidi: isolate;
+    }
+
+    .ranktable tr td {
+        font-size: 15px;
+        text-align: center;
+        border-bottom: 1px solid black;
+        vertical-align: middle;
+        height: 40px;
+        line-height: 20px;
+        color: black;
+    }
+
+    .profile {
+        width: 30px;
+        height: 30px;
+        border-radius: 70%;
+        background-color: white;
+        display: flex;
+        float: left;
+        position: relative;
+        overflow: hidden;
+        align-items: center;
+        margin-left: 40px;
+        margin-top: 0px !important;
+    }
+
+    .profile img {
+        position: absolute;
+        width: 100%;
+        object-fit: cover;
     }
 }
