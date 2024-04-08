@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDom from 'react-dom'
 import { BottomSheet } from "react-spring-bottom-sheet";
+import { useMediaQuery } from "react-responsive";
 import styles from './filterSheet.module.css';
 
 import 'react-spring-bottom-sheet/dist/style.css';
 import './customFilterSheet.css';
 
-function FilterSheet ({open, setFilterOpen, selectedGender, setSelectedGender, voteStatus, setVoteStatus, applyFilter}) {
+function FilterSheet ({open, setFilterOpen, applyFilter, gender, vote}) {
+    //모바일에만 적용된 필터
+    const [selectedGender, setSelectedGender] = useState(gender);
+    const [voteStatus, setVoteStatus] = useState(vote);
+    
+    const isMobile = useMediaQuery({
+        query: "(max-width: 1079px)"
+    });
+
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
     };
     
-      const handleVoteStatusChange = (event) => {
+    const handleVoteStatusChange = (event) => {
         setVoteStatus(event.target.value);
     };
+
+    const handleAppyFilter = () => {
+        applyFilter('gender', selectedGender);
+        applyFilter('voteStatus', voteStatus);
+        setFilterOpen(false);
+    }
 
     return ReactDom.createPortal(
         <BottomSheet 
             open={open}
+            blocking={isMobile? true : false}
             snapPoints={({ minHeight, maxHeight }) => [minHeight*0 + 350, maxHeight*0 + 350]}
             onDismiss={() => setFilterOpen(false)}
+            scrollLocking={isMobile? true : false}
         >
             <div className={styles.container}>
                 <h3>성별 필터</h3>
@@ -54,7 +71,7 @@ function FilterSheet ({open, setFilterOpen, selectedGender, setSelectedGender, v
                     </label>
                 </div>
                 <div className={styles.submit_btn_wrap}>
-                    <button onClick={applyFilter} className={styles.submit_btn}>필터 적용</button>
+                    <button onClick={handleAppyFilter} className={styles.submit_btn}>필터 적용</button>
                 </div>
             </div>
         </BottomSheet>

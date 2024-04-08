@@ -29,6 +29,7 @@ function App() {
           <Route path="/signup/success" element={<SignupSuccess />}></Route>
           <Route path='/mypage' element={<Mypage />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory}/>}></Route>
+          <Route path="/board/:bname/:type" element={<Board setCategory={setCategory}/>}></Route>
           <Route path="/ranking" element={<Ranking />}></Route>
         </Routes>
       </div>

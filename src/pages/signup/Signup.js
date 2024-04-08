@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Signup () {
     const navigate = useNavigate();
     const [profileImage, setProfileImage] = useState('/assets/images/profile.png');
+    const [emailCheck, setEmailCheck] = useState('');
 
     const handleImageUpload = (e) => {
         const reader = new FileReader();
@@ -17,6 +18,15 @@ function Signup () {
             };
         });
     };
+
+    /* 이메일 중복 체크 */
+    const handleCheckEmail = (e) => {
+        if(e.target.value === 'id') {
+            setEmailCheck(true)
+        } else {
+            setEmailCheck(false)
+        }
+    }
 
     const handleSignup = () => {
         /*회원가입 성공시*/
@@ -50,7 +60,7 @@ function Signup () {
                             <div className={styles.nickname_check} style={{color: "green"}}>*사용가능한 닉네임입니다.</div>
                         </div>
                         <input type="text" placeholder="이름" />
-                        <input type="email" placeholder="이메일"/>
+                        <input type="email" placeholder="이메일" onBlur={handleCheckEmail} style={{border: emailCheck === true ? "2px solid green" : emailCheck === false ? "2px solid red" : ""}}/>
                         <input type="password" placeholder="비밀번호" />
                         <input type="password" placeholder="비밀번호 확인" />
                         <input type="tel" placeholder="휴대폰번호" />

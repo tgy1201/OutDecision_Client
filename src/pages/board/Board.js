@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from "react";
 import styles from './board.module.css';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import FilterSheet from "../../component/filterSheet/FilterSheet";
+import DesktopFilter from "../../component/filterSheet/DesktopFilter";
+import Dashboard from "../../component/Dashboard/Dashboard";
+import PostList from "../../component/postList/PostList";
+
+/* 카테고리 전체와 HOT은 인기글 없음 / HOT은 글쓰기 없음 / 전체는 내부검색 없음(통합검색) */
 
 function Board ({setCategory}) {
-    const {bname} = useParams();
+    const navigate = useNavigate();
+    const {bname, type} = useParams();
+
     const [filterOpen, setFilterOpen] = useState(false);
     const [selectedGender, setSelectedGender] = useState('');
     const [voteStatus, setVoteStatus] = useState('');
 
+    const isMobile = useMediaQuery({
+        query: "(max-width: 1079px)"
+    });
+
+    const handleDisplayType = (type) => {
+        navigate(`/board/${bname}/${type}`);
+    }
     const boardNameMap = {
         all: '전체',
         hot: 'HOT',
@@ -21,17 +36,25 @@ function Board ({setCategory}) {
         etc: '기타',
     };
 
+    const filterMap = {
+        female: '여성',
+        male: '남성',
+        progress: '투표중',
+        end: '투표종료'
+    }
+
     useEffect(() => {  
         setCategory(bname);
     }, [bname, setCategory]);
 
-    const applyFilter = () => {
+    const applyFilter = (filterType, value) => {
         // 여기에서 필터를 적용하고 게시판을 다시 렌더링하거나 데이터를 업데이트할 수 있음
-        console.log('선택된 성별:', selectedGender);
-        console.log('투표 상태:', voteStatus);
-        setFilterOpen(false);
+        if (filterType === 'gender') {
+            setSelectedGender(value);
+        } else if (filterType === 'voteStatus') {
+            setVoteStatus(value)
+        }
     };
-
 
     return (
         <div className={styles.container}>
@@ -42,9 +65,9 @@ function Board ({setCategory}) {
                 <div className={styles.board_nav}>
                     <div>
                         <button className={styles.select}>전체글</button>
-                        <button className={styles.unselect}>HOT</button>
+                        <button className={styles.unselect} style={{display: bname === 'hot' || 'all' ? "none" : ""}}>HOT</button>
                     </div>
-                    <Link className={styles.write_btn}>
+                    <Link className={styles.write_btn} style={{display: bname === 'hot' && "none"}}>
                         <div className={styles.write_img}>
                             <img src="/assets/images/write.png" alt="투표작성" />
                         </div>
@@ -58,27 +81,76 @@ function Board ({setCategory}) {
                             <option>조회순</option>
                             <option>좋아요순</option>
                         </select>
-                        <button className={styles.filter_btn} onClick={()=> setFilterOpen(true)}>
+                        <button className={styles.filter_btn} onClick={()=> setFilterOpen(!filterOpen)} style={{borderColor: selectedGender !=='' || voteStatus !=='' ? "#ac2323" : ""}}>
                             <span>필터</span>
                             <div>
                                 <img src="/assets/images/filter.png" alt="필터" />
                             </div>
                         </button>
-                        <FilterSheet 
+                        {filterOpen &&
+                            <DesktopFilter
+                            /*데스크톱 필터*/
                             open={filterOpen} 
                             setFilterOpen={setFilterOpen} 
-                            selectedGender={selectedGender}
-                            setSelectedGender={setSelectedGender}
-                            voteStatus={voteStatus}
-                            setVoteStatus={setVoteStatus}
                             applyFilter={applyFilter}
+                            gender={selectedGender}
+                            vote={voteStatus}
+                            />
+                        }
+                        {filterOpen &&
+                        <FilterSheet 
+                            /*모바일 바텀필터시트*/
+                            open={filterOpen} 
+                            setFilterOpen={setFilterOpen} 
+                            applyFilter={applyFilter}
+                            gender={selectedGender}
+                            vote={voteStatus}
                         />
+                        }
+                        {selectedGender !== "" && !isMobile &&
+                            <div className={styles.gender_btn}>
+                                {filterMap[selectedGender]} 
+                                <button onClick={()=>setSelectedGender('')}>X</button>
+                            </div>
+                        }
+                        {voteStatus !== "" && !isMobile &&
+                            <div className={styles.voteStatus_btn}>
+                                {filterMap[voteStatus]} 
+                                <button onClick={()=>setVoteStatus('')}>X</button>
+                            </div>
+                        }
                     </div>
-                    <div className={styles.sorting_btn}> 
-                        <Link><img src="/assets/images/sort_dashboard.png" alt="정렬"/></Link>
-                        <Link><img src="/assets/images/sort_list_b.png" alt="정렬"/></Link>
+                    <div className={styles.sorting_btn}>
+                        <button onClick={()=> handleDisplayType('dashboard')}>
+                        {type !== 'list' ?
+                            <img src="/assets/images/sort_dashboard.png" alt="정렬"/>
+                        : <img src="/assets/images/sort_dashboard_b.png" alt="정렬"/>
+                        }
+                        </button>
+                        <button onClick={()=> handleDisplayType('list')}>
+                        {type === 'list' ?
+                            <img src="/assets/images/sort_list.png" alt="정렬"/>
+                        : <img src="/assets/images/sort_list_b.png" alt="정렬"/>
+                        }
+                        </button>
                     </div>
                 </div>
+                <div className={styles.mobile_filter} style={{display: selectedGender === "" && voteStatus === "" ? "none" : ""}}>
+                    {selectedGender !== "" && isMobile &&
+                        <div className={styles.gender_btn}>
+                            {filterMap[selectedGender]} 
+                            <button onClick={()=>setSelectedGender('')}>X</button>
+                        </div>
+                    }
+                    {voteStatus !== "" && isMobile &&
+                        <div className={styles.voteStatus_btn}>
+                            {filterMap[voteStatus]} 
+                            <button onClick={()=>setVoteStatus('')}>X</button>
+                        </div>
+                    }
+                </div>
+
+                {!type || type === 'dashboard' ? <Dashboard /> : <PostList />}
             </div>
         </div>
     )

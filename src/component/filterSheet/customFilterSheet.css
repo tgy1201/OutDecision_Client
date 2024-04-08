@@ -148,3 +148,11 @@
     /* Allows interactions on the rest of the page before the close transition is finished */
     pointer-events: none;
   }
+
+  @media (min-width: 1080px) {
+    [data-rsbs-overlay],
+    [data-rsbs-backdrop],
+    [data-rsbs-root] {
+      display: none;
+    }
+  }
