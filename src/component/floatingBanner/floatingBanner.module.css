@@ -7,19 +7,24 @@
 @media (min-width: 1080px) {
     .container {
         position: fixed;
-        bottom : 12px;
-        right : 15px;
-        width: 140px;
-        height: 45px;
+        bottom : 20px;
+        right : 21px;
+        width: 147px;
+        height: 48px;
         background-color: #ac2323;
         color: white;
         border-radius: 10px;
-        z-index: 10000;
-        padding: 0 10px;
+        z-index: 5;
+        padding: 5px 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.1rem;
+        box-shadow: 5px 5px 5px -4px#333;
+    }
+
+    .container:hover {
+        background-color: #932929;
     }
 }
 
@@ -28,11 +33,12 @@
     align-items: center;
 }
 .write_img {
-    width: 30px;
+    width: 27px;
     position: relative;
     margin-right: 5px;
 }
 
 .write_img img {
     width: 100%;
+    vertical-align: middle;
 }

@@ -5,7 +5,7 @@ header {
     left: 0;
     background-color: white;
     border-bottom: 1px solid #e7e7e7;
-    z-index: 10000;
+    z-index: 3;
 }
 
 @media (min-width: 1080px) {
@@ -123,6 +123,7 @@ header {
 
     .category_menu_wrap a:hover {
         color: #ac2323;
+        text-decoration-line: underline;
     }
 
     .btn_search {

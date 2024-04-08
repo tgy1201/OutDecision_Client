@@ -8,7 +8,7 @@
     width: 100%;
     background: #fff;
     border-top: 1px solid #ddd;
-    z-index: 100;
+    z-index: 2;
     transition: all .5s ease;
     box-shadow: 10px 10px 30px 10px rgb(0, 0, 0, 0.3);
 }

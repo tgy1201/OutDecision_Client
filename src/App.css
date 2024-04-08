@@ -38,4 +38,8 @@ button {
         position: relative;
         min-height: calc(100vh - 159.9px);
     }
+
+    body::-webkit-scrollbar {
+        width: 0;
+    }
 }
