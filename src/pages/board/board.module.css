@@ -17,14 +17,6 @@
     font-weight: 600;
 }
 
-.board_filter_wrap {
-    border-top: 3px solid #ac2323;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0 10px 0;
-}
-
 .board_filter {
     display: flex;
     position: relative;
@@ -39,6 +31,10 @@
     display: flex;     
 }
 
+.sorting_btn button:hover {
+    background-color: #ececec;
+}
+
 .sorting_btn button img {
     width: 100%;
     vertical-align: middle;
@@ -48,13 +44,6 @@
     .board {
         max-width: 1200px;
         margin: 0 auto;
-    }
-
-    .board_nav {
-        margin: 10px 0 15px 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
     }
 
     .board_title_wrap {
@@ -88,6 +77,13 @@
         position: absolute;
         top: 5px;
         letter-spacing: -2px;
+    }
+
+    .board_nav {
+        margin: 10px 0 15px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .select {
@@ -145,6 +141,14 @@
     .write_btn:hover span {
         opacity: 1;
         transition: opacity 0.5s linear;
+    }
+
+    .board_filter_wrap {
+        border-top: 3px solid #ac2323;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0 10px 0;
     }
 
     .filter_sort {
@@ -302,6 +306,14 @@
     .write_img {
         width: 24px;
         margin-left: 4px;
+    }
+
+    .board_filter_wrap {
+        border-top: 3px solid #ac2323;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0 10px 0;
     }
 
     .filter_sort {

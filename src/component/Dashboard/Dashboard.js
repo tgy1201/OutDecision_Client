@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from './dashboard.module.css'
+import PostCard from "../postCard/PostCard";
 
 function Dashboard () {
     const [posts, setPosts] = useState([]);
@@ -16,8 +17,7 @@ function Dashboard () {
             {posts.map((post, idx)=>
             (
             <div className={styles.post_wrap} key={idx}>
-                {post.title}
-                {post.option["1번"]}
+                <PostCard post={post} />
             </div>
             ))}
         </div>

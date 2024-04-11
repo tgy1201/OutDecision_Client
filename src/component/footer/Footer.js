@@ -37,7 +37,7 @@ function Footer () {
             </div>
             <div className={`${styles.mobile_footer} ${styles.mobile}`}>
                 <div className={styles.footer_wrap}>
-                    <ul>
+                <ul>
                         <li>
                             <div style={{width: "30px"}}>
                                 <img src="/assets/images/youtube.png" alt="화이트로고" />

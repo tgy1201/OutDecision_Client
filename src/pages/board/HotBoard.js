@@ -9,7 +9,7 @@ import PostList from "../../component/postList/PostList";
 
 /* 카테고리 전체와 HOT은 인기글 없음 / HOT은 글쓰기 없음 / 전체는 내부검색 없음(통합검색) */
 
-function Board ({setCategory}) {
+function HotBoard ({setCategory}) {
     const navigate = useNavigate();
     const {bname, type} = useParams();
 
@@ -22,7 +22,7 @@ function Board ({setCategory}) {
     });
 
     const handleDisplayType = (type) => {
-        navigate(`/board/${bname}/${type}`);
+        navigate(`/board/${bname}/hot/${type}`);
     }
 
     const handleChangeBoard = (board) => {
@@ -81,8 +81,8 @@ function Board ({setCategory}) {
                 </div>
                 <div className={styles.board_nav}>
                     <div>
-                        <button className={styles.select} onClick={()=>handleChangeBoard()}>전체글</button>
-                        <button className={styles.unselect} onClick={()=>handleChangeBoard('hot')} style={{display: bname === 'hot' || bname === 'all' ? "none" : ""}}>HOT</button>
+                        <button className={styles.unselect} onClick={()=>handleChangeBoard()}>전체글</button>
+                        <button className={styles.select} onClick={()=>handleChangeBoard('hot')}>HOT</button>
                     </div>
                     <Link className={styles.write_btn} style={{display: bname === 'hot' && "none"}}>
                         <div className={styles.write_img}>
@@ -173,4 +173,4 @@ function Board ({setCategory}) {
     )
 }
 
-export default Board;
+export default HotBoard;
