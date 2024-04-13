@@ -11,58 +11,6 @@
     gap: 35px 20px;
 }
 
-.state_wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.state_wrap > div {
-    padding: 5px 7px;
-    border-radius: 4px;
-    color: white;
-}
-
-.vote_table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #5a5a5a;
-    position: relative;
-}
-
-/*현재는 투표중인 게시물에 모두 적용했는데, 이미 투표 완료한 게시물은 막아야함*/
-.option_hover:hover {
-    border: 2px solid #ac2323;
-}
-
-.content_wrap > p {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    word-break: break-all;
-
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.postInfo_wrap li {
-    display: inline-block;
-}
-
-.postInfo_wrap li:nth-child(3) {
-    color: red;
-    margin-right: 4px;
-}
-
-.postInfo_wrap li:nth-child(4) {
-    color: blue;
-    margin-right: 4px;
-}
-
-.postInfo_wrap li:nth-child(5) {
-    color: green;
-}
-
 @media (min-width: 1080px) {
     .post_wrap {
         flex: 0 0 32%; /*4개씩 23%*/
@@ -74,247 +22,25 @@
         min-height: 430px;
         position: relative;
     }
-
-    .title_wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 7px;
-    }
-
-    .title_wrap > p{
-        font-size: 1.2rem;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        word-break: break-all;
-
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-    }
-
-    .title_wrap > div {
-        color: #a9a9a9;
-        font-size: 1.0rem;
-    }
-
-    .vote_wrap {
-        display: flex;
-        margin-top: 7px;
-        justify-content: center;
-    }
-
-    .vote_table tbody {
-        display: flex;
-        flex-direction: column;
-        background-color: #e0e0e0;
-        max-height: 166px;
-        overflow-y: auto;
-        padding: 8px 5px;
-        gap: 10px 0;
-    }
-
-    .vote_table tbody::-webkit-scrollbar {
-        width: 8px;
-        background-color: #f4f4f4;
-    }
-
-    .vote_table tbody::-webkit-scrollbar-thumb {
-        background-color: #747474;
-        border: 2px solid #f4f4f4;
-    }
-    
-    .vote_table tbody td{
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        width: 100%;
-        height: 70px;
-        background-color: white;
-        border-radius: 8px;
-        border: 1px solid #5a5a5a;
-        font-size: 1.1rem;
-    }
-
-    .option_img {
-        width: 50px;
-        border-radius: 6px;
-        margin-right: 7px;
-        background-color: transparent;
-    }
-
-    .option_img img {
-        width: 100%;
-    }
-
-    .vote_table tfoot button {
-        width: 50%;
-        padding: 10px;
-        border-top: 1px solid #5a5a5a;
-    }
-    .vote_table tfoot button:nth-child(1) {
-        border-right: 1px solid #5a5a5a;
-    }
-    .vote_table tfoot div {
-        width: 100%;
-        padding: 10px;
-        border-top: 1px solid #5a5a5a;
-        display: flex;
-        justify-content: center;
-        font-size: 0.8rem;
-        color:#a9a9a9;
-    }
-
-    .content_wrap {
-        margin-top: 10px;
-        font-size: 0.9rem;
-        color: #474747;
-    }
-
-    .postInfo_wrap {
-        margin-top: 10px;
-        font-size: 0.8rem;
-        color: #8d8d8d;
-        position: absolute;
-        bottom: 15px;
-    }
-
-    .postInfo_wrap li:nth-child(1)::after, .postInfo_wrap li:nth-child(2)::after {
-        display: inline-block;
-        width: 1px;
-        height: 10px;
-        margin: 0 7px;
-        vertical-align: middle;
-        background: #e0e0e0;
-        content: '';
-    }
 }
-
-@media (max-width: 1079px) {
+@media (min-width: 576px) and ( max-width: 1079px) {
     .post_wrap {
         flex: 0 0 47%;
-        padding: 5px 10px 10px;
+        padding: 10px 15px 15px;
         border: 1px solid #ccc;
         border-radius: 8px;
-        font-size: 0.7rem;
-        min-height: 320px;
+        min-height: 430px;
+        position: relative;
+    }
+}
+@media (max-width: 575px) {
+    .post_wrap {
+        flex: 0 0 100%;
+        padding: 10px 15px 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        min-height: 430px;
         position: relative;
     }
 
-    .title_wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 4px;
-    }
-    
-    .title_wrap > p {
-        font-size: 0.8rem;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        word-break: break-all;
-
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-    }
-
-    .title_wrap > div {
-        color: #a9a9a9;
-        font-size: 0.7rem;
-    }
-
-    .vote_wrap {
-        display: flex;
-        margin-top: 4px;
-        justify-content: center;
-    }
-
-    .vote_table tbody {
-        display: flex;
-        flex-direction: column;
-        background-color: #e0e0e0;
-        max-height: 130px;
-        overflow-y: auto;
-        padding: 5px;
-        gap: 10px 0;
-    }
-
-    .vote_table tbody::-webkit-scrollbar {
-        width: 5px;
-        background-color: #f4f4f4;
-    }
-
-    .vote_table tbody::-webkit-scrollbar-thumb {
-        background-color: #747474;
-        border: 1px solid #f4f4f4;
-    }
-    
-    .vote_table tbody td{
-        display: flex;
-        align-items: center;
-        padding: 5px;
-        width: 100%;
-        height: 55px;
-        background-color: white;
-        border-radius: 8px;
-        border: 1px solid #5a5a5a;
-        font-size: 0.8rem;
-    }
-
-    .option_img {
-        width: 35px;
-        border-radius: 6px;
-        margin-right: 7px;
-        background-color: inherit;
-    }
-
-    .option_img img {
-        width: 100%;
-    }
-
-    .vote_table tfoot button {
-        width: 50%;
-        padding: 6px;
-        border-top: 1px solid #5a5a5a;
-        font-size: 0.7rem;
-    }
-    .vote_table tfoot button:nth-child(1) {
-        border-right: 1px solid #5a5a5a;
-    }
-    .vote_table tfoot div {
-        width: 100%;
-        padding: 7px;
-        border-top: 1px solid #5a5a5a;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 0.6rem;
-        color:#a9a9a9;
-    }
-
-    .content_wrap {
-        margin-top: 7px;
-        font-size: 0.7rem;
-        color: #474747;
-    }
-
-    .postInfo_wrap {
-        position: absolute;
-        bottom: 10px;
-        font-size: 0.6rem;
-        color: #8d8d8d;
-    }
-
-    .postInfo_wrap li:nth-child(1)::after, .postInfo_wrap li:nth-child(2)::after {
-        display: inline-block;
-        width: 1px;
-        height: 10px;
-        margin: 0 5px;
-        vertical-align: middle;
-        background: #e0e0e0;
-        content: '';
-    }
 }

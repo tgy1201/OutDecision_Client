@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from './filterSheet.module.css'
 
-function DesktopFilter ({open, setFilterOpen, applyFilter, gender, vote}) {
+function DesktopFilter ({open, setFilterOpen, applyFilter, gender, vote, searchParams}) {
+    const navigate = useNavigate();
+
     const [selectedGender, setSelectedGender] = useState(gender);
     const [voteStatus, setVoteStatus] = useState(vote);
 
@@ -17,6 +20,11 @@ function DesktopFilter ({open, setFilterOpen, applyFilter, gender, vote}) {
         applyFilter('gender', selectedGender);
         applyFilter('voteStatus', voteStatus);
         setFilterOpen(false);
+        
+        if(selectedGender || voteStatus ) {
+            searchParams.delete('page');
+            navigate(`?${searchParams.toString()}`);
+        }
     }
 
     return (

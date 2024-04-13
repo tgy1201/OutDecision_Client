@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactDom from 'react-dom'
+import { useNavigate } from 'react-router-dom'
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { useMediaQuery } from "react-responsive";
 import styles from './filterSheet.module.css';
@@ -7,8 +8,9 @@ import styles from './filterSheet.module.css';
 import 'react-spring-bottom-sheet/dist/style.css';
 import './customFilterSheet.css';
 
-function FilterSheet ({open, setFilterOpen, applyFilter, gender, vote}) {
+function FilterSheet ({open, setFilterOpen, applyFilter, gender, vote, searchParams}) {
     //모바일에만 적용된 필터
+    const navigate = useNavigate();
     const [selectedGender, setSelectedGender] = useState(gender);
     const [voteStatus, setVoteStatus] = useState(vote);
     
@@ -28,6 +30,11 @@ function FilterSheet ({open, setFilterOpen, applyFilter, gender, vote}) {
         applyFilter('gender', selectedGender);
         applyFilter('voteStatus', voteStatus);
         setFilterOpen(false);
+
+        if(selectedGender || voteStatus ) {
+            searchParams.delete('page');
+            navigate(`?${searchParams.toString()}`);
+        }
     }
 
     return ReactDom.createPortal(
