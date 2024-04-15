@@ -44,6 +44,7 @@ function CommonHeader ({children}) {
                                     <li><Link to="/board/all">전체</Link></li>
                                     <li><Link to="/board/hot">HOT</Link></li>
                                     <li><Link to="/board/food">음식</Link></li>
+                                    <li><Link to="/board/fashion">패션</Link></li>
                                     <li><Link to="/board/travel">여행</Link></li>
                                     <li><Link to="/board/work">취업</Link></li>
                                     <li><Link to="/board/hobby">취미</Link></li>

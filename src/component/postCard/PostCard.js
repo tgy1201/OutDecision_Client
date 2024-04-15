@@ -21,8 +21,8 @@ function PostCard({post}) {
             <section className={styles.vote_wrap}>
                 <table className={styles.vote_table}>
                     <tbody>
-                    {Object.values(post.option).map((option)=>    
-                        <tr>
+                    {Object.values(post.option).map((option, idx)=>    
+                        <tr key={idx}>
                             {isOpenResult || post.state==="투표종료" || post.voted ?
                                 <td style={{border: "1px solid gray"}}><div className={styles.result_wrap}>{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /></div>} <p>{option.text}</p></div><span className={styles.percent}>30%</span></td>
                             :   <td><div className={styles.option_wrap} >{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /> </div>} <p>{option.text}</p></div></td>
@@ -51,9 +51,9 @@ function PostCard({post}) {
                 <ul>
                     <li>{post.user}</li>
                     <li>{post.date}</li>
-                    <li><IoHeartOutline style={{verticalAlign: "middle"}}/>{post.like}</li>
-                    <li><LiaCommentDotsSolid style={{verticalAlign: "middle"}}/>3</li> 
-                    <li><IoEyeOutline style={{verticalAlign: "middle"}}/>38000</li>
+                    <li><IoHeartOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>{post.like}</li>
+                    <li><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "1px"}}/>3</li> 
+                    <li><IoEyeOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>38000</li>
                 </ul>
             </section>
         </>

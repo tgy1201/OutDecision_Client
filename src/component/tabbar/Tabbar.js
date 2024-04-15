@@ -17,7 +17,7 @@ function Tabbar () {
                 </span>
                 <span>게시판</span>
             </Link>
-            <Link to="/bb" className={styles.quick_menu_wrap}>
+            <Link to="/write" className={styles.quick_menu_wrap}>
                 <span className={styles.quick_middle_menu}>
                     <img src="/assets/images/write.png" alt="write" />
                 </span>

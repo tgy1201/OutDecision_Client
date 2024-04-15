@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import FilterSheet from "../../component/filterSheet/FilterSheet";
 import DesktopFilter from "../../component/filterSheet/DesktopFilter";
 import Dashboard from "../../component/Dashboard/Dashboard";
-import PostList from "../../component/postList/PostList";
+import List from "../../component/List/List";
 
 /* 카테고리 전체와 HOT은 인기글 없음 / HOT은 글쓰기 없음 / 전체는 내부검색 없음(통합검색) */
 const boardNameMap = {
@@ -128,7 +128,7 @@ function Board ({setCategory}) {
                         <button className={hot ? `${styles.unselect}` : `${styles.select}`} onClick={()=>handleChangeBoard()}>전체글</button>
                         <button className={hot ? `${styles.select}` : `${styles.unselect}`} onClick={()=>handleChangeBoard('hot')} style={{display: bname === 'hot' || bname === 'all' ? "none" : ""}}>HOT</button>
                     </div>
-                    <Link className={styles.write_btn} style={{display: bname === 'hot' && "none"}}>
+                    <Link to="/write" className={styles.write_btn} style={{display: bname === 'hot' && "none"}}>
                         <div className={styles.write_img}>
                             <img src="/assets/images/write.png" alt="투표작성" />
                         </div>
@@ -213,7 +213,7 @@ function Board ({setCategory}) {
                     }
                 </div>
 
-                {!type || type === 'dashboard' ? <Dashboard posts={filteredPosts}/> : <PostList />}
+                {!type || type === 'dashboard' ? <Dashboard posts={filteredPosts}/> : <List posts={filteredPosts} />}
 
                 <div className={styles.search_wrap}>
                     <select>
@@ -225,7 +225,7 @@ function Board ({setCategory}) {
                         <button><img src="/assets/images/search.png" alt="검색"/></button>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     )

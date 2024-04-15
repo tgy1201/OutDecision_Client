@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function FloatingBanner() {
     return (
         <div className={styles.container}>
-            <Link to="/" className={styles.write_wrap}>
+            <Link to="/write" className={styles.write_wrap}>
                 <div className={styles.write_img}>
                     <img src="/assets/images/write.png" alt="투표작성" />
                 </div>

@@ -44,6 +44,7 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                             <li><Link to="/board/all" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>전체</Link></li>
                             <li><Link to="/board/hot" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>HOT</Link></li>
                             <li><Link to="/board/food" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>음식</Link></li>
+                            <li><Link to="/board/fashion" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>패션</Link></li>
                             <li><Link to="/board/travel" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>여행</Link></li>
                             <li><Link to="/board/work" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>취업</Link></li>
                             <li><Link to="/board/hobby" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>취미</Link></li>

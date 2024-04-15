@@ -2,9 +2,10 @@ import React from "react";
 import styles from './category.module.css'
 import { Link } from "react-router-dom";
 
-import { TbCategoryFilled } from "react-icons/tb"; // 전체
+//import { TbCategoryFilled } from "react-icons/tb"; // 전체
 import { BsFire } from "react-icons/bs"; // HOT
 import { MdFastfood } from "react-icons/md"; // 음식
+import { FaShirt } from "react-icons/fa6";
 import { ImAirplane } from "react-icons/im"; // 여행
 import { MdWorkHistory } from "react-icons/md"; //취업
 import { IoGameController } from "react-icons/io5"; //취미
@@ -14,12 +15,6 @@ import { CgMoreO } from "react-icons/cg"; //etc
 function Category () {
     return (
         <div className={styles.category}>
-            <div className={styles.category_wrap} >
-                <Link to="/board/all">
-                    <span><TbCategoryFilled className={styles.icon}/></span>
-                    <span>전체</span>
-                </Link>
-            </div>
             <div className={styles.category_wrap}>
                 <Link to="/board/hot" >
                     <span><BsFire className={styles.icon}/></span>
@@ -30,6 +25,12 @@ function Category () {
                 <Link to="/board/food" >
                 <span><MdFastfood className={styles.icon}/></span>
                     <span>음식</span>
+                </Link>
+            </div>
+            <div className={styles.category_wrap} >
+                <Link to="/board/fashion">
+                    <span><FaShirt className={styles.icon}/></span>
+                    <span>패션</span>
                 </Link>
             </div>
             <div className={styles.category_wrap}>

@@ -32,4 +32,8 @@
         margin-bottom: 10px;
         border-radius: 8px;
     }
+
+    .banner img {
+        border-radius: 8px;
+    }
 }
