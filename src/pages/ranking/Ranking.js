@@ -15,7 +15,6 @@ function Ranking() {
                             <tr>
                                 <th>랭킹</th>
                                 <th>닉네임</th>
-                                <th>가입일</th>
                                 <th>포인트</th>
                             </tr>
                         </thead>
@@ -26,9 +25,8 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    도려
                                 </td>
-                                <td>2024-04-01</td>
                                 <td>78945</td>
                             </tr>
                             <tr>
@@ -37,10 +35,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    뭉치
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>74067</td>
                             </tr>
                             <tr>
                                 <td>3</td>
@@ -48,10 +45,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    빵지
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>68430</td>
                             </tr>
                             <tr>
                                 <td>4</td>
@@ -59,10 +55,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    뽀식이
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>42046</td>
                             </tr>
                             <tr>
                                 <td>5</td>
@@ -70,10 +65,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    상여자
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>35764</td>
                             </tr>
                             <tr>
                                 <td>6</td>
@@ -81,10 +75,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    둘리
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>31453</td>
                             </tr>
                             <tr>
                                 <td>7</td>
@@ -92,10 +85,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    마이콜
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>24503</td>
                             </tr>
                             <tr>
                                 <td>8</td>
@@ -103,10 +95,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    챈니
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>17554</td>
                             </tr>
                             <tr>
                                 <td>9</td>
@@ -114,10 +105,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    아쿠아맨
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>14783</td>
                             </tr>
                             <tr>
                                 <td>10</td>
@@ -125,10 +115,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    집이다요
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>11476</td>
                             </tr>
                             <tr>
                                 <td>11</td>
@@ -136,10 +125,9 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    뭉갱잉
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>9456</td>
                             </tr>
                             <tr>
                                 <td>12</td>
@@ -147,23 +135,21 @@ function Ranking() {
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
-                                    내가일등
+                                    건강한멸치
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>78945</td>
+                                <td>8945</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td>117</td>
+                                <td>308</td>
                                 <td>
                                     <div className={styles.profile}>
                                         <img src="/assets/images/profile.png" alt="프로필" />
                                     </div>
                                     정감자
                                 </td>
-                                <td>2024-04-01</td>
-                                <td>117</td>
+                                <td>1107</td>
                             </tr>
                         </tfoot>
                     </table>

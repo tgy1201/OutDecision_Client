@@ -28,6 +28,7 @@
     .rankingtable {
         border-collapse: collapse;
         min-width: 1000px;
+        margin: 0 auto;
     }
 
     .rankinghead {
@@ -48,8 +49,12 @@
         padding-left: 10px;
     }
 
+    .rankingtable th:nth-child(3) {
+        padding-left: 0px;
+    }
+
     .rankingtable td {
-        padding: 10px 5px;
+        padding: 8px 5px;
         border-bottom: 1px solid lightgray;
         text-align: center;
     }
@@ -64,7 +69,7 @@
         position: relative;
         overflow: hidden;
         align-items: center;
-        margin-right: 8px;
+        margin-right: 10px;
         margin-left: 40px;
         margin-top: 0px !important;
     }
@@ -78,9 +83,10 @@
     .rankingtable td:nth-child(2) {
         text-align: left;
         padding-left: 30px;
+        font-size: 20px;
     }
 
-    .rankingtable td:nth-child(4) {
+    .rankingtable td:nth-child(3) {
         color: #ac2323;
         font-weight: 600;
     }
@@ -106,19 +112,23 @@
         width: 70%;
     }
 
-    .rankingtable th:nth-child(3),
-    .rankingtable td:nth-child(3) {
-        width: 10%;
+    .rankingtable th:nth-child(3) {
+        width: 15.5%;
     }
 
-    .rankingtable th:nth-child(4),
-    .rankingtable td:nth-child(4) {
+    .rankingtable td:nth-child(3) {
         width: 13%;
     }
 
     tfoot {
         display: block;
         border: 2px solid #ac2323;
+        unicode-bidi: isolate;
+    }
+
+    .rankingtable tfoot tr {
+        display: table;
+        width: 99%;
     }
 
 
