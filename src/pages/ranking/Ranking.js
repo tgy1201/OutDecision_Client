@@ -309,9 +309,46 @@ function Ranking() {
                                 </tfoot>
                             </table>
                         </div>
+                        <div className={styles.pointinfobox}>
+                            <table className={styles.infotable}>
+                                <thead className={styles.infohead}>
+                                    <tr>
+                                        <th>일일랭킹보상</th>
+                                        <th>주간랭킹보상</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>응모권 X 10장</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>응모권 X 7장</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>응모권 X 5장</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4~10</td>
+                                        <td>응모권 X 3장</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11~50</td>
+                                        <td>응모권 X 2장</td>
+                                    </tr>
+                                    <tr>
+                                        <td>51~100</td>
+                                        <td>응모권 X 1장</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }
