@@ -12,6 +12,7 @@ function Header({category}) {
     const isMyPage = location.pathname.includes('/mypage');
     const isBoardPage = location.pathname.includes('/board/');
     const isRankingPage = location.pathname.includes('/ranking');
+    const isWritePage = location.pathname === '/write';
   
     return (
         <header>
@@ -20,6 +21,7 @@ function Header({category}) {
                 isMyPage ? <MobileHeader.MypageHeader /> :
                 isBoardPage ? <BoardHeader category={category}/> :
                 isRankingPage ? <MobileHeader.RankingHeader /> :
+                isWritePage ? <MobileHeader.WriteHeader /> :
                 <HomeHeader />
             }             
         </header>

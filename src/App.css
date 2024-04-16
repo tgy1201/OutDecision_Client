@@ -45,10 +45,31 @@ button {
 }
 
 /*datePicker 커스텀*/
-.react-datepicker__input-container input {
-    padding: 10px !important;
-    width: 140px !important;
-    font-size: 1.2rem !important;
-    border-radius: 4px !important;
-    border: 1px solid #5a5a5a !important;
+@media (min-width: 1080px) {
+    .react-datepicker__input-container input {
+        padding: 10px !important;
+        width: 140px !important;
+        font-size: 1.2rem !important;
+        border-radius: 4px !important;
+        border: 1px solid #5a5a5a !important;
+    }
+}
+
+@media (max-width: 1079px) {
+    .react-datepicker__input-container input {
+        padding: 7px !important;
+        width: 117px !important;
+        font-size: 1.1rem !important;
+        border-radius: 4px !important;
+        border: 1px solid #5a5a5a !important;
+    }
+}
+
+/*토글 커스텀*/
+.react-toggle--checked .react-toggle-track {
+    background-color: #ac2323 !important;
+}
+
+.react-toggle--checked .react-toggle-thumb {
+    border-color: #ac2323 !important;
 }

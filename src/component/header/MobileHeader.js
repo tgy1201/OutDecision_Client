@@ -63,11 +63,27 @@ function RankingHeader () {
     )
 }
 
+function WriteHeader () {
+    const navigate = useNavigate();
+
+    const handleGoBack = () => {
+        navigate(-1);
+    }
+
+    return (
+        <CommonHeader>
+            <button className={styles.menu_back} onClick={handleGoBack}><img src="/assets/images/back.png" alt="뒤로가기" /></button>
+            <span style={{fontSize: "1.4rem", marginLeft: "35px"}}>투표 작성</span>
+        </CommonHeader>
+    )
+}
+
 const MobileHeader = {
     LoginHeader,
     SignupHeader,
     MypageHeader,
-    RankingHeader
+    RankingHeader,
+    WriteHeader
 }
 
 export default MobileHeader;
