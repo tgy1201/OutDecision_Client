@@ -173,14 +173,12 @@
         margin: 0 auto;
     }
 
-    .contitle {
+    .rankingtitle {
         font-size: 20px;
-        color: black;
-        margin-top: 20px;
-        width: 100%;
-        float: left;
-        margin-bottom: 30px;
-        height: 40px;
+        font-weight: 600;
+        color: #ac2323;
+        margin: 25px 0;
+        text-align: center;
     }
 
     * {
@@ -206,7 +204,6 @@
     .ranktable {
         width: 100%;
         float: left;
-        border: 2px solid;
     }
 
     table {
@@ -214,10 +211,9 @@
         border-spacing: 0;
     }
 
-    thead {
-        display: table-header-group;
-        vertical-align: middle;
-        unicode-bidi: isolate;
+    .rankhead {
+        display: table;
+        width: 100%;
     }
 
     tr {
@@ -244,36 +240,35 @@
     }
 
     .ranktable tbody {
-        display: table-row-group;
         unicode-bidi: isolate;
         display: block;
         max-height: 400px;
         overflow-y: scroll;
     }
 
-    .ranktable tfoot {
-        display: table-row-group;
-        vertical-align: middle;
-        unicode-bidi: isolate;
+    .ranktable tbody tr {
+        display: table;
+        width: 100%;
     }
 
-    tfoot tr td {
-        background-color: #ac2323;
+    .ranktable tfoot {
+        display: block;
+        unicode-bidi: isolate;
+        border: 2px solid #ac2323;
+        unicode-bidi: isolate;
     }
 
     td {
-        display: table-cell;
-        unicode-bidi: isolate;
+        padding: 8px 5px;
+        border-bottom: 1px solid lightgray;
+        text-align: center;
     }
 
     .ranktable tr td {
         font-size: 15px;
         text-align: center;
         border-bottom: 1px solid black;
-        vertical-align: middle;
-        height: 40px;
-        line-height: 20px;
-        color: black;
+        background-color: rgba(255, 255, 255, 0.897);
     }
 
     .profile {
@@ -286,7 +281,8 @@
         position: relative;
         overflow: hidden;
         align-items: center;
-        margin-left: 40px;
+        margin-left: 10px;
+        margin-right: 10px;
         margin-top: 0px !important;
     }
 
@@ -296,25 +292,41 @@
         object-fit: cover;
     }
 
-    .rankinfoswrap {
-        width: 100%;
-        float: left;
-        height: 100%;
-        position: relative;
-        overflow: hidden;
-        padding: 0 40px;
-        margin: 0 auto;
-    }
-
-    .button {
+    .ranktable td:nth-child(2) {
+        text-align: left;
+        padding-left: 30px;
         font-size: 20px;
-        color: black;
-        margin-top: 10px;
-        width: 100%;
-        float: left;
-        text-align: center;
     }
 
+    .ranktable th:nth-child(1),
+    .ranktable td:nth-child(1) {
+        width: 15%;
+    }
 
+    .ranktable th:nth-child(2),
+    .ranktable td:nth-child(2) {
+        width: 65%;
+    }
+
+    .ranktable th:nth-child(3) {
+        width: 20%;
+    }
+
+    .ranktable td:nth-child(3) {
+        width: 14%;
+        color: #ac2323;
+        font-weight: 600;
+    }
+
+    tfoot {
+        display: block;
+        border: 2px solid #ac2323;
+        unicode-bidi: isolate;
+    }
+
+    .ranktable tfoot tr {
+        display: table;
+        width: 98%;
+    }
 
 }
