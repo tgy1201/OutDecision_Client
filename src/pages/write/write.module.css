@@ -29,15 +29,33 @@
         position: relative;
     }
 
+    .category_list {
+        display: flex;
+        justify-content: flex-start;
+        gap: 25px;
+    }
+
+    .category_list label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        background-color: #ffffff;
+        border-radius: 6px;
+        padding: 7px 10px;
+        cursor: pointer;
+    }
     .category {
-        width: 200px;
-        height: 50px;
-        font-size: 1.2rem;
-        padding: 0px 10px ;
-        background-color: white;
-        border-radius: 4px;
-        border-color: #424242;
+        color: #ac2323;
+        border: 1px solid #ac2323;
+    }
+    .category_none {
+        border: 1px solid #424242;
         color: #424242;
+    }
+
+    .icon {
+        font-size: 2.0rem;
     }
 
     .vote_title {
@@ -168,12 +186,14 @@
         align-items: center;
         justify-items: center;
         margin-left: 15px;
+        color: #424242;
     }
-
+    .delete_btn:hover {
+        color: #ac2323;
+    }
     .delete_icon {
         vertical-align: middle;
         font-size: 1.8rem;
-        color: #ac2323;
     }
 
     .preview {
@@ -209,11 +229,16 @@
     .add_wrap button {
         padding: 10px 25px;
         border-radius: 8px;
-        border: 1px solid #ac2323;
-        color: #ac2323;
+        border: 1px solid #424242;
+        color: #424242;
         font-size: 1.2rem;
         display: flex;
         align-items: center;
+    }
+
+    .add_wrap button:hover {
+        border: 1px solid #ac2323;
+        color: #ac2323;
     }
 }
 
@@ -351,12 +376,14 @@
         align-items: center;
         justify-items: center;
         margin-left: 15px;
+        color: #424242;
     }
-
+    .delete_btn:hover {
+        color: #ac2323;
+    }
     .delete_icon {
         vertical-align: middle;
         font-size: 1.6rem;
-        color: #ac2323;
     }
 
     .preview {
@@ -392,12 +419,17 @@
         padding: 7px 15px;
         width: 100%;
         border-radius: 8px;
-        border: 1px solid #ac2323;
-        color: #ac2323;
+        border: 1px solid #424242;
+        color: #424242;
         font-size: 1.2rem;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .add_wrap button:hover {
+        border: 1px solid #ac2323;
+        color: #ac2323;
     }
 
     .mobile_content {

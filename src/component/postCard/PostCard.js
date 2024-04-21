@@ -15,8 +15,8 @@ function PostCard({post}) {
             </section>
             <section className={styles.title_wrap}>
                 <p>[{post.category}] {post.title}</p>
-                <div>23.06.27 18:00 종료</div>
-                <div>단일 선택 • <span style={{color: "#ac2323"}}>24</span> 명 참여</div>
+                <div>{post.deadline} 종료</div>
+                <div>단일 선택 • <span style={{color: "#ac2323"}}>{post.votes}</span> 명 참여</div>
             </section>
             <section className={styles.vote_wrap}>
                 <table className={styles.vote_table}>
@@ -24,9 +24,9 @@ function PostCard({post}) {
                     {Object.values(post.option).map((option, idx)=>    
                         <tr key={idx}>
                             {isOpenResult || post.state==="투표종료" || post.voted ?
-                                <td style={{border: "1px solid gray"}}><div className={styles.result_wrap}>{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /></div>} <p>{option.text}</p></div><span className={styles.percent}>30%</span></td>
+                                <td style={{border: "1px solid gray"}}><div className={styles.result_wrap} style={{width: `${option.percent}%`}}>{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /></div>} </div><p className={option.img? `${styles.text}`: `${styles.text2}`}>{option.text}</p><span className={styles.percent}>{option.percent}%</span></td>
                             :   <td><div className={styles.option_wrap} >{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /> </div>} <p>{option.text}</p></div></td>
-                            }      
+                            }
                         </tr> 
                     )}
                     </tbody>
@@ -52,8 +52,8 @@ function PostCard({post}) {
                     <li>{post.user}</li>
                     <li>{post.date}</li>
                     <li><IoHeartOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>{post.like}</li>
-                    <li><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "1px"}}/>3</li> 
-                    <li><IoEyeOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>38000</li>
+                    <li><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "1px"}}/>{post.comment}</li> 
+                    <li><IoEyeOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>{post.view}</li>
                 </ul>
             </section>
         </>

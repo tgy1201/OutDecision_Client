@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 //import { TbCategoryFilled } from "react-icons/tb"; // 전체
 import { BsFire } from "react-icons/bs"; // HOT
 import { MdFastfood } from "react-icons/md"; // 음식
-import { FaShirt } from "react-icons/fa6";
+import { FaShirt } from "react-icons/fa6"; //패션
 import { ImAirplane } from "react-icons/im"; // 여행
 import { MdWorkHistory } from "react-icons/md"; //취업
 import { IoGameController } from "react-icons/io5"; //취미
@@ -23,7 +23,7 @@ function Category () {
             </div>
             <div className={styles.category_wrap}>
                 <Link to="/board/food" >
-                <span><MdFastfood className={styles.icon}/></span>
+                    <span><MdFastfood className={styles.icon}/></span>
                     <span>음식</span>
                 </Link>
             </div>

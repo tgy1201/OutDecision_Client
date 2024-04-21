@@ -11,6 +11,13 @@ import { GoPlus } from "react-icons/go";
 import { LuImagePlus } from "react-icons/lu";
 import { ImCancelCircle } from "react-icons/im";
 
+import { MdFastfood } from "react-icons/md"; // 음식
+import { FaShirt } from "react-icons/fa6"; //패션
+import { ImAirplane } from "react-icons/im"; // 여행
+import { MdWorkHistory } from "react-icons/md"; //취업
+import { IoGameController } from "react-icons/io5"; //취미
+import { MdFavorite } from "react-icons/md"; // 연애
+import { CgMoreO } from "react-icons/cg"; //etc
 
 function Write () {
     const isMobile = useMediaQuery({
@@ -31,6 +38,7 @@ function Write () {
 
     const [isToggleChecked, setIsToggleChecked] = useState(false);
     const [selectedGender, setSelectedGender] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
 
     const handleHoursChange = (newValue) => {
 
@@ -75,6 +83,10 @@ function Write () {
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
     }; 
+
+    const handleCategoryChange = (value) => {
+        setSelectedCategory(value);
+    }
 
     const handleTextUpload = (e, optionIdx) => {
         const optionValue = e.target.value;
@@ -130,16 +142,36 @@ function Write () {
                             <td>
                                 <div className={styles.mobile_category}>
                                     {isMobile && <span>카테고리</span>}
-                                    <select className={styles.category} defaultValue="">
-                                        <option>--카테고리--</option>
-                                        <option>음식</option>
-                                        <option>패션</option>
-                                        <option>여행</option>
-                                        <option>취업</option>
-                                        <option>취미</option>
-                                        <option>연애</option>
-                                        <option>기타</option>
-                                    </select>
+                                    <div className={styles.category_list}>
+                                        <label onClick={()=>handleCategoryChange('food')} className={selectedCategory==='food'? `${styles.category}`: `${styles.category_none}`}>
+                                            <span><MdFastfood className={styles.icon} /></span>
+                                            <span>음식</span>
+                                        </label>
+                                        <label onClick={()=>handleCategoryChange('fashion')} className={selectedCategory==='fashion'? `${styles.category}`: `${styles.category_none}`}>
+                                            <span><FaShirt className={styles.icon}/></span>
+                                            <span>패션</span>
+                                        </label>
+                                        <label onClick={()=>handleCategoryChange('travel')} className={selectedCategory==='travel'? `${styles.category}`: `${styles.category_none}`}>
+                                            <span><ImAirplane className={styles.icon}/></span>
+                                            <span>여행</span>
+                                        </label>
+                                        <label onClick={()=>handleCategoryChange('job')} className={selectedCategory==='job'? `${styles.category}`: `${styles.category_none}`}>
+                                            <span><MdWorkHistory className={styles.icon}/></span>
+                                            <span>취업</span>
+                                        </label>
+                                        <label onClick={()=>handleCategoryChange('hobby')} className={selectedCategory==='hobby'? `${styles.category}`: `${styles.category_none}`}>
+                                            <span><IoGameController className={styles.icon}/></span>
+                                            <span>취미</span>
+                                        </label>
+                                        <label onClick={()=>handleCategoryChange('love')} className={selectedCategory==='love'? `${styles.category}`: `${styles.category_none}`}>
+                                            <span><MdFavorite className={styles.icon}/></span>
+                                            <span>연애</span>
+                                        </label>
+                                        <label onClick={()=>handleCategoryChange('etc')} className={selectedCategory==='etc'? `${styles.category}`: `${styles.category_none}`}>
+                                            <span><CgMoreO className={styles.icon}/></span>
+                                            <span>기타</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

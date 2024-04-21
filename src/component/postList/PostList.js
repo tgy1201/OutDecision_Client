@@ -23,7 +23,7 @@ function PostList ({post}) {
                         {Object.values(post.option).map((option)=>
                             <td>
                                 {isOpenResult || post.state==="투표종료" || post.voted ?    
-                                <div className={styles.result_wrap}>{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /></div>} <div className={styles.result_percent_wrap}><p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p><span className={styles.percent}>30%</span></div><div className={styles.result} style={{height: `${option.percent}%`}}/></div>
+                                <div className={styles.result_wrap}>{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /></div>} <div className={styles.result_percent_wrap}><p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p><span className={styles.percent}>{option.percent}%</span></div><div className={styles.result} style={{height: `${option.percent}%`}}/></div>
                                 :<div className={styles.option_wrap} >{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /> </div>} <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p></div>
                                 }
                             </td>
