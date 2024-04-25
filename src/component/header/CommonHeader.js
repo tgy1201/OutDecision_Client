@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from './header.module.css';
 import { Link } from "react-router-dom";
 import MobileMenu from "../mobileMenu/MobileMenu";
@@ -6,6 +6,18 @@ import MobileMenu from "../mobileMenu/MobileMenu";
 function CommonHeader ({children}) {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [scrollPosition, setScrollPosition] = useState(0);
+
+    /* 스크롤 시 헤더 높이 감소를 위한 감지 이벤트 */
+    useEffect(() => {
+        const updateScrollPosition = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            setScrollPosition(scrollTop);
+        };
+
+        window.addEventListener('scroll', updateScrollPosition);
+        return () => window.removeEventListener('scroll', updateScrollPosition);
+    }, []);
 
     const handleSearchOpen = () => {
         setIsSearchOpen(!isSearchOpen);
@@ -26,15 +38,16 @@ function CommonHeader ({children}) {
 
     return (
         <>
-        <header>
+        {/* 스크롤이 160px(헤더높이) 이상 내려가면 헤더 높이 줄임 */}
+        <header className={scrollPosition > 160 && `${styles.scroll_header}`}>
             <div className={styles.pc_header}>
-                <div className={styles.topbar}>
+                <div className={scrollPosition > 160 ? `${styles.scroll_topbar}` : `${styles.topbar}`}>
                     <ul>
                         <li><Link to="/login">로그인</Link></li>
                         <li><Link to="/signup">회원가입</Link></li>
                     </ul>
                 </div>
-                <div className={styles.nav_wrap}>
+                <div className={styles.nav_wrap} style={{padding : scrollPosition > 160 ? "15px 0 7px 0" : "0 0 15px 0"}}>
                     <Link to="/" className={styles.logo}><img src="/assets/images/logo.png" alt="로고" /></Link>
                     <div className={styles.nav}>
                         <ul>
