@@ -6,6 +6,20 @@ import { LiaCommentDotsSolid } from "react-icons/lia";
 
 function PostList ({post}) {
     const [isOpenResult, setIsOpenResult] = useState(false);
+    const [scrollPosition, setScrollPosition] = useState('left-border');
+
+    const handleScroll = (e) => {
+        const container = e.target
+        const scrollRight = container.scrollWidth - container.scrollLeft - container.clientWidth;
+
+        if (container.scrollLeft === 0) {
+            setScrollPosition("left-border");
+        } else if (scrollRight < 2 && scrollRight > -2) {
+            setScrollPosition("right-border");
+        } else {
+            setScrollPosition("middle");
+        }
+    };
     
     return (
         <div className={styles.container}>
@@ -18,13 +32,35 @@ function PostList ({post}) {
             </section>
             <section className={styles.vote_wrap}>
                 <table className={styles.vote_table}>
-                    <tbody>
+                    <div className={scrollPosition === 'right-border' || scrollPosition === 'middle' ? styles.prev : ''}></div>
+                    <div className={scrollPosition === 'left-border' || scrollPosition === 'middle' ? styles.next : ''}></div>
+                    <tbody onScroll={handleScroll}>
                         <tr>
                         {Object.values(post.option).map((option)=>
                             <td>
                                 {isOpenResult || post.state==="투표종료" || post.voted ?    
-                                <div className={styles.result_wrap}>{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /></div>} <div className={styles.result_percent_wrap}><p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p><span className={styles.percent}>{option.percent}%</span></div><div className={styles.result} style={{height: `${option.percent}%`}}/></div>
-                                :<div className={styles.option_wrap} >{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /> </div>} <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p></div>
+                                <div className={styles.result_wrap}>
+                                    {option.img !== '' && 
+                                    <div className={styles.option_img}>
+                                        <img src={option.img} alt="옵션" />
+                                    </div>
+                                    } 
+                                    <div className={styles.result_percent_wrap}>
+                                        <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p>
+                                        <span className={styles.percent}>{option.percent}%</span>
+                                    </div>
+                                    <div className={styles.result} style={{height: `${option.percent}%`, transition: 'height 0.5s ease'}}/>
+                                </div>
+                                :<div className={styles.option_wrap} >
+                                    {option.img !== '' && 
+                                    <div className={styles.option_img}>
+                                        <img src={option.img} alt="옵션" /> 
+                                    </div>
+                                    }
+                                    <div className={styles.option_percent_wrap}>
+                                        <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p>
+                                    </div>
+                                </div>
                                 }
                             </td>
                             )}        
@@ -52,9 +88,9 @@ function PostList ({post}) {
                 <ul>
                     <li>{post.user}</li>
                     <li>{post.date}</li>
-                    <li><IoHeartOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>{post.like}</li>
-                    <li><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "1px"}}/>3</li> 
-                    <li><IoEyeOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>38000</li>
+                    <li><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.like}</div></li>
+                    <li><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.comment}</div></li> 
+                    <li><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.view}</div></li>
                 </ul>
             </section>
         </div>

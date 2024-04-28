@@ -40,6 +40,22 @@ function Write () {
     const [selectedGender, setSelectedGender] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
 
+    const [scrollPosition, setScrollPosition] = useState('left-border');
+
+    const handleScroll = (e) => {
+        const container = e.target
+        const scrollRight = container.scrollWidth - container.scrollLeft - container.clientWidth;
+
+        if (container.scrollLeft === 0) {
+            setScrollPosition("left-border");
+        } else if (scrollRight < 2 && scrollRight > -2) {
+            setScrollPosition("right-border");
+        } else {
+            setScrollPosition("middle");
+        }
+    };
+   
+
     const handleHoursChange = (newValue) => {
 
         if (now.getDate() === startDate.getDate()) {
@@ -110,10 +126,10 @@ function Write () {
     };
 
     const handleIncrease = () => {
-        if (options.length < 7) {
+        if (options.length < 10) {
             setOptions(existingOptions => [...existingOptions, { text: "", image: "" }]);
           } else {
-            alert('최대 옵션 개수는 7개입니다.');
+            alert('최대 옵션 개수는 10개입니다.');
           }
     };
 
@@ -142,36 +158,40 @@ function Write () {
                             <td>
                                 <div className={styles.mobile_category}>
                                     {isMobile && <span>카테고리</span>}
-                                    <div className={styles.category_list}>
-                                        <label onClick={()=>handleCategoryChange('food')} className={selectedCategory==='food'? `${styles.category}`: `${styles.category_none}`}>
-                                            <span><MdFastfood className={styles.icon} /></span>
-                                            <span>음식</span>
-                                        </label>
-                                        <label onClick={()=>handleCategoryChange('fashion')} className={selectedCategory==='fashion'? `${styles.category}`: `${styles.category_none}`}>
-                                            <span><FaShirt className={styles.icon}/></span>
-                                            <span>패션</span>
-                                        </label>
-                                        <label onClick={()=>handleCategoryChange('travel')} className={selectedCategory==='travel'? `${styles.category}`: `${styles.category_none}`}>
-                                            <span><ImAirplane className={styles.icon}/></span>
-                                            <span>여행</span>
-                                        </label>
-                                        <label onClick={()=>handleCategoryChange('job')} className={selectedCategory==='job'? `${styles.category}`: `${styles.category_none}`}>
-                                            <span><MdWorkHistory className={styles.icon}/></span>
-                                            <span>취업</span>
-                                        </label>
-                                        <label onClick={()=>handleCategoryChange('hobby')} className={selectedCategory==='hobby'? `${styles.category}`: `${styles.category_none}`}>
-                                            <span><IoGameController className={styles.icon}/></span>
-                                            <span>취미</span>
-                                        </label>
-                                        <label onClick={()=>handleCategoryChange('love')} className={selectedCategory==='love'? `${styles.category}`: `${styles.category_none}`}>
-                                            <span><MdFavorite className={styles.icon}/></span>
-                                            <span>연애</span>
-                                        </label>
-                                        <label onClick={()=>handleCategoryChange('etc')} className={selectedCategory==='etc'? `${styles.category}`: `${styles.category_none}`}>
-                                            <span><CgMoreO className={styles.icon}/></span>
-                                            <span>기타</span>
-                                        </label>
-                                    </div>
+                                    <section className={styles.category_wrap}>
+                                        <div className={scrollPosition === 'right-border' || scrollPosition === 'middle' ? styles.prev : ''}></div>
+                                        <div className={scrollPosition === 'left-border' || scrollPosition === 'middle' ? styles.next : ''}></div>
+                                        <div className={styles.category_list} onScroll={handleScroll}>   
+                                            <label onClick={()=>handleCategoryChange('food')} className={selectedCategory==='food'? `${styles.category}`: `${styles.category_none}`}>
+                                                <span><MdFastfood className={styles.icon} /></span>
+                                                <span>음식</span>
+                                            </label>
+                                            <label onClick={()=>handleCategoryChange('fashion')} className={selectedCategory==='fashion'? `${styles.category}`: `${styles.category_none}`}>
+                                                <span><FaShirt className={styles.icon}/></span>
+                                                <span>패션</span>
+                                            </label>
+                                            <label onClick={()=>handleCategoryChange('travel')} className={selectedCategory==='travel'? `${styles.category}`: `${styles.category_none}`}>
+                                                <span><ImAirplane className={styles.icon}/></span>
+                                                <span>여행</span>
+                                            </label>
+                                            <label onClick={()=>handleCategoryChange('job')} className={selectedCategory==='job'? `${styles.category}`: `${styles.category_none}`}>
+                                                <span><MdWorkHistory className={styles.icon}/></span>
+                                                <span>취업</span>
+                                            </label>
+                                            <label onClick={()=>handleCategoryChange('hobby')} className={selectedCategory==='hobby'? `${styles.category}`: `${styles.category_none}`}>
+                                                <span><IoGameController className={styles.icon}/></span>
+                                                <span>취미</span>
+                                            </label>
+                                            <label onClick={()=>handleCategoryChange('love')} className={selectedCategory==='love'? `${styles.category}`: `${styles.category_none}`}>
+                                                <span><MdFavorite className={styles.icon}/></span>
+                                                <span>연애</span>
+                                            </label>
+                                            <label onClick={()=>handleCategoryChange('etc')} className={selectedCategory==='etc'? `${styles.category}`: `${styles.category_none}`}>
+                                                <span><CgMoreO className={styles.icon}/></span>
+                                                <span>기타</span>
+                                            </label>
+                                        </div>
+                                    </section>
                                 </div>
                             </td>
                         </tr>

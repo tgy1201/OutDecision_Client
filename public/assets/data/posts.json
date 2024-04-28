@@ -7,7 +7,7 @@
             "title" : "일본 여행지 어디로 갈까?",
             "option" : {
                 "1번" : {
-                    "img" : "",
+                    "img" : "/assets/images/background.png",
                     "text" : "도쿄" 
                 },
                 "2번" : {
@@ -31,19 +31,19 @@
         },
         {
             "id" : 2,
-            "state" : "투표종료",
+            "state" : "투표중",
             "category" : "취업",
             "title" : "카카오 VS 구글",
             "option" : {
                 "1번" : {
                     "img" : "/assets/images/kakao.png",
-                    "text" : "카카오ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" ,
-                    "percent" : 5
+                    "text" : "카카오" ,
+                    "percent" : 66
                 },
                 "2번" : {
                     "img" : "/assets/images/google.png",
                     "text" : "구글" ,
-                    "percent" : 95
+                    "percent" : 34
                 }
             },
             "content" : "둘다 합격했는데 어디 입사갈까?",
@@ -64,11 +64,13 @@
             "option" : {
                 "1번" : {
                     "img" : "/assets/images/bag1.png",
-                    "text" : "로또 코어 스트링 백팩" 
+                    "text" : "로또 코어 스트링 백팩",
+                    "percent" : 38
                 },
                 "2번" : {
                     "img" : "/assets/images/bag2.png",
-                    "text" : "애드에딧 모르딕 백팩" 
+                    "text" : "애드에딧 모르딕 백팩",
+                    "percent" : 62
                 }
             },
             "content" : "다음주에 개강하는 데 무슨 백팩 살까? 여유 자금 4만원 정도 있어",
@@ -85,7 +87,7 @@
             "id" : 4,
             "state" : "투표중",
             "category" : "음식",
-            "title" : "치킨 VS 피자",
+            "title" : "치킨 VS 피자dddddddddddddddddddddddddddddddddddddddddddddd",
             "option" : {
                 "1번" : {
                     "img" : "",
@@ -114,9 +116,44 @@
             "option" : {
                 "1번" : {
                     "img" : "",
-                    "text" : "치킨" 
+                    "text" : "정보처리기사 자격증" 
                 },
                 "2번" : {
+                    "img" : "",
+                    "text" : "컴퓨터활용능력 1급" 
+                }
+                ,
+                "3번" : {
+                    "img" : "",
+                    "text" : "피자aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" 
+                }
+                ,
+                "4번" : {
+                    "img" : "",
+                    "text" : "피자aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" 
+                }
+                ,
+                "5번" : {
+                    "img" : "",
+                    "text" : "피자aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" 
+                }
+                ,
+                "6번" : {
+                    "img" : "",
+                    "text" : "피자aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" 
+                }
+                ,
+                "7번" : {
+                    "img" : "",
+                    "text" : "피자aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" 
+                }
+                ,
+                "8번" : {
+                    "img" : "",
+                    "text" : "피자aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" 
+                }
+                ,
+                "9번" : {
                     "img" : "",
                     "text" : "피자aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" 
                 }

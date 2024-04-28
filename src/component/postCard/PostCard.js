@@ -24,8 +24,28 @@ function PostCard({post}) {
                     {Object.values(post.option).map((option, idx)=>    
                         <tr key={idx}>
                             {isOpenResult || post.state==="투표종료" || post.voted ?
-                                <td style={{border: "1px solid gray"}}><div className={styles.result_wrap} style={{width: `${option.percent}%`}}>{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /></div>} </div><p className={option.img? `${styles.text}`: `${styles.text2}`}>{option.text}</p><span className={styles.percent}>{option.percent}%</span></td>
-                            :   <td><div className={styles.option_wrap} >{option.img !== '' && <div className={styles.option_img}><img src={option.img} alt="옵션" /> </div>} <p>{option.text}</p></div></td>
+                                <td style={{border: "1px solid gray"}}>
+                                    <div className={styles.result_wrap} style={{width: `${option.percent}%`}}>
+                                        {option.img !== '' && 
+                                        <div className={styles.option_img}>
+                                            <img src={option.img} alt="옵션" />
+                                        </div>
+                                        } 
+                                    </div>
+                                    <p className={option.img? `${styles.text}`: `${styles.text2}`}>
+                                        {option.text}
+                                    </p>
+                                    <span className={styles.percent}>{option.percent}%</span>
+                                </td>
+                            :   <td>
+                                    <div className={styles.option_wrap} >
+                                        {option.img !== '' && 
+                                        <div className={styles.option_img}>
+                                            <img src={option.img} alt="옵션" /> 
+                                        </div>} 
+                                        <p>{option.text}</p>
+                                    </div>
+                                </td>
                             }
                         </tr> 
                     )}
@@ -37,7 +57,10 @@ function PostCard({post}) {
                             : post.voted?
                                 <td><div>이미 완료한 투표입니다.</div></td> 
                             : !isOpenResult ?
-                                <td><button className={styles.quick_vote}>빠른 투표</button><button className={styles.result_vote} onClick={()=>setIsOpenResult(true)}>결과 보기</button></td>
+                                <td>
+                                    <button className={styles.quick_vote}>빠른 투표</button>
+                                    <button className={styles.result_vote} onClick={()=>setIsOpenResult(true)}>결과 보기</button>
+                                </td>
                             :   <td><button className={styles.go_vote} onClick={()=>setIsOpenResult(false)}>투표하러가기</button></td>
                             }       
                         </tr>
@@ -51,9 +74,9 @@ function PostCard({post}) {
                 <ul>
                     <li>{post.user}</li>
                     <li>{post.date}</li>
-                    <li><IoHeartOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>{post.like}</li>
-                    <li><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "1px"}}/>{post.comment}</li> 
-                    <li><IoEyeOutline style={{verticalAlign: "middle", marginRight: "1px"}}/>{post.view}</li>
+                    <li><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.like}</div></li>
+                    <li><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.comment}</div></li> 
+                    <li><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.view}</div></li>
                 </ul>
             </section>
         </>
