@@ -14,6 +14,7 @@ import SocialSignup from './pages/signup/SocialSignup';
 import SignupSuccess from './pages/signupSuccess/SignupSuccess';
 import FloatingBanner from './component/floatingBanner/FloatingBanner';
 import Write from './pages/write/Write';
+import View from './pages/view/View';
 
 function App() {
   const [category, setCategory] = useState('');
@@ -31,6 +32,7 @@ function App() {
           <Route path='/mypage' element={<Mypage />}></Route>
           <Route path="/write" element={<Write />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory}/>}></Route>
+          <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>
           <Route path="/ranking" element={<Ranking />}></Route>
         </Routes>
       </div>

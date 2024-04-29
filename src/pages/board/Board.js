@@ -213,7 +213,7 @@ function Board ({setCategory}) {
                     }
                 </div>
 
-                {!type || type === 'dashboard' ? <Dashboard posts={filteredPosts}/> : <List posts={filteredPosts} />}
+                {!type || type === 'dashboard' ? <Dashboard posts={filteredPosts} bname={bname}/> : <List posts={filteredPosts} bname={bname}/>}
 
                 <div className={styles.search_wrap}>
                     <select>

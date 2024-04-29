@@ -3,10 +3,37 @@ import styles from './postList.module.css'
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
 
-function PostList ({post}) {
+const boardNameMap = {
+    all: '전체',
+    hot: 'HOT',
+    food: '음식',
+    love: '연애',
+    fashion: '패션',
+    hobby: '취미',
+    work: '취업',
+    travel: '여행',
+    etc: '기타',
+};
+
+function PostList ({post, bname}) {
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [scrollPosition, setScrollPosition] = useState('left-border');
+    const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
+  
+    const handleOptionChange = (index) => {
+
+      if (post.multiple) {
+        if (selectedOptions.includes(index)) {
+          setSelectedOptions(selectedOptions.filter((o) => o !== index));
+        } else {
+          setSelectedOptions([...selectedOptions, index]);
+        }
+      } else {
+        setSelectedOptions([index]);
+      }
+    };
 
     const handleScroll = (e) => {
         const container = e.target
@@ -20,12 +47,22 @@ function PostList ({post}) {
             setScrollPosition("middle");
         }
     };
+
+    const handleVoteSubmit = () => {
+        if (selectedOptions.length === 0) {
+            alert("투표옵션을 선택해주세요");
+            return;
+        }
+        console.log(selectedOptions, post.id)
+    }
     
     return (
         <div className={styles.container}>
             <section className={styles.title_wrap}>
                 <div style={{backgroundColor: post.state === '투표중'? "#ac2323" : "gray"}}>{post.state}</div>
-                <p>[{post.category}] {post.title}</p>
+                <Link to={bname ? `/board/${bname}/view/${post.id}` : `/board/${post.category}/view/${post.id}`}>
+                    <p>[{boardNameMap[post.category]}] {post.title}</p>
+                </Link>
             </section>
             <section className={styles.voteInfo_wrap}>   
                 <div>23.06.27 18:00 종료  • 단일 선택 • <span style={{color: "#ac2323"}}>24</span> 명 참여</div>
@@ -36,7 +73,7 @@ function PostList ({post}) {
                     <div className={scrollPosition === 'left-border' || scrollPosition === 'middle' ? styles.next : ''}></div>
                     <tbody onScroll={handleScroll}>
                         <tr>
-                        {Object.values(post.option).map((option)=>
+                        {Object.values(post.option).map((option, idx)=>
                             <td>
                                 {isOpenResult || post.state==="투표종료" || post.voted ?    
                                 <div className={styles.result_wrap}>
@@ -51,7 +88,7 @@ function PostList ({post}) {
                                     </div>
                                     <div className={styles.result} style={{height: `${option.percent}%`, transition: 'height 0.5s ease'}}/>
                                 </div>
-                                :<div className={styles.option_wrap} >
+                                :<div className={selectedOptions.includes(idx) ? `${styles.selected} ${styles.option_wrap}` : `${styles.unselected} ${styles.option_wrap}`} onClick={()=>handleOptionChange(idx)}>
                                     {option.img !== '' && 
                                     <div className={styles.option_img}>
                                         <img src={option.img} alt="옵션" /> 
@@ -74,7 +111,7 @@ function PostList ({post}) {
                     <div>이미 완료한 투표입니다.</div>
                     : !isOpenResult ?
                     <>
-                        <button className={styles.quick_vote}>빠른 투표</button>
+                        <button className={styles.quick_vote} onClick={handleVoteSubmit} style={{color: selectedOptions.length !== 0 ? "#5a5a5a" : "#a9a9a9"}}>빠른 투표</button>
                         <button className={styles.result_vote} onClick={()=>setIsOpenResult(true)}>결과 보기</button>
                     </>
                     :   <button className={styles.go_vote} onClick={()=>setIsOpenResult(false)}>투표하러가기</button>

@@ -10,11 +10,30 @@
     color: white;
 }
 
+.title_wrap p:hover {
+    text-decoration-line: underline;
+}
+
 .vote_table {
     width: 100%;
     border-collapse: collapse;
     border: 1px solid #5a5a5a;
     position: relative;
+}
+
+.selected {
+    outline: 2px solid #ac2323;
+    outline-offset: -2px;
+    border: 1px solid #ac2323;
+}
+
+.unselected {
+    border: 1px solid #5a5a5a;
+}
+.unselected:hover {
+    outline: 2px solid #ac2323;
+    outline-offset: -2px;
+    border: 1px solid #ac2323;
 }
 
 .content_wrap > p {
@@ -38,7 +57,7 @@
 }
 
 .postInfo_wrap li:nth-child(3) {
-    color: rgb(201, 0, 0);   
+    color: #b00000; 
     margin-right: 8px;
 }
 
@@ -60,7 +79,7 @@
         margin-top: 7px;
     }
 
-    .title_wrap > p{
+    .title_wrap p{
         font-size: 1.2rem;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -109,7 +128,6 @@
         height: 70px;
         background-color: white;
         border-radius: 8px;
-        border: 1px solid #5a5a5a;
         font-size: 1.1rem;
         position: relative;
     }
@@ -121,6 +139,7 @@
         height: 100%;
         padding: 8px;
         border-radius: 8px;
+        cursor: pointer;
     }
 
     .option_wrap > p {
@@ -176,7 +195,7 @@
 
     .text2 {
         position: absolute;
-        left: 10px;
+        left: 8px;
         width: calc(100% - 60px);
         text-overflow: ellipsis;
         overflow: hidden;
@@ -197,8 +216,7 @@
         padding: 10px;
         border-top: 1px solid #5a5a5a;
         border-right: 1px solid #5a5a5a;
-        cursor: default;
-        color: #a9a9a9;
+        cursor: pointer;
     }
     .result_vote {
         width: 50%;
@@ -257,7 +275,7 @@
         margin-top: 7px;
     }
 
-    .title_wrap > p{
+    .title_wrap p{
         font-size: 1.2rem;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -306,7 +324,6 @@
         height: 70px;
         background-color: white;
         border-radius: 8px;
-        border: 1px solid #5a5a5a;
         font-size: 1.1rem;
         position: relative;
     }
@@ -318,6 +335,7 @@
         height: 100%;
         padding: 8px;
         border-radius: 8px;
+        cursor: pointer;
     }
 
     .option_wrap > p {
@@ -394,8 +412,7 @@
         padding: 10px;
         border-top: 1px solid #5a5a5a;
         border-right: 1px solid #5a5a5a;
-        cursor: default;
-        color: #a9a9a9;
+        cursor: pointer;
     }
     .result_vote {
         width: 50%;

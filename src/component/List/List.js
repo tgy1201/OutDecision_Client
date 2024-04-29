@@ -4,7 +4,7 @@ import PostList from "../postList/PostList";
 import Pagination from "../pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 
-function List ({posts}) {
+function List ({posts, bname}) {
     const [searchParams] = useSearchParams();
 
     const page = searchParams.get('page');
@@ -20,7 +20,7 @@ function List ({posts}) {
                 {currentPosts.map((post, idx)=>
                 (
                 <tr className={styles.post_wrap} key={idx}>
-                    <td><PostList post={post} /></td>
+                    <td><PostList post={post} bname={bname}/></td>
                 </tr>
                 ))}
                 </tbody> 

@@ -54,6 +54,11 @@
         color: #424242;
     }
 
+    .category_none:hover {
+        color: #ac2323;
+        border: 1px solid #ac2323;
+    }
+
     .icon {
         font-size: 2.0rem;
     }
@@ -329,6 +334,11 @@
     .category_none {
         border: 1px solid #424242;
         color: #424242;
+    }
+
+    .category_none:hover {
+        color: #ac2323;
+        border: 1px solid #ac2323;
     }
 
     .icon {

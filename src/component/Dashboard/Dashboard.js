@@ -4,7 +4,7 @@ import PostCard from "../postCard/PostCard";
 import Pagination from "../pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 
-function Dashboard ({posts}) {
+function Dashboard ({posts, bname}) {
     const [searchParams] = useSearchParams();
 
     const page = searchParams.get('page');
@@ -19,7 +19,7 @@ function Dashboard ({posts}) {
                 {currentPosts.map((post, idx)=>
                 (
                 <div className={styles.post_wrap} key={idx}>
-                    <PostCard post={post} />
+                    <PostCard post={post} bname={bname}/>
                 </div>
                 ))}
             </div>
