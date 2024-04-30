@@ -36,6 +36,14 @@
         flex-direction: column;
     }
 
+    .mypage {
+        font-size: 30px;
+        font-weight: 600;
+        color: #ac2323;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #ac2323;
+    }
+
     .profile {
         margin-top: 15px;
         background-color: #f7f7f7;
@@ -51,8 +59,8 @@
     }
 
     .image {
-        width: 50px;
-        height: 50px;
+        width: 100px;
+        height: 100px;
         border-radius: 70%;
         overflow: hidden;
         background-color: white;
@@ -373,22 +381,16 @@
 
     .main {
         width: 100%;
-        margin-top: 50px;
+        margin-top: 10px;
         display: flex;
         flex-direction: column;
     }
 
-    .mypage {
-        font-size: 30px;
-        font-weight: 600;
-        color: #ac2323;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #ac2323;
-    }
-
     .profile {
-        margin-top: 15px;
+        margin-top: 5px;
         background-color: #f7f7f7;
+        border: 1px solid gray;
+        border-radius: 5%;
         padding: 15px;
         display: flex;
         flex-direction: column;
@@ -417,12 +419,18 @@
         object-fit: cover;
     }
 
+    .namebox {
+        font-size: 20px;
+    }
+
     .namebox div {
+        font-size: 20px;
         color: #468FD3;
     }
 
     .namebox span {
         font-size: 25px;
+        font-weight: 600;
     }
 
     .namebox img {
@@ -438,6 +446,7 @@
 
     .userinfo span {
         color: black;
+        float: right;
         margin-left: 10px;
         font-weight: 600;
     }
@@ -450,7 +459,7 @@
     .inactive {
         margin-right: 15px;
         padding: 6px;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
         color: gray;
         cursor: pointer;
@@ -461,7 +470,7 @@
         border-bottom: 4px solid #ac2323;
         margin-right: 15px;
         padding: 6px;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
         cursor: pointer;
     }
@@ -470,12 +479,13 @@
         width: 100%;
         border-top: 2px solid gray;
         border-bottom: 2px solid gray;
-        margin-top: 30px;
+        margin-top: 60px;
         position: relative;
     }
 
     .plus {
         position: absolute;
+        font-size: 15px;
         top: -30px;
         right: 5px;
         color: gray;
