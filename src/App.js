@@ -9,6 +9,10 @@ import Board from './pages/board/Board';
 import { useState } from 'react';
 import Signup from './pages/signup/Signup';
 import Mypage from './pages/mypage/Mypage';
+import Infoedit from "./component/infoedit/Infoedit";
+import Mypost from "./component/mypost/Mypost";
+import Myliked from "./component/myliked/Myliked";
+import Mycomment from "./component/mycomment/Mycomment";
 import Ranking from './pages/ranking/Ranking';
 import SocialSignup from './pages/signup/SocialSignup';
 import SignupSuccess from './pages/signupSuccess/SignupSuccess';
@@ -21,7 +25,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header category={category}/>
+      <Header category={category} />
       <div className='main'>
         <Routes>
           <Route path="/" element={<Main />}></Route>
@@ -30,8 +34,13 @@ function App() {
           <Route path="/signup/social" element={<SocialSignup />}></Route>
           <Route path="/signup/success" element={<SignupSuccess />}></Route>
           <Route path='/mypage' element={<Mypage />}></Route>
+          \<Route path="/mypage" element={<Mypage />}></Route>
+          <Route path="/mypage/edit" element={<Infoedit />}></Route>
+          <Route path="/mypage/posting" element={<Mypost />}></Route>
+          <Route path="/mypage/comment" element={<Mycomment />}></Route>
+          <Route path="/mypage/liked" element={<Myliked />}></Route>
           <Route path="/write" element={<Write />}></Route>
-          <Route path="/board/:bname" element={<Board setCategory={setCategory}/>}></Route>
+          <Route path="/board/:bname" element={<Board setCategory={setCategory} />}></Route>
           <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>
           <Route path="/ranking" element={<Ranking />}></Route>
         </Routes>
