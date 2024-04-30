@@ -118,7 +118,7 @@
     outline: none;
   }
   [data-rsbs-has-footer='false'] [data-rsbs-content] {
-    padding-bottom: 80px;
+    padding-bottom: 50px;
     /*필터 제출 버튼이 잘려서 바꿈*/
   }
   [data-rsbs-content] {

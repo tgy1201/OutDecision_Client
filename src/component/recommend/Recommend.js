@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 // Import Swiper React components
@@ -14,27 +14,11 @@ import { Pagination } from 'swiper/modules';
 import PostCard from '../postCard/PostCard';
 
 import { GrPowerReset } from "react-icons/gr";
-import axios from 'axios';
 
-
-function Recommend () {
+function Recommend ({posts, handleClick}) {
     const isMobile = useMediaQuery({
         query: "(max-width: 767px)"
     });
-    const [posts, setPosts] = useState([]); // 서버에서 받아온 데이터 저장
-
-    useEffect(() => {
-        handleClick(); // 컴포넌트 마운트 시 자동으로 데이터 요청
-    }, []);
-
-    const handleClick = async () => {
-        try {
-            const response = await axios.get("/assets/data/posts.json");
-            setPosts(response.data.posts);
-        } catch (error) {
-            console.log(error)
-        } 
-    };
 
     return (
         <>

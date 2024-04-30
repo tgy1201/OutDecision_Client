@@ -41,7 +41,7 @@ function FilterSheet ({open, setFilterOpen, applyFilter, gender, vote, searchPar
         <BottomSheet 
             open={open}
             blocking={isMobile? true : false}
-            snapPoints={({ minHeight, maxHeight }) => [minHeight*0 + 350, maxHeight*0 + 350]}
+            snapPoints={({ minHeight, maxHeight }) => [minHeight*0 + 320, maxHeight*0 + 320]}
             onDismiss={() => setFilterOpen(false)}
             scrollLocking={isMobile? true : false}
         >

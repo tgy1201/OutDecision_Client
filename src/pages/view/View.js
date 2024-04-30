@@ -29,15 +29,19 @@ function View({setCategory}) {
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
   
     const handleOptionChange = (index) => {
-      if (post.multiple) {
-        if (selectedOptions.includes(index)) {
-          setSelectedOptions(selectedOptions.filter((o) => o !== index));
+        if (post.multiple) {
+            if (selectedOptions.includes(index)) {
+            setSelectedOptions(selectedOptions.filter((o) => o !== index));
+            } else {
+            setSelectedOptions([...selectedOptions, index]);
+            }
         } else {
-          setSelectedOptions([...selectedOptions, index]);
+            if (selectedOptions.includes(index)) {
+                setSelectedOptions([]); //선택한 옵션을 한번 더 클릭할 경우 선택 취소
+            } else {
+                setSelectedOptions([index]);
+            }
         }
-      } else {
-        setSelectedOptions([index]);
-      }
     };
 
     const handleVoteSubmit = () => {
