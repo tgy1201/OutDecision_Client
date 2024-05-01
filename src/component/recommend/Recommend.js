@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import styles from './recommed.module.css';
 
@@ -31,12 +32,18 @@ function Recommend ({posts, handleClick}) {
             slidesPerView={'auto'}
             centeredSlides={isMobile? true : false}
             spaceBetween={30}
+            slidesOffsetAfter={20}
             pagination={{
                 clickable: true,
                 dynamicBullets: true,
             }}
             modules={[Pagination]}
             className={styles.myswiper}
+            breakpoints={{
+                768:{
+                    slidesOffsetBefore: 20
+                }
+            }}
             >
             {posts.map((post, idx)=>
                 (

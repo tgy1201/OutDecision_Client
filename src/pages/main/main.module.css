@@ -4,14 +4,16 @@
 }
 
 .post_header {
-    display: flex;
-    flex-direction: column;
     padding-left: 5px;
 }
 
 .post_header div {
     font-size: 1.8rem;
     font-weight: 600;
+    width: fit-content;
+}
+
+.post_header div > a {
     display: flex;
     align-items: center;
     line-height: 2.2rem;
@@ -57,6 +59,15 @@
         max-width: 1000px;
         margin: 30px auto 0 auto;
     }
+
+    .rank {
+        margin-top: 30px;
+    }
+    .rank_header {
+        padding: 10px 0;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 1079px) {
@@ -85,5 +96,15 @@
         margin-top: 25px;
         padding: 5px 20px;
         position: relative;
+    }
+
+    .rank {
+        margin-top: 25px;
+        padding: 5px 0;
+        position: relative;
+    }
+
+    .rank_header {
+        padding: 0 20px;
     }
 }
