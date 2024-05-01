@@ -45,11 +45,16 @@
 }
 
 .myswiper {
-    max-width: 1050px;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: visible;
     --swiper-pagination-color: #ac2323;
     --swiper-pagination-bottom: 0px;
     --swiper-pagination:
+}
+
+@media (min-width: 1080px) {
+    .myswiper {
+        max-width: 1050px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: visible;
+    }
 }

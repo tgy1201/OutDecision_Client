@@ -26,7 +26,7 @@ function Main () {
     const handlefetchRecommendPosts = async () => {
         try {
             const response = await axios.get('/assets/data/posts.json');
-            setRecommendPosts(response.data.posts);
+            setRecommendPosts(response.data.posts.slice(0, 6));
         } catch(error) {
             console.log(error);
         }

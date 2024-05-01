@@ -1,10 +1,15 @@
+@media (min-width: 1080px) {
+    .myswiper {
+        max-width: 1050px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: visible;
+    }
+}
+
 .myswiper {
     margin-top: 10px;
-    max-width: 1050px;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: visible;
 }
 
 .rank_wrap {
@@ -120,4 +125,7 @@
 
 .point {
     font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }

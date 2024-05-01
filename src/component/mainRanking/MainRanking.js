@@ -48,7 +48,8 @@ function MainRanking ({ranks}) {
                 }
             }
             >
-            {ranks.map((rank, idx)=>
+            {ranks.length > 0 ? (
+                ranks.map((rank, idx)=>
                 (
                     <SwiperSlide key={idx} className={styles.rank_wrap}>
                         <p className={styles.rank}>
@@ -61,7 +62,10 @@ function MainRanking ({ranks}) {
                         <p className={styles.user}>{rank.user}</p>
                         <p className={styles.point}><span style={{color: '#ac2323', fontWeight: '600'}}>{rank.point}</span> 점</p>
                     </SwiperSlide>
-                ))}
+                ))
+            )
+            : <>Loading...</>
+            }
         </Swiper>
     )
 }
