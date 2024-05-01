@@ -9,12 +9,12 @@
     gap: 0 10px;
 }
 .title_wrap > div{
-    padding: 4px 6px;
+    padding: 3px 6px;
     border-radius: 4px;
     color: white;
 }
 .title_wrap p{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-all;
@@ -118,15 +118,16 @@
 }
 
 .option_wrap {
-    padding: 8px 9px;
+    padding: 8px 9px 6px 9px;
     height: 100%;
+    min-height: 180px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: 1.0rem;
-    gap: 2px;
+    gap: 3px;
     cursor: pointer;
 }
 
@@ -139,11 +140,6 @@
 .unselected {
     border: 1px solid #5a5a5a;
 }
-.unselected:hover {
-    outline: 2px solid #ac2323;
-    outline-offset: -2px;
-    border: 1px solid #ac2323;
-}
 
 .option_percent_wrap {
     display: flex;
@@ -154,7 +150,7 @@
 }
 
 .result_wrap {
-    padding: 8px 9px;
+    padding: 8px 9px 6px 9px;
     border: 1px solid #5a5a5a;
     border-radius: 5px;
     display: flex;
@@ -162,8 +158,9 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    min-height: 180px;
     font-size: 1.0rem;
-    gap: 2px;
+    gap: 3px;
     position: relative;
 }
 
@@ -246,7 +243,12 @@
     -webkit-box-orient: vertical;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
+    /*모바일은 옵션 hover 시 효과 없음*/
+    .option_wrap:hover {
+        background-color: #fceeee;
+    }
+
     .vote_table {
         max-width: 100%;
         width: 100%;
@@ -300,7 +302,7 @@
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .vote_table {
         max-width: 100%;
         width: 100%;

@@ -1,0 +1,64 @@
+{
+    "ranking": [
+        {   
+            "rank" : 1,
+            "profile" : "/assets/images/background.png",
+            "user" : "홍길동",
+            "point" : 1230000
+        },
+        {   
+            "rank" : 2,
+            "profile" : "/assets/images/background.png",
+            "user" : "노진구",
+            "point" : 1210000
+        },
+        {   
+            "rank" : 3,
+            "profile" : "/assets/images/background.png",
+            "user" : "신짱구",
+            "point" : 1110000
+        },
+        {   
+            "rank" : 4,
+            "profile" : "/assets/images/background.png",
+            "user" : "신짱아",
+            "point" : 1000000
+        },
+        {   
+            "rank" : 5,
+            "profile" : "/assets/images/background.png",
+            "user" : "김철수",
+            "point" : 930000
+        },
+        {   
+            "rank" : 6,
+            "profile" : "/assets/images/background.png",
+            "user" : "조유리",
+            "point" : 910000
+        },
+        {   
+            "rank" : 7,
+            "profile" : "/assets/images/background.png",
+            "user" : "퉁퉁이",
+            "point" : 810000
+        },
+        {   
+            "rank" : 8,
+            "profile" : "/assets/images/background.png",
+            "user" : "비실이",
+            "point" : 800000
+        },
+        {   
+            "rank" : 9,
+            "profile" : "/assets/images/background.png",
+            "user" : "신형만",
+            "point" : 790000
+        },
+        {   
+            "rank" : 10,
+            "profile" : "/assets/images/background.png",
+            "user" : "원펀맨",
+            "point" : 789000
+        }
+    ]
+}

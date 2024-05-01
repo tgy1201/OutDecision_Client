@@ -1,0 +1,58 @@
+.main_post_wrap {
+    margin-top: 10px;
+}
+
+.pagination_wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5a5a5a;
+    margin-top: 10px;
+    gap: 15px;
+}
+
+.pagination_button {
+    border-radius: 50%;
+    border: 1px solid #5a5a5a;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 1.6rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.pagination {
+    display: flex;
+    gap: 4px;
+    font-size: 1.3rem;
+}
+
+@media (min-width: 900px) {
+    .main_post {
+        flex: 0 0 49%;
+        padding: 14px 18px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        display: flex;
+        position: relative;
+        min-height: 386px;
+    }
+}
+
+@media (max-width: 899px) {
+    .main_post {
+        flex: 0 0 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        display: flex;
+        position: relative;
+    }
+}

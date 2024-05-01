@@ -3,6 +3,25 @@
     height: auto;
 }
 
+.post_header {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+}
+
+.post_header div {
+    font-size: 1.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    line-height: 2.2rem;
+}
+
+.post_header > p {
+    font-size: 1.0rem;
+    color: #696969;
+}
+
 @media (min-width: 1080px) {
     .mobile {
         display: none;
@@ -30,7 +49,13 @@
     .hot {
         padding: 10px 0 20px 0;
         max-width: 1000px;
-        margin: 20px auto 0 auto;
+        margin: 30px auto 0 auto;
+    }
+
+    .all {
+        padding: 10px 0 20px 0;
+        max-width: 1000px;
+        margin: 30px auto 0 auto;
     }
 }
 
@@ -51,6 +76,13 @@
     }
 
     .hot {
+        margin-top: 20px;
+        padding: 5px 20px;
+        position: relative;
+    }
+
+    .all {
+        margin-top: 25px;
         padding: 5px 20px;
         position: relative;
     }
