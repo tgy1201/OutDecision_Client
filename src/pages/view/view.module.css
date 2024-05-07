@@ -141,7 +141,7 @@
 
 .selected {
     outline: 2px solid #ac2323;
-    outline-offset: -2px;
+    outline-offset: -1px;
     border: 1px solid #ac2323;
 }
 

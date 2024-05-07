@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from './login.module.css';
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login () {
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        /*로그인 성공시*/
-        navigate('/');
-    }
+    const handleLogin = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const response = await axios.post('/login', {
+            email,
+            password
+          });
+
+          console.log(response.data);
+          navigate('/');
+        } catch (error) {
+          console.error( error);
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.cotent}>
@@ -17,8 +32,19 @@ function Login () {
                         <div>Login</div>
                     </div>
                     <div className={styles.login}>
-                        <input type="text" placeholder="이메일"/>
-                        <input type="password" style={{marginTop: "20px"}} placeholder="비밀번호" />
+                        <input 
+                            type="email" 
+                            value={email} 
+                            placeholder="이메일"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input 
+                            type="password" 
+                            value={password} 
+                            placeholder="비밀번호" 
+                            onChange={(e) => setPassword(e.target.value)}
+                            style={{marginTop: "20px"}} 
+                        />
                         <Link to="/" className={styles.find_pwd}>비밀번호 찾기</Link>
                         <button onClick={handleLogin}>로그인</button>
                         <div className={styles.account}>계정이 없으신가요? <Link to="/signup">Sign up</Link></div>

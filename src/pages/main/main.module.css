@@ -25,6 +25,9 @@
 }
 
 @media (min-width: 1080px) {
+    .container {
+        overflow-x: hidden;
+    }
     .mobile {
         display: none;
     }

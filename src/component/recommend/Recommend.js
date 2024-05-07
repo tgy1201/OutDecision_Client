@@ -1,5 +1,4 @@
-import React from 'react';
-import { useMediaQuery } from 'react-responsive';
+import React, { useState } from 'react';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,16 +10,15 @@ import 'swiper/css/pagination';
 import styles from './recommed.module.css';
 
 // import required modules
-import { Pagination } from 'swiper/modules';
+import { FreeMode, Pagination } from 'swiper/modules';
 import PostCard from '../postCard/PostCard';
 
 import { GrPowerReset } from "react-icons/gr";
 
 function Recommend ({posts, handleClick}) {
-    const isMobile = useMediaQuery({
-        query: "(max-width: 767px)"
-    });
+    const [swiperIndex, setSwiperIndex] = useState(0);
 
+    console.log(swiperIndex);
     return (
         <>
             <div className={styles.recommend_header}>
@@ -30,18 +28,20 @@ function Recommend ({posts, handleClick}) {
             </div>
             <Swiper
             slidesPerView={'auto'}
-            centeredSlides={isMobile? true : false}
+            centeredSlides={true}
             spaceBetween={30}
             slidesOffsetAfter={20}
             pagination={{
                 clickable: true,
-                dynamicBullets: true,
             }}
-            modules={[Pagination]}
+            modules={[FreeMode, Pagination]}
             className={styles.myswiper}
+            onSlideChange={(e)=>setSwiperIndex(e.realIndex)}
             breakpoints={{
                 768:{
-                    slidesOffsetBefore: 20
+                    slidesOffsetBefore: 20,
+                    centeredSlides: false,
+                    freeMode: true
                 }
             }}
             >

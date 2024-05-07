@@ -3,6 +3,15 @@ import styles from './signup.module.css'
 import { Link, useNavigate } from "react-router-dom";
 
 function SocialSignup () {
+    const [formData, setFormData] = useState({
+        name: '',
+        nickname: '',
+        email: '',
+        password: '',
+        checkpass: '',
+        profileImage: null,
+    });
+
     const navigate = useNavigate();
     const [profileImage, setProfileImage] = useState('/assets/images/profile.png');
 
@@ -44,8 +53,11 @@ function SocialSignup () {
                                 : <div style={{marginTop: "32px"}}></div> 
                             }
                         </div>
-                        <div className={styles.nickname}>
-                            <input type="text" placeholder="닉네임" />
+                        <div className={styles.nickname_wrap}>
+                            <div style={{position: "relative", width: '100%'}}>
+                                <input type="text" placeholder="닉네임" name="nickname" maxLength={12}/>
+                                <div className={styles.limit}>0 / 12</div>
+                            </div>
                             <button>중복검사</button>
                             <div className={styles.nickname_check} style={{color: "green"}}>*사용가능한 닉네임입니다.</div>
                         </div>

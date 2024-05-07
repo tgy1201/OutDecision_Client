@@ -57,6 +57,25 @@ function Board ({setCategory}) {
         })
     }, [setPosts]);
 
+    useEffect(()=> {
+        handlefetchPosts();
+    })
+
+    const handlefetchPosts = async () => {
+        try {
+            const response = await axios.get('http://175.45.202.225:8080/posts', {
+                params: {
+                  mode: 'noraml',
+                  page: 1,
+                  sort: 'latest'
+                },
+              });
+            console.log(response.data);
+        } catch(error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         const filteredPosts = posts.filter((post) => {
             /*
