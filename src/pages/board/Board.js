@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from './board.module.css';
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import FilterSheet from "../../component/filterSheet/FilterSheet";
 import DesktopFilter from "../../component/filterSheet/DesktopFilter";
@@ -34,12 +34,13 @@ function Board ({setCategory}) {
     });
 
     const navigate = useNavigate();
-    const url = new URL(window.location);
-    const searchParams = new URLSearchParams(url.search);
+
+    const [searchParams] = useSearchParams();
     const type = searchParams.get('type');
     const hot = searchParams.get('mode');
     const gender = searchParams.get('gender');
     const vote = searchParams.get('vote');
+    const page = searchParams.get('page');
 
     const {bname} = useParams();
 
@@ -231,7 +232,10 @@ function Board ({setCategory}) {
                     }
                 </div>
 
-                {!type || type === 'dashboard' ? <Dashboard posts={filteredPosts} bname={bname}/> : <List posts={filteredPosts} bname={bname}/>}
+                {!type || type === 'dashboard' 
+                ? <Dashboard posts={filteredPosts} bname={bname} page={page}/> 
+                : <List posts={filteredPosts} bname={bname} page={page}/>
+                }
 
                 <div className={styles.search_wrap}>
                     <select>

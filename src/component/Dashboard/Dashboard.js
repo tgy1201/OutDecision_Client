@@ -2,12 +2,8 @@ import React from "react";
 import styles from './dashboard.module.css'
 import PostCard from "../postCard/PostCard";
 import Pagination from "../pagination/Pagination";
-import { useSearchParams } from "react-router-dom";
 
-function Dashboard ({posts, bname}) {
-    const [searchParams] = useSearchParams();
-
-    const page = searchParams.get('page');
+function Dashboard ({posts, bname, page}) {
     const postsPerPage = 6;
     const firstPostIndex = ((page && parseInt(page) > 0 ? parseInt(page) : 1) - 1) * postsPerPage;
     const lastPostIndex = firstPostIndex + postsPerPage;

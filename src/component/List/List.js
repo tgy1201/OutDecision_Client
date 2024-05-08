@@ -2,12 +2,8 @@ import React from "react";
 import styles from './list.module.css'
 import PostList from "../postList/PostList";
 import Pagination from "../pagination/Pagination";
-import { useSearchParams } from "react-router-dom";
 
-function List ({posts, bname}) {
-    const [searchParams] = useSearchParams();
-
-    const page = searchParams.get('page');
+function List ({posts, bname, page}) {
     const postsPerPage = 6;
     const firstPostIndex = ((page && parseInt(page) > 0 ? parseInt(page) : 1) - 1) * postsPerPage;
     const lastPostIndex = firstPostIndex + postsPerPage;
