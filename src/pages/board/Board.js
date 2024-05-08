@@ -38,25 +38,28 @@ function Board ({setCategory}) {
     const searchParams = new URLSearchParams(url.search);
     const type = searchParams.get('type');
     const hot = searchParams.get('mode');
+    const gender = searchParams.get('gender');
+    const vote = searchParams.get('vote');
 
     const {bname} = useParams();
 
     const [filterOpen, setFilterOpen] = useState(false);
-    const [selectedGender, setSelectedGender] = useState('');
-    const [voteStatus, setVoteStatus] = useState('');
     const [posts, setPosts] = useState([]);
     const [filteredPosts, setFilteredPosts] = useState(posts);
 
+    /* 게시판 카테고리 갱신 */
     useEffect(() => {  
         setCategory(bname);
     }, [bname, setCategory]);
 
+    /* 페이지에 해당하는 게시글 6개 저장 */
     useEffect(()=> {
         axios.get("/assets/data/posts.json").then((a)=>{
             setPosts(a.data.posts)
         })
     }, [setPosts]);
 
+    /*
     useEffect(()=> {
         handlefetchPosts();
     })
@@ -75,22 +78,22 @@ function Board ({setCategory}) {
             console.log(error);
         }
     };
+    */
 
+    /* 필터가 적용된 게시물 저장 */
     useEffect(() => {
         const filteredPosts = posts.filter((post) => {
-            /*
-            if (selectedGender && selectedGender !== post.gender) {
+            if (gender && filterMap[gender] !== post.gender) {
                 return false;
             }
-            */
-            if (voteStatus && filterMap[voteStatus] !== post.state) {
+            if (vote && filterMap[vote] !== post.state) {
                 return false;
             }
             return true;
         });
       
         setFilteredPosts(filteredPosts);
-    }, [selectedGender, voteStatus, posts]);
+    }, [gender, vote, posts]);
 
     const handleTypeParams = (type) => {
         searchParams.set('type', type);
@@ -117,20 +120,16 @@ function Board ({setCategory}) {
     const applyFilter = (filterType, value) => {
         // 여기에서 필터를 적용하고 게시판을 다시 렌더링하거나 데이터를 업데이트할 수 있음
         if (filterType === 'gender') {
-            setSelectedGender(value);
             value && searchParams.set('gender', value);
         } else if (filterType === 'voteStatus') {
-            setVoteStatus(value);
             value && searchParams.set('vote', value);
         }
     };
     
     const deleteFilter = (filterType) => {
         if (filterType === 'gender') {
-            setSelectedGender('');
             searchParams.delete('gender');
         } else if (filterType === 'voteStatus') {
-            setVoteStatus('');
             searchParams.delete('vote');
         }
         navigate(`?${searchParams.toString()}`);
@@ -161,7 +160,7 @@ function Board ({setCategory}) {
                             <option>조회순</option>
                             <option>좋아요순</option>
                         </select>
-                        <button className={styles.filter_btn} onClick={()=> setFilterOpen(!filterOpen)} style={{borderColor: selectedGender !=='' || voteStatus !=='' ? "#ac2323" : ""}}>
+                        <button className={styles.filter_btn} onClick={()=> setFilterOpen(!filterOpen)} style={{borderColor: gender || vote ? "#ac2323" : ""}}>
                             <span>필터</span>
                             <div>
                                 <img src="/assets/images/filter.png" alt="필터" />
@@ -173,8 +172,8 @@ function Board ({setCategory}) {
                             open={filterOpen} 
                             setFilterOpen={setFilterOpen} 
                             applyFilter={applyFilter}
-                            gender={selectedGender}
-                            vote={voteStatus}
+                            gender={gender}
+                            vote={vote}
                             searchParams={searchParams}
                             />
                         }
@@ -184,20 +183,20 @@ function Board ({setCategory}) {
                             open={filterOpen} 
                             setFilterOpen={setFilterOpen} 
                             applyFilter={applyFilter}
-                            gender={selectedGender}
-                            vote={voteStatus}
+                            gender={gender}
+                            vote={vote}
                             searchParams={searchParams}
                         />
                         }
-                        {selectedGender !== "" && !isMobile &&
+                        {gender && !isMobile &&
                             <div className={styles.gender_btn}>
-                                {filterMap[selectedGender]} 
+                                {filterMap[gender]} 
                                 <button onClick={()=>deleteFilter('gender')}>X</button>
                             </div>
                         }
-                        {voteStatus !== "" && !isMobile &&
+                        {vote && !isMobile &&
                             <div className={styles.voteStatus_btn}>
-                                {filterMap[voteStatus]} 
+                                {filterMap[vote]} 
                                 <button onClick={()=>deleteFilter('voteStatus')}>X</button>
                             </div>
                         }
@@ -217,16 +216,16 @@ function Board ({setCategory}) {
                         </button>
                     </div>
                 </div>
-                <div className={styles.mobile_filter} style={{display: selectedGender === "" && voteStatus === "" ? "none" : ""}}>
-                    {selectedGender !== "" && isMobile &&
+                <div className={styles.mobile_filter} style={{display: gender && vote === "" ? "none" : ""}}>
+                    {gender && isMobile &&
                         <div className={styles.gender_btn}>
-                            {filterMap[selectedGender]} 
+                            {filterMap[gender]} 
                             <button onClick={()=>deleteFilter('gender')}>X</button>
                         </div>
                     }
-                    {voteStatus !== "" && isMobile &&
+                    {vote && isMobile &&
                         <div className={styles.voteStatus_btn}>
-                            {filterMap[voteStatus]} 
+                            {filterMap[vote]} 
                             <button onClick={()=>deleteFilter('voteStatus')}>X</button>
                         </div>
                     }

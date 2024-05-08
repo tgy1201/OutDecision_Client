@@ -11,8 +11,8 @@ import './customFilterSheet.css';
 function FilterSheet ({open, setFilterOpen, applyFilter, gender, vote, searchParams}) {
     //모바일에만 적용된 필터
     const navigate = useNavigate();
-    const [selectedGender, setSelectedGender] = useState(gender);
-    const [voteStatus, setVoteStatus] = useState(vote);
+    const [selectedGender, setSelectedGender] = useState(gender ? gender : '');
+    const [voteStatus, setVoteStatus] = useState(vote ? vote : '');
     
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
@@ -26,11 +26,13 @@ function FilterSheet ({open, setFilterOpen, applyFilter, gender, vote, searchPar
         setVoteStatus(event.target.value);
     };
 
+    /* 필터 적용 */
     const handleAppyFilter = () => {
         applyFilter('gender', selectedGender);
         applyFilter('voteStatus', voteStatus);
         setFilterOpen(false);
 
+        /* 적용된 필터가 있으면 페이지 초기화 */
         if(selectedGender || voteStatus ) {
             searchParams.delete('page');
             navigate(`?${searchParams.toString()}`);

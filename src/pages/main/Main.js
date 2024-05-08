@@ -104,7 +104,14 @@ function Main () {
                     <MainRanking ranks={ranks} />
                 </section>
                 <section className={styles.end}>
-                    종료된 게시물
+                    <div className={`${styles.end_header} ${styles.post_header}`}>
+                        <p>투표 결과를 바로 확인해보세요</p>
+                        <div>
+                            <Link to="/board/all?vote=end">
+                                종료된 게시물<FiChevronRight style={{verticalAlign: 'middle', fontSize: "1.8rem"}}/>
+                            </Link>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>

@@ -65,7 +65,7 @@
         ,
         {
             "id" : 3,
-            "state" : "투표중",
+            "state" : "투표종료",
             "category" : "fashion",
             "title" : "무슨 백팩이 더 나아?",
             "option" : {

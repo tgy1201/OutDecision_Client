@@ -5,8 +5,8 @@ import styles from './filterSheet.module.css'
 function DesktopFilter ({open, setFilterOpen, applyFilter, gender, vote, searchParams}) {
     const navigate = useNavigate();
 
-    const [selectedGender, setSelectedGender] = useState(gender);
-    const [voteStatus, setVoteStatus] = useState(vote);
+    const [selectedGender, setSelectedGender] = useState(gender ? gender : '') ;
+    const [voteStatus, setVoteStatus] = useState(vote ? vote : '');
 
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
