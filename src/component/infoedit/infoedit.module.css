@@ -54,16 +54,11 @@
         border-bottom: 2px solid #ac2323;
     }
 
-    .parent {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
-
+    
     .editform {
         width: 400px;
         height: 500px;
+        margin: 0 auto;
         background-color: #f7f7f7;
     }
 

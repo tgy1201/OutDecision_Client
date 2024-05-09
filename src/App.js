@@ -13,6 +13,7 @@ import Infoedit from "./component/infoedit/Infoedit";
 import Mypost from "./component/mypost/Mypost";
 import Myliked from "./component/myliked/Myliked";
 import Mycomment from "./component/mycomment/Mycomment";
+import Mytitle from "./component/mytitle/Mytitle";
 import Ranking from './pages/ranking/Ranking';
 import SocialSignup from './pages/signup/SocialSignup';
 import SignupSuccess from './pages/signupSuccess/SignupSuccess';
@@ -39,6 +40,7 @@ function App() {
           <Route path="/mypage/posting" element={<Mypost />}></Route>
           <Route path="/mypage/comment" element={<Mycomment />}></Route>
           <Route path="/mypage/liked" element={<Myliked />}></Route>
+          <Route patt="/mypage/mytitle" element={<Mytitle />}></Route>
           <Route path="/write" element={<Write />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory} />}></Route>
           <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>

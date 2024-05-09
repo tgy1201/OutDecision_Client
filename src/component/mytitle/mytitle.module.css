@@ -1,0 +1,38 @@
+.container {
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 1080px) {
+    .pc_mytitle {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 35px 0 60px;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .mobile_mytitle {
+        display: none;
+    }
+
+    .sidebar_wrap {
+        width: 220px;
+        margin-right: 60px;
+    }
+}
+
+@media (max-width: 1079px) {
+    .pc_mytitle {
+        display: none;
+    }
+
+    .mobile_mytitle {
+        display: block;
+    }
+
+    .topbar_wrap {
+        margin-bottom: 8px;
+    }
+
+}

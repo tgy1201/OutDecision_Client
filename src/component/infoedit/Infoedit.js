@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from './infoedit.module.css';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MypageMenu from "../mypageMenu/MypageMenu";
 import Modal from 'react-modal';
 
@@ -46,57 +46,57 @@ function Infoedit() {
                 <section className={styles.topbar_wrap}>
                     <MypageMenu active={2} />
                 </section>
-                <secton className={styles.content}>
+                <section className={styles.content}>
                     <div className={styles.main}>
                         <div className={styles.edit}>회원정보</div>
-                        <div className={styles.parent}>
-                            <div className={styles.editform}>
-                                <div className={styles.required}><span>*</span> 필수</div>
-                                <table className={styles.edittable}>
-                                    <colgroup>
-                                        <col width="30%" />
-                                        <col width="70%" />
-                                    </colgroup>
-                                    <tr>
-                                        <td>프로필사진</td>
-                                        <td className={styles.imagebox}>
-                                            <div className={styles.image}>
-                                                <img src="/assets/images/profile2.png" alt="프로필" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>이름 <span>*</span></td>
-                                        <td><input value={name} onChange={handleNameChange} style={{ width: "80px" }}></input></td>
-                                    </tr>
-                                    <tr>
-                                        <td>닉네임 <span>*</span></td>
-                                        <td><input value="패알못"></input></td>
-                                    </tr>
-                                    <tr>
-                                        <td>이메일 <span>*</span></td>
-                                        <td>aaa@naver.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>비밀번호 <span>*</span></td>
-                                        <td><button onClick={openModal}>비밀번호 변경</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>휴대폰번호 <span>*</span></td>
-                                        <td><input value="010-3333-8888"></input></td>
-                                    </tr>
-                                </table>
-                            </div>
 
+                        <div className={styles.editform}>
+                            <div className={styles.required}><span>*</span> 필수</div>
+                            <table className={styles.edittable}>
+                                <colgroup>
+                                    <col width="30%" />
+                                    <col width="70%" />
+                                </colgroup>
+                                <tr>
+                                    <td>프로필사진</td>
+                                    <td className={styles.imagebox}>
+                                        <div className={styles.image}>
+                                            <img src="/assets/images/profile2.png" alt="프로필" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>이름 <span>*</span></td>
+                                    <td><input value={name} onChange={handleNameChange} style={{ width: "80px" }}></input></td>
+                                </tr>
+                                <tr>
+                                    <td>닉네임 <span>*</span></td>
+                                    <td><input value="패알못"></input></td>
+                                </tr>
+                                <tr>
+                                    <td>이메일 <span>*</span></td>
+                                    <td>aaa@naver.com</td>
+                                </tr>
+                                <tr>
+                                    <td>비밀번호 <span>*</span></td>
+                                    <td><button onClick={openModal}>비밀번호 변경</button></td>
+                                </tr>
+                                <tr>
+                                    <td>휴대폰번호 <span>*</span></td>
+                                    <td><input value="010-3333-8888"></input></td>
+                                </tr>
+                            </table>
                         </div>
 
-                        <div className={styles.buttonbox}>
-                            <button onClick={handleSubmit}>수정</button>
-                            <button onClick={() => navigate('/mypage')}>취소</button>
-                        </div>
                     </div>
 
-                </secton>
+                    <div className={styles.buttonbox}>
+                        <button onClick={handleSubmit}>수정</button>
+                        <button onClick={() => navigate('/mypage')}>취소</button>
+                    </div>
+
+
+                </section>
             </div>
             <Modal className={styles.modal} isOpen={modalIsOpen}>
                 <div className={styles.modalheader}>
