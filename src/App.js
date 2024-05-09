@@ -34,7 +34,7 @@ function App() {
           <Route path="/signup/social" element={<SocialSignup />}></Route>
           <Route path="/signup/success" element={<SignupSuccess />}></Route>
           <Route path='/mypage' element={<Mypage />}></Route>
-          \<Route path="/mypage" element={<Mypage />}></Route>
+          <Route path="/mypage" element={<Mypage />}></Route>
           <Route path="/mypage/edit" element={<Infoedit />}></Route>
           <Route path="/mypage/posting" element={<Mypost />}></Route>
           <Route path="/mypage/comment" element={<Mycomment />}></Route>
