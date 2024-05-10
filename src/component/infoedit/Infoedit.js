@@ -38,7 +38,7 @@ function Infoedit() {
     return (
         <div className={styles.container}>
             <div className={styles.pc_infoedit}>
-                <section className={styles.content}>
+                <section className={styles.sidebar_wrap}>
 
                 </section>
             </div>

@@ -14,6 +14,7 @@ function MypageMenu ({active}) {
                     <li><Link to="/" className={active===3? styles.active : ""}>작성한 글</Link></li>
                     <li><Link to="/" className={active===4? styles.active : ""}>작성한 댓글</Link></li>
                     <li><Link to="/" className={active===5? styles.active : ""}>좋아요한 글</Link></li>
+                    <li><Link to="/mypage/mytitle" className={active===6? styles.active : ""}>칭호</Link></li>
                 </ul>
             </div>
             <div className={styles.mobile}>
