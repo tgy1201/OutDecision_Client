@@ -73,7 +73,8 @@
     }
 
     .end {
-        margin-top: 30px;
+        margin-top: 35px;
+        margin-bottom: 50px;
     }
     .end_header {
         padding: 10px 0;
@@ -121,7 +122,8 @@
     }
 
     .end {
-        margin-top: 25px;
+        margin-top: 30px;
+        margin-bottom: 15px;
         padding: 5px 0;
         position: relative;
     }

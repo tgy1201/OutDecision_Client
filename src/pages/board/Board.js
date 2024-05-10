@@ -43,7 +43,7 @@ function Board ({setCategory}) {
     const page = searchParams.get('page'); // 페이지번호
     //const search = searchParams.get('search'); // 검색어
     //const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
-    //const sort = searchParams.get('sort'); // 게시글 정렬(latest, likes, views)
+    const sort = searchParams.get('sort'); // 게시글 정렬(latest, likes, views)
 
     const {bname} = useParams();
 
@@ -63,7 +63,6 @@ function Board ({setCategory}) {
         })
     }, [setPosts]);
 
-    /*
     useEffect(()=> {
         handlefetchPosts();
     })
@@ -72,9 +71,9 @@ function Board ({setCategory}) {
         try {
             const response = await axios.get('http://175.45.202.225:8080/posts', {
                 params: {
-                  mode: 'noraml',
-                  page: 1,
-                  sort: 'latest'
+                  mode: mode ? mode : 'normal',
+                  page: page ? parseInt(page) : 1,
+                  sort: sort ? sort : 'latest',
                 },
               });
             console.log(response.data);
@@ -82,7 +81,6 @@ function Board ({setCategory}) {
             console.log(error);
         }
     };
-    */
 
     /* 필터가 적용된 게시물 저장 */
     useEffect(() => {

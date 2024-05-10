@@ -9,18 +9,21 @@ import MainPost from "../../component/mainPost/MainPost";
 import { FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import MainRanking from "../../component/mainRanking/MainRanking";
+import MainFinishedPost from "../../component/mainFinishedPost/MainFinishedPost";
 
 function Main () {
     const [recommendPosts, setRecommendPosts] = useState([]);
     const [hotPosts, setHotPosts] = useState([]);
     const [newPosts, setNewPosts] =  useState([]);
     const [ranks, setRanks] = useState([]);
+    const [finishedPosts, setFinishedPosts] = useState([]);
 
     useEffect(() => {
         handlefetchRecommendPosts();
         handlefetchHotPosts();
         handlefetchNewPosts();
         handlefetchRanks();
+        handlefetchFinishedPosts();
     }, []);
 
     const handlefetchRecommendPosts = async () => {
@@ -58,6 +61,15 @@ function Main () {
             console.log(error);
         }
     };
+
+    const handlefetchFinishedPosts = async () => {
+        try {
+            const response = await axios.get('/assets/data/posts.json');
+            setFinishedPosts(response.data.posts.slice(0,6));
+        } catch(error) {
+            console.log(error);
+        }
+    }; 
 
     return (
         <div className={styles.container}>
@@ -112,6 +124,7 @@ function Main () {
                             </Link>
                         </div>
                     </div>
+                    <MainFinishedPost posts={finishedPosts} />
                 </section>
             </div>
         </div>

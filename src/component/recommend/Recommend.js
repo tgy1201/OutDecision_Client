@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,9 +16,7 @@ import PostCard from '../postCard/PostCard';
 import { GrPowerReset } from "react-icons/gr";
 
 function Recommend ({posts, handleClick}) {
-    const [swiperIndex, setSwiperIndex] = useState(0);
 
-    console.log(swiperIndex);
     return (
         <>
             <div className={styles.recommend_header}>
@@ -33,10 +31,10 @@ function Recommend ({posts, handleClick}) {
             slidesOffsetAfter={20}
             pagination={{
                 clickable: true,
+                dynamicBullets: true,
             }}
             modules={[FreeMode, Pagination]}
             className={styles.myswiper}
-            onSlideChange={(e)=>setSwiperIndex(e.realIndex)}
             breakpoints={{
                 768:{
                     slidesOffsetBefore: 20,
