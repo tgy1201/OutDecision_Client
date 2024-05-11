@@ -175,11 +175,19 @@ function Write () {
         const blob = new Blob([JSON.stringify(data)], {
             type: 'application/json',
         });
-        formData.append('request', blob);
-        formData.append('optionNames', textList);
 
+        formData.append('request', blob);
+ 
+        const blob2 = new Blob([JSON.stringify(textList)], { type: 'application/json' });
+        formData.append('optionNames', blob2);
+
+        const emptyFile = new Blob([], { type: 'application/octet-stream' });
         imageFileList.forEach((imageFile) => {
-            formData.append('optionImages', imageFile);
+            if (imageFile !== null) {
+              formData.append('optionImages', imageFile);
+            } else {
+              formData.append('optionImages', emptyFile);
+            }
         });
 
         try {
@@ -189,10 +197,12 @@ function Write () {
             }
             });
             console.log(response.data);
+            console.log(imageFileList);
+            for (let value of formData.values()) {
+                console.log(value);
+            }
         } catch (error) {
-          console.error(error);
-          console.log(textList);
-          console.log(imageFileList);
+            console.error(error);
         }
     }
 
