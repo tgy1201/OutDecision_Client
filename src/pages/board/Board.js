@@ -60,6 +60,7 @@ function Board ({setCategory}) {
     useEffect(()=> {
         axios.get("/assets/data/posts.json").then((a)=>{
             setPosts(a.data.posts)
+            //console.log(a.data.posts)
         })
     }, [setPosts]);
 
@@ -76,7 +77,7 @@ function Board ({setCategory}) {
                   sort: sort ? sort : 'latest',
                 },
               });
-            console.log(response.data);
+            console.log(response.data.result);
         } catch(error) {
             console.log(error);
         }

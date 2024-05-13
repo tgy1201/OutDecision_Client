@@ -41,7 +41,7 @@ function Write () {
     const [content, setContent] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [isToggleChecked, setIsToggleChecked] = useState(false);
-    const [selectedGender, setSelectedGender] = useState('');
+    const [selectedGender, setSelectedGender] = useState('all');
 
 
     const [scrollPosition, setScrollPosition] = useState('left-border');
@@ -58,7 +58,6 @@ function Write () {
             setScrollPosition("middle");
         }
     };
-   
 
     const handleTitleChange = (newValue) => {
         setTitle(newValue);
@@ -197,10 +196,6 @@ function Write () {
             }
             });
             console.log(response.data);
-            console.log(imageFileList);
-            for (let value of formData.values()) {
-                console.log(value);
-            }
         } catch (error) {
             console.error(error);
         }
@@ -345,11 +340,11 @@ function Write () {
                                     {isMobile && <span>대상 성별</span>}
                                     <div className={styles.gender}>
                                         <label>
-                                            <input type="radio" value="" checked={selectedGender === ''} onChange={handleGenderChange}/>
+                                            <input type="radio" value="all" checked={selectedGender === 'all'} onChange={handleGenderChange}/>
                                             <span>전체</span>
                                         </label>
                                         <label>
-                                            <input type="radio" value="MALE" checked={selectedGender === 'MALE'} onChange={handleGenderChange}/>
+                                            <input type="radio" value="male" checked={selectedGender === 'male'} onChange={handleGenderChange}/>
                                             <span>남성</span>
                                         </label>
                                         <label>

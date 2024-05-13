@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styles from './postCard.module.css';
+import { Link } from "react-router-dom";
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
+import { GoBell, GoBellFill } from "react-icons/go";
 
 const boardNameMap = {
     all: '전체',
@@ -48,6 +49,7 @@ function PostCard({post, bname}) {
 
     return(
         <>
+            <GoBellFill style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
             <section className={styles.state_wrap}>
                 <div style={{backgroundColor: post.state === '투표중'? "#ac2323" : "gray"}}>{post.state}</div>
             </section>
