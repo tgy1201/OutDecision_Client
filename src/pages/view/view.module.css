@@ -21,7 +21,7 @@
     height: 50px;
     position: relative;
     border-radius: 50%;
-    border: 1px solid 5a5a5a;
+    border: 1px solid #5a5a5a;
 }
 
 .profile_wrap img {
@@ -153,7 +153,6 @@
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 8px;
     border-radius: 8px;
     background-color: #cecece;
 }

@@ -15,7 +15,7 @@ function BoardHeader ({category}) {
         hobby: '취미',
         work: '취업',
         travel: '여행',
-        etc: '기타',
+        other: '기타',
     };
 
     const handleGoBack = () => {

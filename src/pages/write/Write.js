@@ -234,7 +234,7 @@ function Write () {
                                                 <span><ImAirplane className={styles.icon}/></span>
                                                 <span>여행</span>
                                             </label>
-                                            <label onClick={()=>handleCategoryChange('job')} className={selectedCategory==='job'? `${styles.category}`: `${styles.category_none}`}>
+                                            <label onClick={()=>handleCategoryChange('work')} className={selectedCategory==='work'? `${styles.category}`: `${styles.category_none}`}>
                                                 <span><MdWorkHistory className={styles.icon}/></span>
                                                 <span>취업</span>
                                             </label>
@@ -246,7 +246,7 @@ function Write () {
                                                 <span><MdFavorite className={styles.icon}/></span>
                                                 <span>연애</span>
                                             </label>
-                                            <label onClick={()=>handleCategoryChange('etc')} className={selectedCategory==='etc'? `${styles.category}`: `${styles.category_none}`}>
+                                            <label onClick={()=>handleCategoryChange('other')} className={selectedCategory==='other'? `${styles.category}`: `${styles.category_none}`}>
                                                 <span><CgMoreO className={styles.icon}/></span>
                                                 <span>기타</span>
                                             </label>
@@ -268,8 +268,8 @@ function Write () {
                                         <div key={index} className={styles.option_wrap}>
                                             <div className={styles.options}>
                                                 <input type="text" value={options[index].text} onChange={(e) => handleTextUpload(e, index)} placeholder={`보기 ${index + 1}`} maxLength={15}/>
-                                                <div class={styles.filebox}>
-                                                    <label for={`file-${index}`}><LuImagePlus className={styles.image_icon}/></label>
+                                                <div className={styles.filebox}>
+                                                    <label htmlFor={`file-${index}`}><LuImagePlus className={styles.image_icon}/></label>
                                                     <input id={`file-${index}`} type="file" onChange={(e) => handleImageUpload(e, index)} accept=".png,.jpg" />
                                                 </div>
                                                 <button className={styles.delete_btn} onClick={() => handleRemoveOption(index)}><ImCancelCircle className={styles.delete_icon}/></button>

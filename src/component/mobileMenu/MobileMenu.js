@@ -28,9 +28,9 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                         <ul className={styles.sidemenu_item_list}>
                             <li><Link to="/mypage" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>마이페이지 홈</Link></li>
                             <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>회원정보 수정</Link></li>
-                            <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>작성한 글</Link></li>
-                            <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>작성한 댓글</Link></li>
-                            <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>좋아요한 글</Link></li>
+                            <li><Link to="/mypage/posting" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>작성한 글</Link></li>
+                            <li><Link to="/mypage/vote" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>투표한 글</Link></li>
+                            <li><Link to="/mypage/liked" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>좋아요한 글</Link></li>
                         </ul>
                     </li>
                     <li>
@@ -49,7 +49,7 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                             <li><Link to="/board/work" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>취업</Link></li>
                             <li><Link to="/board/hobby" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>취미</Link></li>
                             <li><Link to="/board/love" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>연애</Link></li>
-                            <li><Link to="/board/etc" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>기타</Link></li>
+                            <li><Link to="/board/other" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>기타</Link></li>
                         </ul>
                     </li>
                     <li style={{borderBottom: "none"}}>

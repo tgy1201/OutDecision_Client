@@ -57,9 +57,9 @@ function MainRanking ({ranks}) {
                             {rank.rank}
                             <GiCurlyWing className={styles.right_wing}/></p>
                         <div className={styles.profile_wrap}>
-                            <img src={rank.profile} alt="프로필" />
+                            <img src={rank.userImg} alt="프로필" />
                         </div>
-                        <p className={styles.user}>{rank.user}</p>
+                        <p className={styles.user}>{rank.nickname}</p>
                         <p className={styles.point}><span style={{color: '#ac2323', fontWeight: '600'}}>{rank.point}</span> 점</p>
                     </SwiperSlide>
                 ))

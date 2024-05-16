@@ -39,7 +39,7 @@ function CommonHeader ({children}) {
     return (
         <>
         {/* 스크롤이 160px(헤더높이) 이상 내려가면 헤더 높이 줄임 */}
-        <header className={scrollPosition > 160 && `${styles.scroll_header}`}>
+        <header className={scrollPosition > 160 ? `${styles.scroll_header}` : ''}>
             <div className={styles.pc_header}>
                 <div className={scrollPosition > 160 ? `${styles.scroll_topbar}` : `${styles.topbar}`}>
                     <ul>
@@ -62,7 +62,7 @@ function CommonHeader ({children}) {
                                     <li><Link to="/board/work">취업</Link></li>
                                     <li><Link to="/board/hobby">취미</Link></li>
                                     <li><Link to="/board/love">연애</Link></li>
-                                    <li><Link to="/board/etc">기타</Link></li>
+                                    <li><Link to="/board/other">기타</Link></li>
                                 </ul>
                             </li>
                             <li><Link to="/ranking">랭킹</Link></li>

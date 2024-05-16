@@ -58,7 +58,7 @@ function Category () {
                 </Link>
             </div>
             <div className={styles.category_wrap}>
-                <Link to="/board/etc">
+                <Link to="/board/other">
                     <span><CgMoreO className={styles.icon}/></span>
                     <span>기타</span>
                 </Link>

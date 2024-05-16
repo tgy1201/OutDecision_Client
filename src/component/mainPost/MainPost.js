@@ -56,7 +56,7 @@ function MainPost({posts, bname}) {
             >
             {posts.length > 0 ? (
                 posts.map((post) => (
-                    <SwiperSlide className={styles.main_post} key={post.id}>
+                    <SwiperSlide className={styles.main_post} key={post.postId}>
                         <PostList post={post} bname={bname}/>
                     </SwiperSlide>
                 ))

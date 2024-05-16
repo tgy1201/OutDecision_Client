@@ -19,13 +19,9 @@ function Main () {
     const [finishedPosts, setFinishedPosts] = useState([]);
 
     useEffect(() => {
-        handlefetchRecommendPosts();
-        handlefetchHotPosts();
-        handlefetchNewPosts();
-        handlefetchRanks();
-        handlefetchFinishedPosts();
+        handlefetchData();
     }, []);
-
+    /*
     const handlefetchRecommendPosts = async () => {
         try {
             const response = await axios.get('/assets/data/posts.json');
@@ -34,42 +30,19 @@ function Main () {
             console.log(error);
         }
     };
-
-    const handlefetchHotPosts = async () => {
+    */
+    const handlefetchData = async () => {
         try {
-            const response = await axios.get('/assets/data/posts.json');
-            setHotPosts(response.data.posts.slice(0,4));
+            const response = await axios.get('http://175.45.202.225:8080/');
+            setRecommendPosts(response.data.result.recommendPostList); //추천 게시글을 새로고침 있어서 따로 뺴야함
+            setHotPosts(response.data.result.hotPostList);
+            setNewPosts(response.data.result.latestPostList);
+            setFinishedPosts(response.data.result.closedPostList);
+            setRanks(response.data.result.rankingListDTO.rankingList);
         } catch(error) {
             console.log(error);
         }
     };
-    
-    const handlefetchNewPosts = async () => {
-        try {
-            const response = await axios.get('/assets/data/posts.json');
-            setNewPosts(response.data.posts.slice(0,4));
-        } catch(error) {
-            console.log(error);
-        }
-    };
-
-    const handlefetchRanks = async () => {
-        try {
-            const response = await axios.get('/assets/data/ranking.json');
-            setRanks(response.data.ranking);
-        } catch(error) {
-            console.log(error);
-        }
-    };
-
-    const handlefetchFinishedPosts = async () => {
-        try {
-            const response = await axios.get('/assets/data/posts.json');
-            setFinishedPosts(response.data.posts.slice(0,6));
-        } catch(error) {
-            console.log(error);
-        }
-    }; 
 
     return (
         <div className={styles.container}>
@@ -80,7 +53,7 @@ function Main () {
                     <Category />
                 </section>
                 <section className={styles.recommend}>
-                    <Recommend posts={recommendPosts} handleClick={handlefetchRecommendPosts}/>
+                    <Recommend posts={recommendPosts} />
                 </section>
                 <section className={styles.hot}>
                     <div className={styles.post_header}>

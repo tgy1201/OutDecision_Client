@@ -31,7 +31,7 @@ function Pagination ({postsNum, postsPerPage, currentPage, pageCount }) {
     return (
         <nav className={styles.pagination_wrap}>
             <ul>
-                <li className={prev && styles.invisible}>
+                <li className={prev ? styles.invisible : ''}>
                 <button onClick={() => handlePageParams(start-1)}><FaAngleLeft style={{verticalAlign: "middle"}}/></button>
                 </li>
                 {[...Array(Math.max(0,pagesPerPage))].map((a, i) => (
@@ -41,7 +41,7 @@ function Pagination ({postsNum, postsPerPage, currentPage, pageCount }) {
                             </button>
                         </li>
                 ))}
-                <li className={next && styles.invisible}>
+                <li className={next ? styles.invisible : ''}>
                 <button onClick={() => handlePageParams(start+pageCount)}><FaAngleRight style={{verticalAlign: "middle"}}/></button>
                 </li>
             </ul>

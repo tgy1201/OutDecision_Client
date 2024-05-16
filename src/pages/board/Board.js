@@ -18,7 +18,7 @@ const boardNameMap = {
     hobby: '취미',
     work: '취업',
     travel: '여행',
-    etc: '기타',
+    other: '기타',
 };
 
 const filterMap = {
@@ -41,62 +41,50 @@ function Board ({setCategory}) {
     const gender = searchParams.get('gender'); // 필터 성별(male, female)
     const vote = searchParams.get('vote'); // 필터 투표상태(progress, end)
     const page = searchParams.get('page'); // 페이지번호
-    //const search = searchParams.get('search'); // 검색어
-    //const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
+    const search = searchParams.get('search'); // 검색어
+    const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
     const sort = searchParams.get('sort'); // 게시글 정렬(latest, likes, views)
 
     const {bname} = useParams();
 
     const [filterOpen, setFilterOpen] = useState(false);
     const [posts, setPosts] = useState([]);
-    const [filteredPosts, setFilteredPosts] = useState(posts);
+    const [postsNum, setPostsNum] = useState(0);
 
     /* 게시판 카테고리 갱신 */
     useEffect(() => {  
         setCategory(bname);
     }, [bname, setCategory]);
 
-    /* 페이지에 해당하는 게시글 6개 저장 */
     useEffect(()=> {
-        axios.get("/assets/data/posts.json").then((a)=>{
-            setPosts(a.data.posts)
-            //console.log(a.data.posts)
-        })
-    }, [setPosts]);
-
-    useEffect(()=> {
-        handlefetchPosts();
-    })
-
-    const handlefetchPosts = async () => {
-        try {
-            const response = await axios.get('http://175.45.202.225:8080/posts', {
-                params: {
-                  mode: mode ? mode : 'normal',
-                  page: page ? parseInt(page) : 1,
-                  sort: sort ? sort : 'latest',
-                },
-              });
-            console.log(response.data.result);
-        } catch(error) {
-            console.log(error);
-        }
-    };
-
-    /* 필터가 적용된 게시물 저장 */
-    useEffect(() => {
-        const filteredPosts = posts.filter((post) => {
-            if (gender && filterMap[gender] !== post.gender) {
-                return false;
+        const handlefetchPosts = async (bname) => {
+            try {
+                const url = bname === 'all'
+                    ? 'http://175.45.202.225:8080/posts'
+                    : `http://175.45.202.225:8080/posts/${bname}`;
+            
+                const response = await axios.get(url, {
+                    params: {
+                        mode: mode ? mode : 'normal',
+                        page: page ? parseInt(page) : 1,
+                        sort: sort ? sort : 'latest',
+                        gender: gender && gender,
+                        vote: vote && vote,
+                        search: search && search,
+                        searchType: searchType && searchType,
+                        category: bname === 'all' ? null : bname, // 'all' 이외의 경우 bname 값 사용
+                    },
+                });
+            
+                setPostsNum(response.data.result.totalElements);
+                setPosts(response.data.result.postList);
+            } catch (error) {
+            console.error(error);
             }
-            if (vote && filterMap[vote] !== post.state) {
-                return false;
-            }
-            return true;
-        });
-      
-        setFilteredPosts(filteredPosts);
-    }, [gender, vote, posts]);
+        };
+
+        handlefetchPosts(bname);
+    }, [bname, mode, page, sort, gender, vote, search, searchType])
 
     const handleTypeParams = (type) => {
         /* type 변경 시 mode, gender, vote, search, searchType, sort 유지(있으면) / page 초기화 */
@@ -111,6 +99,12 @@ function Board ({setCategory}) {
             ? type ? `?mode=hot&type=${type}` : `?mode=hot&type=dashboard`
             : type ? `?mode=normal&type=${type}` : `?mode=normal&type=dashboard`
         )
+    }
+
+    const handleChangeSort = (sortValue) => {
+        searchParams.set('sort', sortValue);
+        searchParams.delete('page');
+        navigate(`?${searchParams.toString()}`)
     }
 
     const applyFilter = (filterType, value) => {
@@ -136,7 +130,7 @@ function Board ({setCategory}) {
         <div className={styles.container}>
             <div className={styles.board}>
                 <div className={styles.board_title_wrap}>
-                    <h1>{boardNameMap[bname]}<span>387</span></h1>           
+                    <h1>{boardNameMap[bname]}<span>{postsNum}</span></h1>           
                 </div>
                 <div className={styles.board_nav}>
                     <div>
@@ -152,10 +146,10 @@ function Board ({setCategory}) {
                 </div>
                 <div className={styles.board_filter_wrap}>
                     <div className={styles.board_filter}>
-                        <select className={styles.filter_sort}>
-                            <option>최신순</option>
-                            <option>조회순</option>
-                            <option>좋아요순</option>
+                        <select className={styles.filter_sort} onChange={(e) => handleChangeSort(e.target.value)}>
+                            <option value="latest">최신순</option>
+                            <option value="views">조회순</option>
+                            <option value="likes">좋아요순</option>
                         </select>
 
                         <button className={styles.filter_btn} onClick={()=> setFilterOpen(!filterOpen)} style={{borderColor: gender || vote ? "#ac2323" : ""}}>
@@ -238,8 +232,8 @@ function Board ({setCategory}) {
 
                 {/* type이 없거나 dashboard면 Dashboad 컴포넌트로, type이 list면 List 컴포넌트로 렌더링*/}
                 {!type || type === 'dashboard' 
-                ? <Dashboard posts={filteredPosts} bname={bname} page={page}/> 
-                : <List posts={filteredPosts} bname={bname} page={page}/>
+                ? <Dashboard posts={posts} postsNum={postsNum} postsPerPage={6} bname={bname} page={page}/> 
+                : <List posts={posts} postsNum={postsNum} postsPerPage={6} bname={bname} page={page}/>
                 }
 
                 {/* 검색바 */}

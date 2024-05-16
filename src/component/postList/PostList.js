@@ -14,8 +14,15 @@ const boardNameMap = {
     hobby: '취미',
     work: '취업',
     travel: '여행',
-    etc: '기타',
+    other: '기타',
 };
+
+const filterMap = {
+    female: '여성',
+    male: '남성',
+    progress: '투표중',
+    end: '투표종료'
+}
 
 function PostList ({post, bname}) {
     const [isOpenResult, setIsOpenResult] = useState(false);
@@ -23,7 +30,7 @@ function PostList ({post, bname}) {
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
   
     const handleOptionChange = (index) => {
-        if (post.multiple) {
+        if (post.pluralVoting) {
             if (selectedOptions.includes(index)) {
             setSelectedOptions(selectedOptions.filter((o) => o !== index));
             } else {
@@ -56,49 +63,49 @@ function PostList ({post, bname}) {
             alert("투표옵션을 선택해주세요");
             return;
         }
-        console.log(selectedOptions, post.id)
+        console.log(selectedOptions, post.postId)
     }
     
     return (
         <div className={styles.container}>
             <section className={styles.title_wrap}>
-                <div style={{backgroundColor: post.state === '투표중'? "#ac2323" : "gray"}}>{post.state}</div>
-                <Link to={bname ? `/board/${bname}/view/${post.id}` : `/board/${post.category}/view/${post.id}`}>
+                <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
+                <Link to={bname ? `/board/${bname}/view/${post.postId}` : `/board/${post.category}/view/${post.postId}`}>
                     <p>[{boardNameMap[post.category]}] {post.title}</p>
                 </Link>
             </section>
             <section className={styles.voteInfo_wrap}>   
-                <div>23.06.27 18:00 종료  • 단일 선택 • <span style={{color: "#ac2323"}}>24</span> 명 참여</div>
+                <div>{post.deadline} 종료  • {post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여</div>
             </section>
             <section className={styles.vote_wrap}>
                 <table className={styles.vote_table}>
-                    <div className={scrollPosition === 'right-border' || scrollPosition === 'middle' ? styles.prev : ''}></div>
-                    <div className={scrollPosition === 'left-border' || scrollPosition === 'middle' ? styles.next : ''}></div>
+                    <thead className={scrollPosition === 'right-border' || scrollPosition === 'middle' ? styles.prev : ''}></thead>
+                    <thead className={scrollPosition === 'left-border' || scrollPosition === 'middle' ? styles.next : ''}></thead>
                     <tbody onScroll={handleScroll}>
                         <tr>
-                        {Object.values(post.option).map((option, idx)=>
-                            <td>
-                                {isOpenResult || post.state==="투표종료" || post.voted ?    
+                        {Object.values(post.optionsList).map((option, idx)=>
+                            <td key={idx}>
+                                {isOpenResult || filterMap[post.status] ==="투표종료" || post.voted ?    
                                 <div className={styles.result_wrap}>
-                                    {option.img !== '' && 
+                                    {option.imgUrl !== '' && 
                                     <div className={styles.option_img}>
-                                        <img src={option.img} alt="옵션" />
+                                        <img src={option.imgUrl} alt="옵션" />
                                     </div>
                                     } 
                                     <div className={styles.result_percent_wrap}>
-                                        <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p>
-                                        <span className={styles.percent}>{option.percent}%</span>
+                                        <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.body}</p>
+                                        <span className={styles.percent}>{option.votePercentage}%</span>
                                     </div>
-                                    <div className={styles.result} style={{height: `${option.percent}%`, transition: 'height 0.5s ease'}}/>
+                                    <div className={styles.result} style={{height: `${option.votePercentage}%`, transition: 'height 0.5s ease'}}/>
                                 </div>
                                 :<div className={selectedOptions.includes(idx) ? `${styles.selected} ${styles.option_wrap}` : `${styles.unselected} ${styles.option_wrap}`} onClick={()=>handleOptionChange(idx)}>
-                                    {option.img !== '' && 
+                                    {option.imgUrl !== '' && 
                                     <div className={styles.option_img}>
-                                        <img src={option.img} alt="옵션" /> 
+                                        <img src={option.imgUrl} alt="옵션" /> 
                                     </div>
                                     }
                                     <div className={styles.option_percent_wrap}>
-                                        <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.text}</p>
+                                        <p className={option.imgUrl ? `${styles.imgText}` : `${styles.text}`}>{option.body}</p>
                                     </div>
                                 </div>
                                 }
@@ -108,7 +115,7 @@ function PostList ({post, bname}) {
                     </tbody>
                 </table>
                 <div className={styles.voteBtn_wrap}>
-                {post.state === "투표종료" ?
+                {filterMap[post.status] === "투표종료" ?
                     <div>이미 종료된 투표입니다.</div>
                     : post.voted ?
                     <div>이미 완료한 투표입니다.</div>
@@ -126,11 +133,11 @@ function PostList ({post, bname}) {
             </section>
             <section className={styles.postInfo_wrap}>
                 <ul>
-                    <li>{post.user}</li>
-                    <li>{post.date}</li>
-                    <li><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.like}</div></li>
-                    <li><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.comment}</div></li> 
-                    <li><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.view}</div></li>
+                    <li>{post.nickname}</li>
+                    <li>{post.bumpsTime}</li>
+                    <li><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.likesCnt}</div></li>
+                    <li><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.commentsCnt}</div></li> 
+                    <li><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.views}</div></li>
                 </ul>
             </section>
         </div>

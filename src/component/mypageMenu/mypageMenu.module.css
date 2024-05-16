@@ -19,7 +19,6 @@
 
     .menu_list > li > a {
         padding: 20px 15px;
-        border-bottom: 1px solid #ddd;
         font-size: 17px;
         font-weight: 500;
         letter-spacing: -1px;
@@ -29,6 +28,10 @@
         word-break: keep-all;
     }
     
+    .menu_list > li > a:not(.active) {
+        border-bottom: 2px solid #ddd;
+    }
+
     .menu_list > li > a:hover:not(.active) {
         color: white;
         background-color: #c8c8c8;
@@ -37,6 +40,8 @@
     .active {
         color: white;
         background-color: #ac2323;
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
     }
 }
 
