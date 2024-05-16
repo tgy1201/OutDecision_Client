@@ -56,7 +56,7 @@ function View({setCategory}) {
             alert("투표옵션을 선택해주세요");
             return;
         }
-        console.log(selectedOptions, post.id)
+        console.log(selectedOptions, postId)
     }
     
     useEffect(() => {
@@ -175,7 +175,7 @@ function View({setCategory}) {
                             </section>
                         </section>
                     </div>
-                    <Comment comments={comments} />
+                    <Comment comments={comments} setComments={setComments} postId={postId}/>
                 </div>
             ) : (
                 <p>로딩 중...</p>
