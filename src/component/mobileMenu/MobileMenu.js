@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './mobileMenu.module.css';
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
-function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
+function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) { 
+    const isMobile = useMediaQuery({
+        query: "(max-width: 1079px)"
+    });
+
+    useEffect(() => {
+        if (isSidebarOpen && isMobile) {
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        } else {
+          document.body.style.overflow = "auto";
+          document.body.style.touchAction = "auto";
+        }
+    }, [isSidebarOpen, isMobile]); 
+
     return (
         <>
-            <nav className={isSidebarOpen ? `${styles.sidemenu} ${styles.active} ${styles.mobile}` : `${styles.sidemenu} ${styles.mobile}`} >
+            <nav className={isSidebarOpen ? `${styles.sidemenu} ${styles.active} ${styles.mobile}` : `${styles.sidemenu} ${styles.mobile}`}>
                 <ul className={styles.sidemenu_header}>
                     <li><Link to="/" onClick={() => handleSidebarOpen(!isSidebarOpen)}><img src="/assets/images/home_b.png" alt="홈" /></Link></li>
                     <li><button onClick={handleSidebarOpen}><img src="/assets/images/cancel.png" alt="취소" /></button></li>

@@ -233,7 +233,13 @@ function Signup () {
         });
 
         formData.append('request', blob );
-        formData.append('userImg', inputValue.profileImage);
+
+        const emptyFile = new Blob([], { type: 'application/octet-stream' });
+        if(inputValue.profileImage !== null) {
+            formData.append('userImg', inputValue.profileImage);
+        } else {
+            formData.append('userImg', emptyFile);
+        }
     
         try {
             const response = await axios.post('http://175.45.202.225:8080/register/v2', formData, {
@@ -241,7 +247,7 @@ function Signup () {
                 'Content-Type': 'multipart/form-data',
             }
             });
-            console.log(response.data);
+            console.log(response);
             navigate('/signup/success')
         } catch (error) {
           console.error(error);

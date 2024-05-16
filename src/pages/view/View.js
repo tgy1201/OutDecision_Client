@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './view.module.css';
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Comment from "../../component/comment/Comment";
 
@@ -29,12 +29,15 @@ const filterMap = {
 }
 
 function View({setCategory}) {
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get('page'); // 댓글페이지번호
+
     const {bname, postId} = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
-  
+
     const handleOptionChange = (index) => {
         if (post.multiple) {
             if (selectedOptions.includes(index)) {
@@ -62,18 +65,15 @@ function View({setCategory}) {
     useEffect(() => {
         const fetchPost = async () => {
           try {
-            const postresponse = await axios.get(`http://175.45.202.225:8080/post/${postId}`, {
+            const response = await axios.get(`http://175.45.202.225:8080/post/${postId}`, {
                 params: {
                   postId: postId,
                 },
             });
 
-            const commentsResponse = await axios.get("/assets/data/comments.json");
-            const commentsData = commentsResponse.data.comments.filter(comment=>comment.postId === parseInt(postId))
-
-            setPost(postresponse.data.result);
-            setComments(commentsData);
-            console.log(postresponse.data);
+            setPost(response.data.result);
+            setComments(response.data.result.commentsList.commentsDTOList);
+            console.log(response.data);
           } catch (error) {
             console.error(error);
           }
@@ -104,7 +104,7 @@ function View({setCategory}) {
                             </div>
                             <ul>
                                 <li style={{color: "#b00000"}}><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.likesCnt}</div></li>
-                                <li style={{color: "#412ed1"}}><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.commentsList.listSize}</div></li> 
+                                <li style={{color: "#412ed1"}}><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{comments.length}</div></li> 
                                 <li style={{color: "5a5a5a"}}><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.views}</div></li>
                             </ul>
                         </section>
@@ -175,7 +175,7 @@ function View({setCategory}) {
                             </section>
                         </section>
                     </div>
-                    <Comment comments={comments} setComments={setComments} postId={postId}/>
+                    <Comment comments={comments} setComments={setComments} postId={postId} page={page}/>
                 </div>
             ) : (
                 <p>로딩 중...</p>

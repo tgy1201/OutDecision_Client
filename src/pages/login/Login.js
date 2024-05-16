@@ -10,13 +10,19 @@ function Login () {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-    
-        try {
-          const response = await axios.post('http://localhost:8080/login', {
-            email,
-            password
-          });
+        
+        const params = new URLSearchParams();
+        params.append('username', email);
+        params.append('password', password);
 
+        try {
+          const response = await axios.post('http://175.45.202.225:8080/login', params, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              withCredentials: true
+          });
+          console.log('로그인성공');
           console.log(response.data);
           navigate('/');
         } catch (error) {
