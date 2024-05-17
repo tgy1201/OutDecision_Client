@@ -9,6 +9,7 @@ import Dashboard from "../../component/Dashboard/Dashboard";
 import List from "../../component/List/List";
 
 /* 카테고리 전체와 HOT은 인기글 없음 / HOT은 글쓰기 없음 / 전체는 내부검색 없음(통합검색) */
+/* 게시판 이동할때, type 변경 시 검색창 초기화  */
 const boardNameMap = {
     all: '전체',
     hot: 'HOT',
@@ -50,10 +51,14 @@ function Board ({setCategory}) {
     const [filterOpen, setFilterOpen] = useState(false);
     const [posts, setPosts] = useState([]);
     const [postsNum, setPostsNum] = useState(0);
+    const [searchText, setSearchText] = useState('');
+    const [searchTextType, setSearchTextType] = useState('all'); //default 전체
 
     /* 게시판 카테고리 갱신 */
     useEffect(() => {  
         setCategory(bname);
+        setSearchText('');
+        setSearchTextType('all');
     }, [bname, setCategory]);
 
     useEffect(()=> {
@@ -94,6 +99,9 @@ function Board ({setCategory}) {
     }
 
     const handleChangeBoard = (modeValue) => {
+        setSearchText('');
+        setSearchTextType('all');
+
         navigate(
             modeValue === 'hot'
             ? type ? `?mode=hot&type=${type}` : `?mode=hot&type=dashboard`
@@ -124,6 +132,23 @@ function Board ({setCategory}) {
             searchParams.delete('vote');
         }
         navigate(`?${searchParams.toString()}`);
+    }
+
+    const handleChangeSearch = (e) => {
+        setSearchText(e.target.value);
+    }
+    const handleChangeSearchType = (searchType) => {
+        setSearchTextType(searchType);
+    }
+
+    const handleSearchKeyword = () => {
+        if(searchText) {
+            searchParams.set('search', searchText);
+            searchParams.set('searchType', searchTextType);
+            navigate(`?${searchParams.toString()}`);
+        } else {
+            alert('검색어를 입력하세요');
+        }
     }
 
     return (
@@ -238,13 +263,25 @@ function Board ({setCategory}) {
 
                 {/* 검색바 */}
                 <div className={styles.search_wrap}>
-                    <select>
-                        <option>제목</option>
-                        <option>내용</option>
+                    <select onChange={(e) => handleChangeSearchType(e.target.value)}>
+                        <option value="all">전체</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="option">옵션</option>
                     </select>
                     <div className={styles.input_wrap}>
-                        <input type="text" maxLength={20}/>
-                        <button><img src="/assets/images/search.png" alt="검색"/></button>
+                        <input 
+                            type="text" 
+                            value={searchText} 
+                            onChange={handleChangeSearch} 
+                            maxLength={13}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') {
+                                  handleSearchKeyword();
+                                }
+                            }}
+                        />
+                        <button onClick={handleSearchKeyword}><img src="/assets/images/search.png" alt="검색"/></button>
                     </div>
                 </div>
 

@@ -73,3 +73,8 @@ button {
 .react-toggle--checked .react-toggle-thumb {
     border-color: #ac2323 !important;
 }
+
+.highlight {
+    color: #3bd07e;
+    font-weight: 600;
+}

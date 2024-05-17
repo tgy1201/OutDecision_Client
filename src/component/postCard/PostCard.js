@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from './postCard.module.css';
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
@@ -30,6 +30,10 @@ function PostCard({post, bname}) {
     /*포스트 고유넘버를 서버에 보내서 로그인 한 유저가 해당 포스트에 (1) 투표를 했는지, (2) 했다면 몇번에 투표했는지 받기*/
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
+
+    const [searchParams] = useSearchParams();
+    const search = searchParams.get('search'); // 검색어
+    const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
   
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
@@ -55,6 +59,35 @@ function PostCard({post, bname}) {
         console.log(selectedOptions, post.postId)
     }
 
+    const highlightText = (text, searchTerm, type) => {
+        if (!text || !searchTerm) return text;
+      
+        let highlightedText = '';
+
+        if (searchType === 'all') {
+            // 기본값 (전체 하이라이트)
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else {
+            highlightedText = `<span>${text}</span>`
+        }
+      
+        return highlightedText;
+    };
+
     return(
         <>
             <GoBellFill style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
@@ -63,7 +96,10 @@ function PostCard({post, bname}) {
             </section>
             <section className={styles.title_wrap}>
                 <Link to={bname ? `/board/${bname}/view/${post.postId}` : `/board/${post.category}/view/${post.postId}`}>
-                    <p>{!bname || bname === 'hot' || bname === 'all' ? `[${boardNameMap[post.category]}]` : ''}{post.title}</p>
+                    <div style={{display: "flex", gap: '5px'}}>
+                        <p>{!bname || bname === 'hot' || bname === 'all' ? `[${boardNameMap[post.category]}]` : ''}</p>
+                        <p dangerouslySetInnerHTML={ {__html: highlightText(post.title, search, 'title')} }></p>
+                    </div>
                 </Link>
                 <div>{post.deadline} 종료</div>
                 <div>{post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여</div>
@@ -118,7 +154,7 @@ function PostCard({post, bname}) {
                 </table>
             </section>
             <section className={styles.content_wrap}>
-                <p>{post.content}</p>
+                <p dangerouslySetInnerHTML={ {__html: highlightText(post.content, search, 'content')} }></p>
             </section>
             <section className={styles.postInfo_wrap}>
                 <ul>
