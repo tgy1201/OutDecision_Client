@@ -82,7 +82,7 @@ function PostCard({post, bname}) {
             `<span class="highlight">${matchedText}</span>`
             ));
         } else {
-            highlightedText = `<span>${text}</span>`
+            return text;
         }
       
         return highlightedText;
@@ -119,7 +119,7 @@ function PostCard({post, bname}) {
                                         } 
                                     </div>
                                     <p className={option.imgUrl? `${styles.text}`: `${styles.text2}`}>
-                                        {option.body}
+                                        <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
                                     </p>
                                     <span className={styles.percent}>{option.votePercentage}%</span>
                                 </td>
@@ -129,7 +129,7 @@ function PostCard({post, bname}) {
                                         <div className={styles.option_img}>
                                             <img src={option.imgUrl} alt="옵션" /> 
                                         </div>} 
-                                        <p>{option.body}</p>
+                                        <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
                                     </div>
                                 </td>
                             }

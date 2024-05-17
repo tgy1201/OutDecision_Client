@@ -3,7 +3,7 @@ import styles from './postList.module.css'
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const boardNameMap = {
     all: '전체',
@@ -28,7 +28,11 @@ function PostList ({post, bname}) {
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [scrollPosition, setScrollPosition] = useState('left-border');
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
-  
+
+    const [searchParams] = useSearchParams();
+    const search = searchParams.get('search'); // 검색어
+    const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
+
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
             if (selectedOptions.includes(index)) {
@@ -66,12 +70,44 @@ function PostList ({post, bname}) {
         console.log(selectedOptions, post.postId)
     }
     
+    const highlightText = (text, searchTerm, type) => {
+        if (!text || !searchTerm) return text;
+      
+        let highlightedText = '';
+
+        if (searchType === 'all') {
+            // 기본값 (전체 하이라이트)
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else {
+            return text;
+        }
+      
+        return highlightedText;
+    };
+
     return (
         <div className={styles.container}>
             <section className={styles.title_wrap}>
                 <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
                 <Link to={bname ? `/board/${bname}/view/${post.postId}` : `/board/${post.category}/view/${post.postId}`}>
-                    <p>[{boardNameMap[post.category]}] {post.title}</p>
+                    <div style={{display: "flex", gap: '5px'}}>
+                        <p>{!bname || bname === 'hot' || bname === 'all' ? `[${boardNameMap[post.category]}]` : ''}</p>
+                        <p dangerouslySetInnerHTML={ {__html: highlightText(post.title, search, 'title')} }></p>
+                    </div>
                 </Link>
             </section>
             <section className={styles.voteInfo_wrap}>   
@@ -92,8 +128,10 @@ function PostList ({post, bname}) {
                                         <img src={option.imgUrl} alt="옵션" />
                                     </div>
                                     } 
-                                    <div className={styles.result_percent_wrap}>
-                                        <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>{option.body}</p>
+                                    <div className={styles.result_percent_wrap}>    
+                                        <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>
+                                            <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
+                                        </p>
                                         <span className={styles.percent}>{option.votePercentage}%</span>
                                     </div>
                                     <div className={styles.result} style={{height: `${option.votePercentage}%`, transition: 'height 0.5s ease'}}/>
@@ -105,7 +143,9 @@ function PostList ({post, bname}) {
                                     </div>
                                     }
                                     <div className={styles.option_percent_wrap}>
-                                        <p className={option.imgUrl ? `${styles.imgText}` : `${styles.text}`}>{option.body}</p>
+                                        <p className={option.imgUrl ? `${styles.imgText}` : `${styles.text}`}>
+                                            <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
+                                        </p>
                                     </div>
                                 </div>
                                 }
@@ -129,7 +169,7 @@ function PostList ({post, bname}) {
                 </div>
             </section>
             <section className={styles.content_wrap}>
-                <p>{post.content}</p>
+                <p dangerouslySetInnerHTML={ {__html: highlightText(post.content, search, 'content')} }></p>
             </section>
             <section className={styles.postInfo_wrap}>
                 <ul>

@@ -6,7 +6,7 @@
 
 .title_wrap {
     display: flex;
-    gap: 0 10px;
+    gap: 0 5px;
 }
 .title_wrap > div{
     padding: 3px 6px;
@@ -24,7 +24,7 @@
     -webkit-box-orient: vertical;
 }
 
-.title_wrap p:hover {
+.title_wrap p:nth-child(2):hover {
     text-decoration-line: underline;
 }
 

@@ -10,7 +10,7 @@
     color: white;
 }
 
-.title_wrap p:hover {
+.title_wrap p:nth-child(2):hover {
     text-decoration-line: underline;
 }
 
