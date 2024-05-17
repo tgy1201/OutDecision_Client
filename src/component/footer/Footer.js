@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./footer.module.css"
+import { Link } from "react-router-dom";
 
 function Footer () {
     return (
@@ -15,8 +16,8 @@ function Footer () {
                         <li>Copyrightⓒ2024 OutDecision, All rights reserved.</li>
                     </ul>
                     <ul>
-                        <li>Our service</li>
-                        <li>Our Team</li>
+                        <li><Link to="/Ourteam">Our service</Link></li>
+                        <li><Link to="/Ourteam">Our Team</Link></li>
                         <li>
                             <div style={{width: "30px"}}>
                                 <img src="/assets/images/youtube.png" alt="화이트로고" />
