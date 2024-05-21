@@ -65,8 +65,8 @@ function Board ({setCategory}) {
         const handlefetchPosts = async (bname) => {
             try {
                 const url = bname === 'all'
-                    ? 'http://175.45.202.225:8080/posts'
-                    : `http://175.45.202.225:8080/posts/${bname}`;
+                    ? 'https://api.outdecision.com/posts'
+                    : `https://api.outdecision.com/posts/${bname}`;
             
                 const response = await axios.get(url, {
                     params: {
