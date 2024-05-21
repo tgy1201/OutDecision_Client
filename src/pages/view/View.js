@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './view.module.css';
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Comment from "../../component/comment/Comment";
 
@@ -18,26 +18,40 @@ const boardNameMap = {
     hobby: '취미',
     work: '취업',
     travel: '여행',
-    etc: '기타',
+    other: '기타',
 };
 
+const filterMap = {
+    female: '여성',
+    male: '남성',
+    progress: '투표중',
+    end: '투표종료'
+}
+
 function View({setCategory}) {
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get('page'); // 댓글페이지번호
+
     const {bname, postId} = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
-  
+
     const handleOptionChange = (index) => {
-      if (post.multiple) {
-        if (selectedOptions.includes(index)) {
-          setSelectedOptions(selectedOptions.filter((o) => o !== index));
+        if (post.multiple) {
+            if (selectedOptions.includes(index)) {
+            setSelectedOptions(selectedOptions.filter((o) => o !== index));
+            } else {
+            setSelectedOptions([...selectedOptions, index]);
+            }
         } else {
-          setSelectedOptions([...selectedOptions, index]);
+            if (selectedOptions.includes(index)) {
+                setSelectedOptions([]); //선택한 옵션을 한번 더 클릭할 경우 선택 취소
+            } else {
+                setSelectedOptions([index]);
+            }
         }
-      } else {
-        setSelectedOptions([index]);
-      }
     };
 
     const handleVoteSubmit = () => {
@@ -45,20 +59,21 @@ function View({setCategory}) {
             alert("투표옵션을 선택해주세요");
             return;
         }
-        console.log(selectedOptions, post.id)
+        console.log(selectedOptions, postId)
     }
     
     useEffect(() => {
         const fetchPost = async () => {
           try {
-            const postresponse = await axios.get("/assets/data/posts.json");
-            const postData = postresponse.data.posts.find(post=>post.id === parseInt(postId));
+            const response = await axios.get(`http://175.45.202.225:8080/post/${postId}`, {
+                params: {
+                  postId: postId,
+                },
+            });
 
-            const commentsResponse = await axios.get("/assets/data/comments.json");
-            const commentsData = commentsResponse.data.comments.filter(comment=>comment.postId === parseInt(postId))
-
-            setPost(postData);
-            setComments(commentsData);
+            setPost(response.data.result);
+            setComments(response.data.result.commentsList.commentsDTOList);
+            console.log(response.data);
           } catch (error) {
             console.error(error);
           }
@@ -84,19 +99,19 @@ function View({setCategory}) {
                                 <img src={post.profile} alt="프로필"/>
                             </div>
                             <div className={styles.user_wrap}>
-                                <p>{post.user}</p>
-                                <p>{post.date}</p>
+                                <p>{post.nickname}</p>
+                                <p>{post.createdAt}</p>
                             </div>
                             <ul>
-                                <li style={{color: "#b00000"}}><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.like}</div></li>
-                                <li style={{color: "#412ed1"}}><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.comment}</div></li> 
-                                <li style={{color: "5a5a5a"}}><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.view}</div></li>
+                                <li style={{color: "#b00000"}}><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.likesCnt}</div></li>
+                                <li style={{color: "#412ed1"}}><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{comments.length}</div></li> 
+                                <li style={{color: "5a5a5a"}}><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.views}</div></li>
                             </ul>
                         </section>
                         <section className={styles.voteInfo_wrap}>
                             <div className={styles.voteInfo}>
                                 <section className={styles.state_wrap}>
-                                    <div style={{backgroundColor: post.state === '투표중'? "#ac2323" : "gray"}}>{post.state}</div>
+                                    <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
                                 </section>
                                 <section className={styles.voteTitle_wrap}>
                                     <p>Q. {post.title}</p>
@@ -104,32 +119,32 @@ function View({setCategory}) {
                                 </section>
                                 <section className={styles.vote_wrap}>                          
                                     <div>단일 선택</div>
-                                    <div><FaUser style={{verticalAlign: "middle", marginRight: "5px"}}/><span style={{color: "#ac2323", fontWeight: "600"}}>{post.votes}</span> 명 참여</div>
+                                    <div><FaUser style={{verticalAlign: "middle", marginRight: "5px"}}/><span style={{color: "#ac2323", fontWeight: "600"}}>{post.participationCnt}</span> 명 참여</div>
                                     <table className={styles.vote_table}>
                                         <tbody>
-                                        {Object.values(post.option).map((option, idx)=>    
+                                        {Object.values(post.optionsList).map((option, idx)=>    
                                             <tr key={idx}>
-                                                {isOpenResult || post.state==="투표종료" || post.voted ?
+                                                {isOpenResult || filterMap[post.status] ==="투표종료" || post.voted ?
                                                     <td style={{border: "1px solid gray"}}>
-                                                        <div className={styles.result_wrap} style={{width: `${option.percent}%`}}>
-                                                            {option.img !== '' && 
-                                                            <div className={styles.option_img}>
-                                                                <img src={option.img} alt="옵션" />
+                                                        <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`}}>
+                                                            {option.imgUrl !== '' && 
+                                                            <div className={styles.option_img} style={{marginLeft: '8px'}}>
+                                                                <img src={option.imgUrl} alt="옵션" />
                                                             </div>
                                                             } 
                                                         </div>
-                                                        <p className={option.img? `${styles.text}`: `${styles.text2}`}>
-                                                            {option.text}
+                                                        <p className={option.imgUrl? `${styles.text}`: `${styles.text2}`}>
+                                                            {option.body}
                                                         </p>
-                                                        <span className={styles.percent}>{option.percent}%</span>
+                                                        <span className={styles.percent}>{option.votePercentage}%</span>
                                                     </td>
                                                 :   <td className={selectedOptions.includes(idx) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(idx)}>
                                                         <div className={styles.option_wrap} >
-                                                            {option.img !== '' && 
+                                                            {option.imgUrl !== '' && 
                                                             <div className={styles.option_img}>
-                                                                <img src={option.img} alt="옵션" /> 
+                                                                <img src={option.imgUrl} alt="옵션" /> 
                                                             </div>} 
-                                                            <p>{option.text}</p>
+                                                            <p>{option.body}</p>
                                                         </div>
                                                     </td>
                                                 }
@@ -138,7 +153,7 @@ function View({setCategory}) {
                                         </tbody>
                                     </table>
                                     <div className={styles.resultBtn_wrap}>
-                                        {post.state === "투표종료" ?
+                                        {filterMap[post.status] === "투표종료" ?
                                             <div>이미 종료된 투표입니다.</div>
                                         : post.voted?
                                             <div>이미 완료한 투표입니다.</div>
@@ -156,11 +171,11 @@ function View({setCategory}) {
                                 {post.content}
                             </section>
                             <section className={styles.like_wrap}>
-                                <button>♥ 좋아요 {post.like}</button>
+                                <button>♥ 좋아요 {post.likesCnt}</button>
                             </section>
                         </section>
                     </div>
-                    <Comment comments={comments} />
+                    <Comment comments={comments} setComments={setComments} postId={postId} page={page}/>
                 </div>
             ) : (
                 <p>로딩 중...</p>

@@ -18,6 +18,7 @@ import { MdWorkHistory } from "react-icons/md"; //취업
 import { IoGameController } from "react-icons/io5"; //취미
 import { MdFavorite } from "react-icons/md"; // 연애
 import { CgMoreO } from "react-icons/cg"; //etc
+import axios from "axios";
 
 function Write () {
     const isMobile = useMediaQuery({
@@ -32,13 +33,16 @@ function Write () {
     const minutes = now.getMinutes();
     const [startDate, setStartDate] = useState(now);
     const [selectedHours, setSelectedHours] = useState(hours);
-    const [selectedMinutes, setSelectedMinutes] = useState(minutes);
+    const [selectedMinutes, setSelectedMinutes] = useState(0);
 
-    const [options, setOptions] = useState([{ text: "", image: "" },{ text: "", image: "" }]);
+    const [options, setOptions] = useState([{ text: "", imageURL: "", image: null },{ text: "", imageURL: "", image: null }]);
 
-    const [isToggleChecked, setIsToggleChecked] = useState(false);
-    const [selectedGender, setSelectedGender] = useState('');
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [isToggleChecked, setIsToggleChecked] = useState(false);
+    const [selectedGender, setSelectedGender] = useState('all');
+
 
     const [scrollPosition, setScrollPosition] = useState('left-border');
 
@@ -54,7 +58,14 @@ function Write () {
             setScrollPosition("middle");
         }
     };
-   
+
+    const handleTitleChange = (newValue) => {
+        setTitle(newValue);
+    }
+
+    const handleContentChange = (newValue) => {
+        setContent(newValue);
+    }
 
     const handleHoursChange = (newValue) => {
 
@@ -113,12 +124,13 @@ function Write () {
 
     const handleImageUpload = (e, optionIdx) => {
         const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
         const updatedOptions = [...options];
+        updatedOptions[optionIdx].image = e.target.files[0];
+        reader.readAsDataURL(e.target.files[0]);
 
         return new Promise((resolve) => {
             reader.onload = () => {
-                updatedOptions[optionIdx].image = reader.result;
+                updatedOptions[optionIdx].imageURL = reader.result;
                 setOptions(updatedOptions);
                 resolve();
             };
@@ -127,7 +139,7 @@ function Write () {
 
     const handleIncrease = () => {
         if (options.length < 10) {
-            setOptions(existingOptions => [...existingOptions, { text: "", image: "" }]);
+            setOptions(existingOptions => [...existingOptions, { text: "", imageURL: "", image: null }]);
           } else {
             alert('최대 옵션 개수는 10개입니다.');
           }
@@ -140,6 +152,54 @@ function Write () {
             alert('최소 옵션 개수는 2개입니다.');
           }
     };
+
+    const handlePostUpload = async (e) => {
+        e.preventDefault();
+
+        const textList = options.map((option) => option.text);
+        const imageFileList = options.map((option) => option.image);
+
+        const formmatedDate = `${startDate.getFullYear()}.${startDate.getMonth() + 1}.${startDate.getDate()} ${selectedHours > 9 ? selectedHours : '0'+selectedHours}:${selectedMinutes !== 0 ? selectedMinutes : '00'}`
+        
+        const data = {
+            title: title,
+            content: content,
+            category: selectedCategory,
+            gender: selectedGender,
+            pluralVoting: isToggleChecked,
+            deadline: formmatedDate
+        }
+
+        const formData = new FormData();
+        const blob = new Blob([JSON.stringify(data)], {
+            type: 'application/json',
+        });
+
+        formData.append('request', blob);
+ 
+        const blob2 = new Blob([JSON.stringify(textList)], { type: 'application/json' });
+        formData.append('optionNames', blob2);
+
+        const emptyFile = new Blob([], { type: 'application/octet-stream' });
+        imageFileList.forEach((imageFile) => {
+            if (imageFile !== null) {
+              formData.append('optionImages', imageFile);
+            } else {
+              formData.append('optionImages', emptyFile);
+            }
+        });
+
+        try {
+            const response = await axios.post('http://175.45.202.225:8080/post', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className={styles.container}>
@@ -174,7 +234,7 @@ function Write () {
                                                 <span><ImAirplane className={styles.icon}/></span>
                                                 <span>여행</span>
                                             </label>
-                                            <label onClick={()=>handleCategoryChange('job')} className={selectedCategory==='job'? `${styles.category}`: `${styles.category_none}`}>
+                                            <label onClick={()=>handleCategoryChange('work')} className={selectedCategory==='work'? `${styles.category}`: `${styles.category_none}`}>
                                                 <span><MdWorkHistory className={styles.icon}/></span>
                                                 <span>취업</span>
                                             </label>
@@ -186,7 +246,7 @@ function Write () {
                                                 <span><MdFavorite className={styles.icon}/></span>
                                                 <span>연애</span>
                                             </label>
-                                            <label onClick={()=>handleCategoryChange('etc')} className={selectedCategory==='etc'? `${styles.category}`: `${styles.category_none}`}>
+                                            <label onClick={()=>handleCategoryChange('other')} className={selectedCategory==='other'? `${styles.category}`: `${styles.category_none}`}>
                                                 <span><CgMoreO className={styles.icon}/></span>
                                                 <span>기타</span>
                                             </label>
@@ -197,7 +257,7 @@ function Write () {
                         </tr>
                         <tr>
                             <td>투표 제목</td>
-                            <td><input className={styles.vote_title} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={12}/><div className={styles.limit}>0 / 12</div></td>
+                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={12}/><div className={styles.limit}>0 / 12</div></td>
                         </tr>
                         <tr>
                             <td>투표 항목</td>
@@ -208,13 +268,13 @@ function Write () {
                                         <div key={index} className={styles.option_wrap}>
                                             <div className={styles.options}>
                                                 <input type="text" value={options[index].text} onChange={(e) => handleTextUpload(e, index)} placeholder={`보기 ${index + 1}`} maxLength={15}/>
-                                                <div class={styles.filebox}>
-                                                    <label for={`file-${index}`}><LuImagePlus className={styles.image_icon}/></label>
+                                                <div className={styles.filebox}>
+                                                    <label htmlFor={`file-${index}`}><LuImagePlus className={styles.image_icon}/></label>
                                                     <input id={`file-${index}`} type="file" onChange={(e) => handleImageUpload(e, index)} accept=".png,.jpg" />
                                                 </div>
                                                 <button className={styles.delete_btn} onClick={() => handleRemoveOption(index)}><ImCancelCircle className={styles.delete_icon}/></button>
                                             </div>
-                                            {options[index].image && <div className={styles.preview}><img src={options[index].image} alt="preview-img" /></div>}
+                                            {options[index].imageURL && <div className={styles.preview}><img src={options[index].imageURL} alt="preview-img" /></div>}
                                         </div>
                                     ))}
                                     <div className={styles.add_wrap}><button onClick={handleIncrease}><GoPlus className={styles.plus_icon}/>항목 추가</button></div>
@@ -226,7 +286,7 @@ function Write () {
                             <td>
                                 <div className={styles.mobile_content}>
                                     {isMobile && <span>설명</span>}
-                                    <textarea className={styles.vote_content} placeholder="작성한 투표에 대해 부가적인 설명을 적어주세요" maxLength={70}/><div className={styles.limit}>0 / 100</div>
+                                    <textarea className={styles.vote_content} value={content} onChange={(e)=>handleContentChange(e.target.value)}placeholder="작성한 투표에 대해 부가적인 설명을 적어주세요" maxLength={70}/><div className={styles.limit}>0 / 100</div>
                                 </div>
                             </td>
                         </tr>
@@ -280,7 +340,7 @@ function Write () {
                                     {isMobile && <span>대상 성별</span>}
                                     <div className={styles.gender}>
                                         <label>
-                                            <input type="radio" value="" checked={selectedGender === ''} onChange={handleGenderChange}/>
+                                            <input type="radio" value="all" checked={selectedGender === 'all'} onChange={handleGenderChange}/>
                                             <span>전체</span>
                                         </label>
                                         <label>
@@ -299,7 +359,7 @@ function Write () {
                 </table>
                 <div className={styles.submit_wrap}>
                     <button>취소</button>
-                    <button>등록</button>
+                    <button onClick={handlePostUpload}>등록</button>
                 </div>
             </section>
         </div>

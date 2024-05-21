@@ -1,40 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+import React from 'react';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import styles from './recommed.module.css';
 
 // import required modules
-import { Pagination } from 'swiper/modules';
+import { FreeMode, Pagination } from 'swiper/modules';
 import PostCard from '../postCard/PostCard';
 
 import { GrPowerReset } from "react-icons/gr";
-import axios from 'axios';
 
-
-function Recommend () {
-    const isMobile = useMediaQuery({
-        query: "(max-width: 767px)"
-    });
-    const [posts, setPosts] = useState([]); // 서버에서 받아온 데이터 저장
-
-    useEffect(() => {
-        handleClick(); // 컴포넌트 마운트 시 자동으로 데이터 요청
-    }, []);
-
-    const handleClick = async () => {
-        try {
-            const response = await axios.get("/assets/data/posts.json");
-            setPosts(response.data.posts);
-        } catch (error) {
-            console.log(error)
-        } 
-    };
+function Recommend ({posts, handleClick}) {
 
     return (
         <>
@@ -45,21 +26,33 @@ function Recommend () {
             </div>
             <Swiper
             slidesPerView={'auto'}
-            centeredSlides={isMobile? true : false}
+            centeredSlides={true}
             spaceBetween={30}
+            slidesOffsetAfter={20}
             pagination={{
                 clickable: true,
                 dynamicBullets: true,
             }}
-            modules={[Pagination]}
+            modules={[FreeMode, Pagination]}
             className={styles.myswiper}
+            breakpoints={{
+                768:{
+                    slidesOffsetBefore: 20,
+                    centeredSlides: false,
+                    freeMode: true
+                }
+            }}
             >
-            {posts.map((post, idx)=>
+            {posts.length > 0 ? (
+            posts.map((post, idx)=>
                 (
                     <SwiperSlide key={idx} className={styles.post_wrap}>
                         <PostCard post={post} />
                     </SwiperSlide>
-                ))}
+                ))
+            )
+            :<>Loading...</>
+            }
             </Swiper>
         </>
     );

@@ -21,7 +21,7 @@
     height: 50px;
     position: relative;
     border-radius: 50%;
-    border: 1px solid 5a5a5a;
+    border: 1px solid #5a5a5a;
 }
 
 .profile_wrap img {
@@ -141,24 +141,18 @@
 
 .selected {
     outline: 2px solid #ac2323;
-    outline-offset: -2px;
+    outline-offset: -1px;
     border: 1px solid #ac2323;
 }
 
 .unselected {
     border: 1px solid #5a5a5a;
 }
-.unselected:hover {
-    outline: 2px solid #ac2323;
-    outline-offset: -2px;
-    border: 1px solid #ac2323;
-}
 
 .result_wrap {
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 8px;
     border-radius: 8px;
     background-color: #cecece;
 }
@@ -304,6 +298,10 @@
 }
 
 @media (min-width: 1080px) {
+    .option_wrap:hover {
+        background-color: #fceeee;
+    }
+    
     .view_wrap {
         max-width: 1000px;
         margin: 0 auto;

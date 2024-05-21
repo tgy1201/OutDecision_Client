@@ -18,8 +18,10 @@ import Ranking from './pages/ranking/Ranking';
 import SocialSignup from './pages/signup/SocialSignup';
 import SignupSuccess from './pages/signupSuccess/SignupSuccess';
 import FloatingBanner from './component/floatingBanner/FloatingBanner';
+import Ourteam from './pages/ourteam/Ourteam';
 import Write from './pages/write/Write';
 import View from './pages/view/View';
+import Mypost from './pages/mypost/Mypost';
 
 function App() {
   const [category, setCategory] = useState('');
@@ -34,17 +36,20 @@ function App() {
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/signup/social" element={<SocialSignup />}></Route>
           <Route path="/signup/success" element={<SignupSuccess />}></Route>
-          <Route path='/mypage' element={<Mypage />}></Route>
           <Route path="/mypage" element={<Mypage />}></Route>
           <Route path="/mypage/edit" element={<Infoedit />}></Route>
           <Route path="/mypage/posting" element={<Mypost />}></Route>
           <Route path="/mypage/comment" element={<Mycomment />}></Route>
           <Route path="/mypage/liked" element={<Myliked />}></Route>
           <Route path="/mypage/mytitle" element={<Mytitle />}></Route>
+          <Route path='/mypage/posting' element={<Mypost active={3}/>}></Route>
+          <Route path='/mypage/vote' element={<Mypost active={4}/>}></Route>
+          <Route path='/mypage/liked' element={<Mypost active={5}/>}></Route>
           <Route path="/write" element={<Write />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory} />}></Route>
           <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>
           <Route path="/ranking" element={<Ranking />}></Route>
+          <Route path="/ourteam" element={<Ourteam />}></Route>
         </Routes>
       </div>
       <Footer />

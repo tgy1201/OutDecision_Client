@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styles from './postCard.module.css';
+import { Link, useSearchParams } from "react-router-dom";
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
+// import { GoBell } from "react-icons/go";
+import { GoBellFill } from "react-icons/go";
 
 const boardNameMap = {
     all: '전체',
@@ -14,24 +16,39 @@ const boardNameMap = {
     hobby: '취미',
     work: '취업',
     travel: '여행',
-    etc: '기타',
+    other: '기타',
 };
+
+const filterMap = {
+    female: '여성',
+    male: '남성',
+    progress: '투표중',
+    end: '투표종료'
+}
 
 function PostCard({post, bname}) {
     /*포스트 고유넘버를 서버에 보내서 로그인 한 유저가 해당 포스트에 (1) 투표를 했는지, (2) 했다면 몇번에 투표했는지 받기*/
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
+
+    const [searchParams] = useSearchParams();
+    const search = searchParams.get('search'); // 검색어
+    const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
   
     const handleOptionChange = (index) => {
-      if (post.multiple) {
-        if (selectedOptions.includes(index)) {
-          setSelectedOptions(selectedOptions.filter((o) => o !== index));
+        if (post.pluralVoting) {
+            if (selectedOptions.includes(index)) {
+            setSelectedOptions(selectedOptions.filter((o) => o !== index));
+            } else {
+            setSelectedOptions([...selectedOptions, index]);
+            }
         } else {
-          setSelectedOptions([...selectedOptions, index]);
+            if (selectedOptions.includes(index)) {
+                setSelectedOptions([]); //선택한 옵션을 한번 더 클릭할 경우 선택 취소
+            } else {
+                setSelectedOptions([index]);
+            }
         }
-      } else {
-        setSelectedOptions([index]);
-      }
     };
 
     const handleVoteSubmit = () => {
@@ -39,47 +56,80 @@ function PostCard({post, bname}) {
             alert("투표옵션을 선택해주세요");
             return;
         }
-        console.log(selectedOptions, post.id)
+        console.log(selectedOptions, post.postId)
     }
+
+    const highlightText = (text, searchTerm, type) => {
+        if (!text || !searchTerm) return text;
+      
+        let highlightedText = '';
+
+        if (searchType === 'all') {
+            // 기본값 (전체 하이라이트)
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else if (searchType === type) {
+            highlightedText = text.replace(new RegExp(searchTerm, 'gi'), (matchedText) => (
+            `<span class="highlight">${matchedText}</span>`
+            ));
+        } else {
+            return text;
+        }
+      
+        return highlightedText;
+    };
 
     return(
         <>
+            <GoBellFill style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
             <section className={styles.state_wrap}>
-                <div style={{backgroundColor: post.state === '투표중'? "#ac2323" : "gray"}}>{post.state}</div>
+                <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
             </section>
             <section className={styles.title_wrap}>
-                <Link to={bname ? `/board/${bname}/view/${post.id}` : `/board/${post.category}/view/${post.id}`}>
-                    <p>{!bname || bname === 'hot' || bname === 'all' ? `[${boardNameMap[post.category]}]` : ''}{post.title}</p>
+                <Link to={bname ? `/board/${bname}/view/${post.postId}` : `/board/${post.category}/view/${post.postId}`}>
+                    <div style={{display: "flex", gap: '5px'}}>
+                        <p>{!bname || bname === 'hot' || bname === 'all' ? `[${boardNameMap[post.category]}]` : ''}</p>
+                        <p dangerouslySetInnerHTML={ {__html: highlightText(post.title, search, 'title')} }></p>
+                    </div>
                 </Link>
                 <div>{post.deadline} 종료</div>
-                <div>단일 선택 • <span style={{color: "#ac2323"}}>{post.votes}</span> 명 참여</div>
+                <div>{post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여</div>
             </section>
             <section className={styles.vote_wrap}>
                 <table className={styles.vote_table}>
                     <tbody>
-                    {Object.values(post.option).map((option, idx)=>    
+                    {Object.values(post.optionsList).map((option, idx)=>    
                         <tr key={idx}>
-                            {isOpenResult || post.state==="투표종료" || post.voted ?
+                            {isOpenResult || filterMap[post.status] ==="투표종료" || post.voted ?
                                 <td style={{border: "1px solid gray"}}>
-                                    <div className={styles.result_wrap} style={{width: `${option.percent}%`}}>
-                                        {option.img !== '' && 
-                                        <div className={styles.option_img}>
-                                            <img src={option.img} alt="옵션" />
+                                    <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`}}>
+                                        {option.imgUrl !== '' && 
+                                        <div className={styles.option_img} style={{marginLeft: "8px"}}>
+                                            <img src={option.imgUrl} alt="옵션" />
                                         </div>
                                         } 
                                     </div>
-                                    <p className={option.img? `${styles.text}`: `${styles.text2}`}>
-                                        {option.text}
+                                    <p className={option.imgUrl? `${styles.text}`: `${styles.text2}`}>
+                                        <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
                                     </p>
-                                    <span className={styles.percent}>{option.percent}%</span>
+                                    <span className={styles.percent}>{option.votePercentage}%</span>
                                 </td>
                             :   <td className={selectedOptions.includes(idx) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(idx)}>
                                     <div className={styles.option_wrap} >
-                                        {option.img !== '' && 
+                                        {option.imgUrl !== '' && 
                                         <div className={styles.option_img}>
-                                            <img src={option.img} alt="옵션" /> 
+                                            <img src={option.imgUrl} alt="옵션" /> 
                                         </div>} 
-                                        <p>{option.text}</p>
+                                        <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
                                     </div>
                                 </td>
                             }
@@ -88,7 +138,7 @@ function PostCard({post, bname}) {
                     </tbody>
                     <tfoot>
                         <tr>
-                            {post.state === "투표종료" ?
+                            {filterMap[post.status] === "투표종료" ?
                                 <td><div>이미 종료된 투표입니다.</div></td>
                             : post.voted?
                                 <td><div>이미 완료한 투표입니다.</div></td> 
@@ -104,15 +154,15 @@ function PostCard({post, bname}) {
                 </table>
             </section>
             <section className={styles.content_wrap}>
-                <p>{post.content}</p>
+                <p dangerouslySetInnerHTML={ {__html: highlightText(post.content, search, 'content')} }></p>
             </section>
             <section className={styles.postInfo_wrap}>
                 <ul>
-                    <li>{post.user}</li>
-                    <li>{post.date}</li>
-                    <li><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.like}</div></li>
-                    <li><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.comment}</div></li> 
-                    <li><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.view}</div></li>
+                    <li>{post.nickname}</li>
+                    <li>{post.bumpsTime}</li>
+                    <li><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.likesCnt}</div></li>
+                    <li><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.commentsCnt}</div></li> 
+                    <li><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.views}</div></li>
                 </ul>
             </section>
         </>

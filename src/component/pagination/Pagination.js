@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from './pagination.module.css'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa6";
 import { FaAngleLeft } from "react-icons/fa6";
 
 function Pagination ({postsNum, postsPerPage, currentPage, pageCount }) {
     const navigate = useNavigate();
-    const url = new URL(window.location);
-    const searchParams = new URLSearchParams(url.search);
+    const [searchParams] = useSearchParams();
 
     const handlePageParams = (page) => {
+        /* 페이지 매개변수는 현재 쿼리 문자열에 붙임 */
         searchParams.set('page', page);
         navigate(`?${searchParams.toString()}`)
     }
@@ -31,7 +31,7 @@ function Pagination ({postsNum, postsPerPage, currentPage, pageCount }) {
     return (
         <nav className={styles.pagination_wrap}>
             <ul>
-                <li className={prev && styles.invisible}>
+                <li className={prev ? styles.invisible : ''}>
                 <button onClick={() => handlePageParams(start-1)}><FaAngleLeft style={{verticalAlign: "middle"}}/></button>
                 </li>
                 {[...Array(Math.max(0,pagesPerPage))].map((a, i) => (
@@ -41,7 +41,7 @@ function Pagination ({postsNum, postsPerPage, currentPage, pageCount }) {
                             </button>
                         </li>
                 ))}
-                <li className={next && styles.invisible}>
+                <li className={next ? styles.invisible : ''}>
                 <button onClick={() => handlePageParams(start+pageCount)}><FaAngleRight style={{verticalAlign: "middle"}}/></button>
                 </li>
             </ul>

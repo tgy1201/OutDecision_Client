@@ -8,15 +8,18 @@
             "option" : {
                 "1번" : {
                     "img" : "/assets/images/background.png",
-                    "text" : "도쿄" 
+                    "text" : "도쿄" ,
+                    "percent" : 48
                 },
                 "2번" : {
                     "img" : "",
-                    "text" : "오사카" 
+                    "text" : "오사카" ,
+                    "percent" : 22
                 },
                 "3번" : {
                     "img" : "",
-                    "text" : "후쿠오카" 
+                    "text" : "후쿠오카" ,
+                    "percent" : 30
                 }
                 
             },
@@ -62,7 +65,7 @@
         ,
         {
             "id" : 3,
-            "state" : "투표중",
+            "state" : "투표종료",
             "category" : "fashion",
             "title" : "무슨 백팩이 더 나아?",
             "option" : {

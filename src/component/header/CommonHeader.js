@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styles from './header.module.css';
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MobileMenu from "../mobileMenu/MobileMenu";
 
 function CommonHeader ({children}) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const path = location.pathname.split('?')[0]; //쿼리스트링을 제외한 주소 추출
+
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
+    const [searchText, setSearchText]= useState('');
 
     /* 스크롤 시 헤더 높이 감소를 위한 감지 이벤트 */
     useEffect(() => {
@@ -27,19 +32,26 @@ function CommonHeader ({children}) {
         setIsSidebarOpen(!isSidebarOpen);
     }
 
-    /* 연동 테스트 */
-    const [test, setTest]= useState('');
-
-    const handleTest = (e) => {
-        const newValue = e.target.value;
-        setTest(newValue);
-        console.log(test);
+    const handleChangeSearch = (e) => {
+        setSearchText(e.target.value);
     }
+
+    const handleSearchKeyword = () => {
+        if(searchText) {
+            navigate(`/board/all?search=${searchText}&searchType=all`);
+        } else {
+            alert('검색어를 입력하세요');
+        }
+    }
+
+    useEffect(()=> {
+        setSearchText('');
+    }, [path]);
 
     return (
         <>
         {/* 스크롤이 160px(헤더높이) 이상 내려가면 헤더 높이 줄임 */}
-        <header className={scrollPosition > 160 && `${styles.scroll_header}`}>
+        <header className={scrollPosition > 160 ? `${styles.scroll_header}` : ''}>
             <div className={styles.pc_header}>
                 <div className={scrollPosition > 160 ? `${styles.scroll_topbar}` : `${styles.topbar}`}>
                     <ul>
@@ -62,7 +74,7 @@ function CommonHeader ({children}) {
                                     <li><Link to="/board/work">취업</Link></li>
                                     <li><Link to="/board/hobby">취미</Link></li>
                                     <li><Link to="/board/love">연애</Link></li>
-                                    <li><Link to="/board/etc">기타</Link></li>
+                                    <li><Link to="/board/other">기타</Link></li>
                                 </ul>
                             </li>
                             <li><Link to="/ranking">랭킹</Link></li>
@@ -81,8 +93,20 @@ function CommonHeader ({children}) {
                 <div className={styles.search_wrap} style={isSearchOpen ? {"display": "block"} : {"display" : "none"}}>
                     <div className={styles.search_area}>
                         <div className={styles.input_area}>
-                            <input className={styles.input} value={test} onChange={handleTest} type="text" maxLength={20} placeholder="검색어를 입력하세요" />
-                            <button><img src="/assets/images/search.png" alt="검색"/></button>
+                            <input 
+                                className={styles.input} 
+                                value={searchText} 
+                                onChange={handleChangeSearch} 
+                                type="text" 
+                                maxLength={20} 
+                                placeholder="검색어를 입력하세요"
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter') {
+                                      handleSearchKeyword();
+                                    }
+                                }}
+                            />
+                            <button onClick={handleSearchKeyword}><img src="/assets/images/search.png" alt="검색"/></button>
                         </div>
                     </div>
                 </div>
@@ -101,8 +125,19 @@ function CommonHeader ({children}) {
                 <div className={styles.search_wrap} style={isSearchOpen ? {"display": "block"} : {"display" : "none"}}>
                     <div className={styles.search_area}>
                         <div className={styles.input_area}>
-                            <input value={test} onChange={handleTest} type="text" maxLength={20} placeholder="Search"/>
-                            <button><img src="/assets/images/search.png" alt="검색"/></button>
+                            <input 
+                                value={searchText} 
+                                onChange={handleChangeSearch} 
+                                type="text" 
+                                maxLength={20} 
+                                placeholder="Search"
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter') {
+                                      handleSearchKeyword();
+                                    }
+                                }}
+                                />
+                            <button onClick={handleSearchKeyword}><img src="/assets/images/search.png" alt="검색"/></button>
                         </div>
                     </div>
                 </div>
