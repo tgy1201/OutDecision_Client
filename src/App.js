@@ -20,7 +20,7 @@ import Ourteam from './pages/ourteam/Ourteam';
 import Mypage from './pages/mypage/Mypage';
 import Infoedit from "./pages/infoedit/Infoedit";
 import Mypost from './pages/mypost/Mypost';
-import Mytitle from "./pages/mytitle/Mytitle";
+import Mytitle from './pages/mytitle/Mytitle';
 import Ranking from './pages/ranking/Ranking';
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
           <Route path='/mypage/posting' element={<Mypost active={3} />}></Route>
           <Route path='/mypage/vote' element={<Mypost active={4} />}></Route>
           <Route path='/mypage/liked' element={<Mypost active={5} />}></Route>
-          <Route path="/mypage/title" element={<Mytitle active={6} />}></Route>
+          <Route path='/mypage/mytitle' element={<Mytitle />}></Route>
           <Route path="/write" element={<Write />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory} />}></Route>
           <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>

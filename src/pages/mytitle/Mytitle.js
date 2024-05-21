@@ -20,24 +20,138 @@ function Mytitle() {
                 </section>
                 <section className={styles.content}>
                     <div className={styles.main}>
-                        <div className={styles.edit}>
-                            칭호미션 내용입니다
+                        <div className={styles.box}>
+                            <div className={styles.tswrapper}>
+                                <div className={styles.title}>
+                                    패셔니스타
+                                </div>
+                                <div className={styles.state}>
+                                    미획득
+                                </div>
+                            </div>
+                            <div className={styles.epwrapper}>
+                                <div className={styles.explain}>
+                                    '패션'게시판에서 인기글 10회
+                                </div>
+                                <div className={styles.progress}>
+                                    10/10
+                                </div>
+                            </div>
+                            <div className={styles.bar}></div>
                         </div>
                         <div className={styles.box}>
-                             <div className={styles.title}>
-                                패셔니스타
+                            <div className={styles.tswrapper}>
+                                <div className={styles.title}>
+                                    패셔니스타
+                                </div>
+                                <div className={styles.state}>
+                                    미획득
+                                </div>
                             </div>
-                            <div className={styles.state}>
-                                미획득
+                            <div className={styles.epwrapper}>
+                                <div className={styles.explain}>
+                                    '패션'게시판에서 인기글 10회
+                                </div>
+                                <div className={styles.progress}>
+                                    10/10
+                                </div>
                             </div>
-                            <div className={styles.explain}>
-                                '패션'게시판에서 인기글 10회
+                            <div className={styles.bar}></div>
+                        </div>
+                        <div className={styles.box}>
+                            <div className={styles.tswrapper}>
+                                <div className={styles.title}>
+                                    패셔니스타
+                                </div>
+                                <div className={styles.state}>
+                                    미획득
+                                </div>
                             </div>
-                            <div className={styles.progress}>
-                                1/10
+                            <div className={styles.epwrapper}>
+                                <div className={styles.explain}>
+                                    '패션'게시판에서 인기글 10회
+                                </div>
+                                <div className={styles.progress}>
+                                    10/10
+                                </div>
                             </div>
-
-
+                            <div className={styles.bar}></div>
+                        </div>
+                        <div className={styles.box}>
+                            <div className={styles.tswrapper}>
+                                <div className={styles.title}>
+                                    패셔니스타
+                                </div>
+                                <div className={styles.state}>
+                                    미획득
+                                </div>
+                            </div>
+                            <div className={styles.epwrapper}>
+                                <div className={styles.explain}>
+                                    '패션'게시판에서 인기글 10회
+                                </div>
+                                <div className={styles.progress}>
+                                    10/10
+                                </div>
+                            </div>
+                            <div className={styles.bar}></div>
+                        </div>
+                        <div className={styles.box}>
+                            <div className={styles.tswrapper}>
+                                <div className={styles.title}>
+                                    패셔니스타
+                                </div>
+                                <div className={styles.state}>
+                                    미획득
+                                </div>
+                            </div>
+                            <div className={styles.epwrapper}>
+                                <div className={styles.explain}>
+                                    '패션'게시판에서 인기글 10회
+                                </div>
+                                <div className={styles.progress}>
+                                    10/10
+                                </div>
+                            </div>
+                            <div className={styles.bar}></div>
+                        </div>
+                        <div className={styles.box}>
+                            <div className={styles.tswrapper}>
+                                <div className={styles.title}>
+                                    패셔니스타
+                                </div>
+                                <div className={styles.state}>
+                                    미획득
+                                </div>
+                            </div>
+                            <div className={styles.epwrapper}>
+                                <div className={styles.explain}>
+                                    '패션'게시판에서 인기글 10회
+                                </div>
+                                <div className={styles.progress}>
+                                    10/10
+                                </div>
+                            </div>
+                            <div className={styles.bar}></div>
+                        </div>
+                        <div className={styles.box}>
+                            <div className={styles.tswrapper}>
+                                <div className={styles.title}>
+                                    패셔니스타
+                                </div>
+                                <div className={styles.state}>
+                                    미획득
+                                </div>
+                            </div>
+                            <div className={styles.epwrapper}>
+                                <div className={styles.explain}>
+                                    '패션'게시판에서 인기글 10회
+                                </div>
+                                <div className={styles.progress}>
+                                    10/10
+                                </div>
+                            </div>
+                            <div className={styles.bar}></div>
                         </div>
                         <div className={styles.apply}>
                             칭호 적용

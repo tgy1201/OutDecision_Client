@@ -25,7 +25,6 @@ function MypageMenu({ active }) {
                     <div><Link to="/mypage/vote" className={active === 4 ? styles.active : ""}>투표한 글</Link></div>
                     <div><Link to="/mypage/liked" className={active === 5 ? styles.active : ""}>좋아요한 글</Link></div>
                     <div><Link to="/mypage/mytitle" className={active === 6 ? styles.active : ""}>칭호</Link></div>
-                    <div><Link to="/mypage/mytitle" className={active === 6 ? styles.active : ""}>칭호</Link></div>
                 </div>
             </div>
         </>

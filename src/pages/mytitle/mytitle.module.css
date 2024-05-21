@@ -62,23 +62,78 @@
         flex-direction: column;
     }
 
-    .edit {
-        font-size: 30px;
-        font-weight: 600;
-        color: #ac2323;
-        padding-left: 20px;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #ac2323;
-    }
-
     .box {
         width: 400px;
         height: 90px;
-        background-color: aqua;
         margin: auto;
         margin-top: 20px;
         border: 2px solid black;
         border-radius: 10px;
+        position: relative;
+    }
+
+    .tswrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #0026ff;
+        margin-left: 2%;
+        margin-top: 3px;
+    }
+
+    .state {
+        font-size: 16px;
+        color: #c70606;
+        margin-right: 2%;
+        margin-top: 5px;
+    }
+
+    .epwrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .explain {
+        font-size: 16px;
+        color: #333;
+        margin-left: 2%;
+    }
+
+    .progress {
+        font-size: 14px;
+        text-align: right;
+        margin-right: 2%;
+        margin-top: -5px;
+    }
+
+    .bar {
+        width: 95%;
+        height: 15px;
+        background-color: #ffffff;
+        margin-top: 5px;
+        border: 1.5px solid black;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bar::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #ffd400;
     }
 
     .apply {
@@ -96,19 +151,5 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-    }
-
-    .title {
-        font-size: 20px;
-        display: inline-block;
-    }
-
-    .state {
-        margin: right;
-        display: inline-block;
-    }
-
-    .explain {
-        font-size: 16px;
     }
 }
