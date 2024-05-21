@@ -10,19 +10,18 @@ import FloatingBanner from './component/floatingBanner/FloatingBanner';
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import SocialSignup from './pages/signup/SocialSignup';
+import SignupSuccess from './pages/signupSuccess/SignupSuccess';
 import Main from './pages/main/Main';
 import Board from './pages/board/Board';
+import Write from './pages/write/Write';
+import View from './pages/view/View';
+import Ourteam from './pages/ourteam/Ourteam';
 
 import Mypage from './pages/mypage/Mypage';
 import Infoedit from "./component/infoedit/Infoedit";
 import Mypost from './pages/mypost/Mypost';
 import Mytitle from "./component/mytitle/Mytitle";
 import Ranking from './pages/ranking/Ranking';
-
-import Write from './pages/write/Write';
-import View from './pages/view/View';
-import Ourteam from './pages/ourteam/Ourteam';
-
 
 function App() {
   const [category, setCategory] = useState('');
