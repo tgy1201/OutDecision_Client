@@ -1,0 +1,25 @@
+.post_wrap {
+    padding: 10px 15px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    min-height: 430px;
+    position: relative;
+    background: #fff;
+    max-width: 340px;
+    min-width: 300px;
+}
+
+.myswiper {
+    margin: 10px 0 25px 0;
+}
+
+@media (min-width: 1080px) {
+    .myswiper {
+        max-width: 1050px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow:visible;
+    }
+}

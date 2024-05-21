@@ -3,19 +3,39 @@
     height: auto;
 }
 
-@media (min-width: 1080px) {
-    .contents {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
+.post_header {
+    padding-left: 5px;
+}
 
+.post_header div {
+    font-size: 1.8rem;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.post_header div > a {
+    display: flex;
+    align-items: center;
+    line-height: 2.2rem;
+}
+
+.post_header > p {
+    font-size: 1.0rem;
+    color: #696969;
+}
+
+@media (min-width: 1080px) {
+    .container {
+        overflow-x: hidden;
+    }
     .mobile {
         display: none;
     }
 
     .category {
-        margin-top: 20px;
         padding: 10px 0 20px 0;
+        max-width: 1000px;
+        margin: 20px auto 0 auto;
     }
 
     .category_title {
@@ -23,15 +43,92 @@
         font-weight: 600;
         margin-bottom: 20px;
     }
+
+    .recommend {
+        margin-top: 20px;
+        padding: 20px 0 30px 0;
+        min-height: 420px;
+        background-color: #e9e9e9;
+    }
+
+    .hot {
+        padding: 10px 0 20px 0;
+        max-width: 1000px;
+        margin: 30px auto 0 auto;
+    }
+
+    .all {
+        padding: 10px 0 20px 0;
+        max-width: 1000px;
+        margin: 30px auto 0 auto;
+    }
+
+    .rank {
+        margin-top: 30px;
+    }
+    .rank_header {
+        padding: 10px 0;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .end {
+        margin-top: 35px;
+        margin-bottom: 50px;
+    }
+    .end_header {
+        padding: 10px 0;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 1079px) {
-    .contents {
-        padding: 5px auto;
+    .category {
+        padding: 5px 20px;
         position: relative;
     }
 
     .pc {
         display: none;
+    }
+
+    .recommend {
+        margin-top: 10px;
+        padding: 10px 0 30px 0;
+        background-color: #e9e9e9;
+    }
+
+    .hot {
+        margin-top: 20px;
+        padding: 5px 20px;
+        position: relative;
+    }
+
+    .all {
+        margin-top: 25px;
+        padding: 5px 20px;
+        position: relative;
+    }
+
+    .rank {
+        margin-top: 25px;
+        padding: 5px 0;
+        position: relative;
+    }
+
+    .rank_header {
+        padding: 0 20px;
+    }
+
+    .end {
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding: 5px 0;
+        position: relative;
+    }
+
+    .end_header {
+        padding: 0 20px;
     }
 }

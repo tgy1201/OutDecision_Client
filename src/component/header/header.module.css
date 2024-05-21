@@ -5,10 +5,21 @@ header {
     left: 0;
     background-color: white;
     border-bottom: 1px solid #e7e7e7;
-    z-index: 10000;
+    z-index: 9;
+    transition: top 0.2s linear;
 }
 
 @media (min-width: 1080px) {
+    .scroll_header {
+        top: -45px;
+        transition: top 0.2s linear;
+    }
+
+    .scroll_topbar {
+        opacity: 0;
+        visibility: hidden;
+    }
+
     .pc_header {
         display: "";
         max-width: 1200px;
@@ -51,7 +62,6 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-bottom: 15px;
     }
 
     .logo {
@@ -123,6 +133,7 @@ header {
 
     .category_menu_wrap a:hover {
         color: #ac2323;
+        text-decoration-line: underline;
     }
 
     .btn_search {
@@ -172,8 +183,8 @@ header {
         display: none;
     }
     .mobile_header {
-        display: "";
-        padding: 5px 20px;
+        display: block;
+        padding: 7px 20px;
         position: relative;
     }
 
@@ -181,13 +192,14 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        min-height: 44px;
     }
 
     .logo {
         position: relative;
         display: inline-block;
         vertical-align: middle;
-        width: 120px;
+        width: 106px;
         min-width: 60px;
     }
 

@@ -8,15 +8,15 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 35px 0 60px;
+        display: flex;
+        flex-wrap: nowrap;
     }
     .mobile_mypage {
         display: none;
     }
     .sidebar_wrap {
-        float: left;
         width: 220px;
-        padding: 0;
-        margin: 0 60px 0 0;
+        margin-right: 60px;
     }
 
     .content {
@@ -34,5 +34,13 @@
     }
     .mobile_mypage {
         display: block;
+    }
+
+    .topbar_wrap {
+        margin-bottom: 8px;
+    }
+
+    .content {
+        padding: 0 20px;
     }
 }

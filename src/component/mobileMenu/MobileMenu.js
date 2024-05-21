@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './mobileMenu.module.css';
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
-function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
+function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) { 
+    const isMobile = useMediaQuery({
+        query: "(max-width: 1079px)"
+    });
+
+    useEffect(() => {
+        if (isSidebarOpen && isMobile) {
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        } else {
+          document.body.style.overflow = "auto";
+          document.body.style.touchAction = "auto";
+        }
+    }, [isSidebarOpen, isMobile]); 
+
     return (
         <>
-            <nav className={isSidebarOpen ? `${styles.sidemenu} ${styles.active} ${styles.mobile}` : `${styles.sidemenu} ${styles.mobile}`} >
+            <nav className={isSidebarOpen ? `${styles.sidemenu} ${styles.active} ${styles.mobile}` : `${styles.sidemenu} ${styles.mobile}`}>
                 <ul className={styles.sidemenu_header}>
                     <li><Link to="/" onClick={() => handleSidebarOpen(!isSidebarOpen)}><img src="/assets/images/home_b.png" alt="홈" /></Link></li>
                     <li><button onClick={handleSidebarOpen}><img src="/assets/images/cancel.png" alt="취소" /></button></li>
@@ -28,9 +43,9 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                         <ul className={styles.sidemenu_item_list}>
                             <li><Link to="/mypage" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>마이페이지 홈</Link></li>
                             <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>회원정보 수정</Link></li>
-                            <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>작성한 글</Link></li>
-                            <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>작성한 댓글</Link></li>
-                            <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>좋아요한 글</Link></li>
+                            <li><Link to="/mypage/posting" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>작성한 글</Link></li>
+                            <li><Link to="/mypage/vote" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>투표한 글</Link></li>
+                            <li><Link to="/mypage/liked" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>좋아요한 글</Link></li>
                         </ul>
                     </li>
                     <li>
@@ -44,11 +59,12 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                             <li><Link to="/board/all" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>전체</Link></li>
                             <li><Link to="/board/hot" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>HOT</Link></li>
                             <li><Link to="/board/food" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>음식</Link></li>
+                            <li><Link to="/board/fashion" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>패션</Link></li>
                             <li><Link to="/board/travel" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>여행</Link></li>
                             <li><Link to="/board/work" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>취업</Link></li>
                             <li><Link to="/board/hobby" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>취미</Link></li>
                             <li><Link to="/board/love" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>연애</Link></li>
-                            <li><Link to="/board/etc" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>기타</Link></li>
+                            <li><Link to="/board/other" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>기타</Link></li>
                         </ul>
                     </li>
                     <li style={{borderBottom: "none"}}>

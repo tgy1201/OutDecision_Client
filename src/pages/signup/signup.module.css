@@ -69,17 +69,17 @@
     color: gray;
 }
 
-.nickname {
+.nickname_wrap {
     position: relative;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    gap: 15px;
 }
 
-.nickname input {
-    width: 75%;
+.nickname_wrap input {
+    width: 100%;
     height: 60px;
     padding: 0 10px;
     border-radius: 4px;
@@ -89,25 +89,46 @@
     color: #333;
 }
 
-.nickname button {
+.nickname_wrap button {
     width: 22%;
     height: 60px;
     padding: 0 10px;
     border-radius: 4px;
     font-size: 16px;
     font-weight: 700;
-    color: #686767;
     background-color: #d6d3d3;
     white-space: nowrap;
 }
 
-.nickname_check {
+.alert {
     position: absolute;
     bottom: -20px;
     font-size: 0.8rem;
 }
 
-.signup > input {
+.false {
+    outline: 2px solid #ac2323;
+    outline-offset: -2px;
+    border: 1px solid #ac2323;
+}
+
+.limit {
+    position: absolute;
+    right: 13px;
+    bottom: 20px;
+    font-size: 16px;
+}
+
+.icon {
+    vertical-align: middle; 
+    font-size: 1.3rem
+}
+
+.input_wrap > div {
+    position: relative;
+}
+
+.input_wrap input:not(.nickname_wrap input) {
     width: 100%;
     height: 60px;
     padding: 0 10px;
@@ -116,7 +137,8 @@
     font-size: 16px;
     font-weight: 700;
     color: #333;
-    margin-top: 20px;
+    margin-top: 35px;
+    position: relative;
 }
 
 .signup > button {
@@ -126,7 +148,7 @@
     padding: 12px;
     border-radius: 4px;
     font-size: 1.0rem;
-    margin-top: 25px;
+    margin-top: 35px;
 }
 
 .account {

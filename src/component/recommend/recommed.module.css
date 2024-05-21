@@ -1,0 +1,60 @@
+.recommend_header {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.recommend_header > div {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.recommend_header > p {
+    font-size: 1.0rem;
+    color: #696969;
+}
+
+.recommend_header > button {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #696969;
+    border-radius: 50%;    
+    margin-top: 5px;
+    background-color: #fff;
+}
+
+.recommend_header > button:hover {
+    background-color: #f2f2f2;
+}
+
+.post_wrap {
+    padding: 10px 15px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    min-height: 430px;
+    position: relative;
+    background: #fff;
+    max-width: 340px;
+    min-width: 300px;
+    margin: 15px 0 25px 0;
+}
+
+.myswiper {
+    --swiper-pagination-color: #ac2323;
+    --swiper-pagination-bottom: 0px;
+    --swiper-pagination:
+}
+
+@media (min-width: 1080px) {
+    .myswiper {
+        max-width: 1050px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow:visible;
+    }
+}

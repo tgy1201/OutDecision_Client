@@ -1,8 +1,6 @@
 import React from "react";
-import styles from './header.module.css'
 import { useLocation } from "react-router-dom";
 import HomeHeader from "./HomeHeader";
-import CommonHeader from "./CommonHeader";
 import BoardHeader from "./BoardHeader";
 import MobileHeader from "./MobileHeader";
 
@@ -14,23 +12,18 @@ function Header({category}) {
     const isMyPage = location.pathname.includes('/mypage');
     const isBoardPage = location.pathname.includes('/board/');
     const isRankingPage = location.pathname.includes('/ranking');
-    
-    
-
+    const isWritePage = location.pathname === '/write';
+  
     return (
         <header>
-            <div className={styles.pc}>
-                <CommonHeader />
-            </div>
-
-            <div className={styles.mobile}>
-                {isLoginPage ? <MobileHeader.LoginHeader /> :
-                 isSignPage ? <MobileHeader.SignupHeader /> :
-                 isMyPage ? <MobileHeader.MypageHeader /> :
-                 isBoardPage ? <BoardHeader category={category}/> :
-                 isRankingPage ? <MobileHeader.RankingHeader /> :
-                 <HomeHeader />}
-            </div>                
+            {isLoginPage ? <MobileHeader.LoginHeader /> :
+                isSignPage ? <MobileHeader.SignupHeader /> :
+                isMyPage ? <MobileHeader.MypageHeader /> :
+                isBoardPage ? <BoardHeader category={category}/> :
+                isRankingPage ? <MobileHeader.RankingHeader /> :
+                isWritePage ? <MobileHeader.WriteHeader /> :
+                <HomeHeader />
+            }             
         </header>
     );
 }

@@ -8,16 +8,320 @@
         max-width: 1200px;
         margin: 0 auto;
     }
+
     .mobile_ranking {
         display: none;
     }
+
+    .decoration {
+        font-weight: 1000;
+        font-size: 33px;
+    }
+
+    .rankingtitle {
+        font-size: 30px;
+        font-weight: 600;
+        color: #ac2323;
+        margin: 25px 0;
+    }
+
+    .rankingtable {
+        border-collapse: collapse;
+        min-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .rankinghead {
+        min-width: 1000px;
+        display: table;
+
+    }
+
+    .rankingtable th {
+        border-top: 2px solid black;
+        border-bottom: 1px solid black;
+        padding: 10px 0;
+        background-color: #ac2323;
+        color: white;
+    }
+
+    .rankingtable th:nth-child(2) {
+        padding-left: 10px;
+    }
+
+    .rankingtable th:nth-child(3) {
+        padding-left: 0px;
+    }
+
+    .rankingtable td {
+        padding: 8px 5px;
+        border-bottom: 1px solid lightgray;
+        text-align: center;
+    }
+
+    .profile {
+        width: 30px;
+        height: 30px;
+        border-radius: 70%;
+        background-color: white;
+        display: flex;
+        float: left;
+        position: relative;
+        overflow: hidden;
+        align-items: center;
+        margin-right: 10px;
+        margin-left: 40px;
+        margin-top: 0px !important;
+    }
+
+    .profile img {
+        position: absolute;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .rankingtable td:nth-child(2) {
+        text-align: left;
+        padding-left: 30px;
+        font-size: 20px;
+    }
+
+    .rankingtable td:nth-child(3) {
+        color: #ac2323;
+        font-weight: 600;
+    }
+
+    .rankingtable tbody {
+        display: block;
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+
+    .rankingtable tbody tr {
+        display: table;
+        width: 100%;
+    }
+
+    .rankingtable th:nth-child(1),
+    .rankingtable td:nth-child(1) {
+        width: 7%;
+    }
+
+    .rankingtable th:nth-child(2),
+    .rankingtable td:nth-child(2) {
+        width: 70%;
+    }
+
+    .rankingtable th:nth-child(3) {
+        width: 15.5%;
+    }
+
+    .rankingtable td:nth-child(3) {
+        width: 13%;
+    }
+
+    tfoot {
+        display: block;
+        border: 2px solid #ac2323;
+        unicode-bidi: isolate;
+    }
+
+    .rankingtable tfoot tr {
+        display: table;
+        width: 99%;
+    }
+
+
 }
 
 @media (max-width: 1079px) {
     .pc_ranking {
-        display: none; 
+        display: none;
     }
+
     .mobile_ranking {
         display: block;
+    }
+
+    .wrap {
+        float: left;
+        width: 100%;
+
+    }
+
+    .containerinner {
+        float: left;
+        width: 100%;
+        height: 100%;
+    }
+
+    .divinner {
+        position: relative;
+        padding: 0 40px;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .contentswrap {
+        width: 100%;
+        float: left;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        padding: 0 40px;
+        margin: 0 auto;
+    }
+
+    .rankingtitle {
+        font-size: 17px;
+        font-weight: 600;
+        color: #ac2323;
+        margin: 25px 0;
+        text-align: center;
+    }
+
+    .ranktablewrap {
+        width: 100%;
+        float: left;
+        height: 100%;
+    }
+
+    .ranktable {
+        width: 100%;
+        height: 100%;
+        float: left;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .rankhead {
+        display: table;
+        width: 100%;
+    }
+
+    .ranktable tr th {
+        font-weight: bold;
+        font-size: 18px;
+        color: white;
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+        background-color: #ac2323;
+        display: table-cell;
+        vertical-align: inherit;
+        unicode-bidi: isolate;
+    }
+
+    .ranktable tbody {
+        unicode-bidi: isolate;
+        display: block;
+        max-height: 280px;
+        overflow-y: scroll;
+    }
+
+    .ranktable tbody tr {
+        display: table;
+        width: 100%;
+    }
+
+    .ranktable tfoot {
+        display: block;
+        unicode-bidi: isolate;
+        border: 3px solid #ac2323;
+        unicode-bidi: isolate;
+    }
+
+    .ranktable tfoot tr {
+        display: table;
+        width: 97%;
+    }
+
+
+    .ranktable tfoot td:nth-child(3) {
+        padding-left: 10px;
+    }
+
+
+    .ranktable td {
+        padding: 8px 5px;
+        border-bottom: 1px solid lightgray;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.911);
+    }
+
+    .profile {
+        width: 30px;
+        height: 30px;
+        border-radius: 70%;
+        background-color: white;
+        display: flex;
+        float: left;
+        position: relative;
+        overflow: hidden;
+        align-items: center;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 0px !important;
+    }
+
+    .profile img {
+        position: absolute;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .ranktable td:nth-child(2) {
+        text-align: left;
+        padding-left: 30px;
+        font-size: 20px;
+    }
+
+    .ranktable th:nth-child(1),
+    .ranktable td:nth-child(1) {
+        width: 15%;
+    }
+
+    .ranktable th:nth-child(2),
+    .ranktable td:nth-child(2) {
+        width: 65%;
+    }
+
+    .ranktable th:nth-child(3) {
+        width: 20%;
+    }
+
+    .ranktable td:nth-child(3) {
+        width: 15%;
+        color: #ac2323;
+        font-weight: 600;
+    }
+
+    .infotable {
+        background-color: wheat;
+        width: 300px;
+        height: 50px;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, 10px);
+        z-index: 1;
+        overflow: auto;
+    }
+
+    .infohead {
+        font-size: 20px;
+        color: #ac2323;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .infohead th {
+        border-bottom: 2px solid lightgray;
+    }
+
+    .infotable tbody tr {
+        text-align: center;
+        padding-top: 20px;
     }
 }

@@ -24,9 +24,16 @@
 }
 
 @media (max-width: 1079px) {
+    .container {
+        padding: 0 20px;
+    }
     .banner {
         position: relative;
         margin-bottom: 10px;
+        border-radius: 8px;
+    }
+
+    .banner img {
         border-radius: 8px;
     }
 }

@@ -22,14 +22,10 @@ button {
     outline: inherit;
 }
 
-.App {
-    height: 100%;
-}
-
 @media (min-width: 1080px) {
     .main {
         display: block;
-        padding-top: 141px;
+        padding-top: 136px;
         position: relative;
         min-height: calc(100vh - 70px);
     }
@@ -38,8 +34,47 @@ button {
 @media (max-width: 1079px) {
     .main {
         display: block;
-        padding: 80px 20px 0 20px;
+        padding-top: 73px;
         position: relative;
         min-height: calc(100vh - 159.9px);
     }
+
+    body::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+/*datePicker 커스텀*/
+@media (min-width: 1080px) {
+    .react-datepicker__input-container input {
+        padding: 10px !important;
+        width: 140px !important;
+        font-size: 1.2rem !important;
+        border-radius: 4px !important;
+        border: 1px solid #5a5a5a !important;
+    }
+}
+
+@media (max-width: 1079px) {
+    .react-datepicker__input-container input {
+        padding: 7px !important;
+        width: 117px !important;
+        font-size: 1.1rem !important;
+        border-radius: 4px !important;
+        border: 1px solid #5a5a5a !important;
+    }
+}
+
+/*토글 커스텀*/
+.react-toggle--checked .react-toggle-track {
+    background-color: #ac2323 !important;
+}
+
+.react-toggle--checked .react-toggle-thumb {
+    border-color: #ac2323 !important;
+}
+
+.highlight {
+    color: #3bd07e;
+    font-weight: 600;
 }
