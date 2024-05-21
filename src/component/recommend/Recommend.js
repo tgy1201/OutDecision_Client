@@ -43,12 +43,16 @@ function Recommend ({posts, handleClick}) {
                 }
             }}
             >
-            {posts.map((post, idx)=>
+            {posts.length > 0 ? (
+            posts.map((post, idx)=>
                 (
                     <SwiperSlide key={idx} className={styles.post_wrap}>
                         <PostCard post={post} />
                     </SwiperSlide>
-                ))}
+                ))
+            )
+            :<>Loading...</>
+            }
             </Swiper>
         </>
     );

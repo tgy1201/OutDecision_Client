@@ -17,24 +17,33 @@ function Main () {
     const [newPosts, setNewPosts] =  useState([]);
     const [ranks, setRanks] = useState([]);
     const [finishedPosts, setFinishedPosts] = useState([]);
+    const [page, setPage] = useState(1);
 
-    useEffect(() => {
+    useEffect(() => {    
         handlefetchData();
     }, []);
-    /*
-    const handlefetchRecommendPosts = async () => {
-        try {
-            const response = await axios.get('/assets/data/posts.json');
-            setRecommendPosts(response.data.posts.slice(0, 6));
-        } catch(error) {
-            console.log(error);
-        }
-    };
-    */
+
+    useEffect(()=> {
+        const handlefetchRecommendPosts = async () => {
+            try {
+                const response = await axios.get(`http://175.45.202.225:8080/posts/recommend/${2024}`, {
+                    params: {
+                        memberId: 2024,
+                        page: page,
+                    },
+                });
+                setRecommendPosts(response.data.result.postList);
+                console.log(page, response.data.result);
+            } catch(error) {
+                console.log(error);
+            }
+        };
+        handlefetchRecommendPosts();
+    }, [page]); 
+
     const handlefetchData = async () => {
         try {
             const response = await axios.get('http://175.45.202.225:8080/');
-            setRecommendPosts(response.data.result.recommendPostList); //추천 게시글을 새로고침 있어서 따로 뺴야함
             setHotPosts(response.data.result.hotPostList);
             setNewPosts(response.data.result.latestPostList);
             setFinishedPosts(response.data.result.closedPostList);
@@ -43,6 +52,10 @@ function Main () {
             console.log(error);
         }
     };
+    
+    const handleRefreshPost = () => {
+        setPage(page + 1);
+    }
 
     return (
         <div className={styles.container}>
@@ -53,7 +66,7 @@ function Main () {
                     <Category />
                 </section>
                 <section className={styles.recommend}>
-                    <Recommend posts={recommendPosts} />
+                    <Recommend posts={recommendPosts} handleClick={handleRefreshPost}/>
                 </section>
                 <section className={styles.hot}>
                     <div className={styles.post_header}>
