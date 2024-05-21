@@ -13,6 +13,7 @@ import Ranking from './pages/ranking/Ranking';
 import SocialSignup from './pages/signup/SocialSignup';
 import SignupSuccess from './pages/signupSuccess/SignupSuccess';
 import FloatingBanner from './component/floatingBanner/FloatingBanner';
+import Ourteam from './pages/ourteam/Ourteam';
 import Write from './pages/write/Write';
 import View from './pages/view/View';
 import Mypost from './pages/mypost/Mypost';
@@ -38,6 +39,7 @@ function App() {
           <Route path="/board/:bname" element={<Board setCategory={setCategory}/>}></Route>
           <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>
           <Route path="/ranking" element={<Ranking />}></Route>
+          <Route path="/ourteam" element={<Ourteam />}></Route>
         </Routes>
       </div>
       <Footer />
