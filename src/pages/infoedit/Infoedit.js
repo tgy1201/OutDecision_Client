@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from './infoedit.module.css';
 import { useNavigate } from "react-router-dom";
-import MypageMenu from "../mypageMenu/MypageMenu";
+import MypageMenu from "../../component/mypageMenu/MypageMenu";
 import Modal from 'react-modal';
 
 function Infoedit() {

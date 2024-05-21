@@ -38,10 +38,9 @@ function App() {
           <Route path="/signup/success" element={<SignupSuccess />}></Route>
           <Route path="/mypage" element={<Mypage />}></Route>
           <Route path="/mypage/edit" element={<Infoedit />}></Route>
-          <Route path='/mypage/posting' element={<Mypost active={3}/>}></Route>
-          <Route path='/mypage/vote' element={<Mypost active={4}/>}></Route>
-          <Route path='/mypage/liked' element={<Mypost active={5}/>}></Route>
-          <Route path="/mypage/mytitle" element={<Mytitle />}></Route>
+          <Route path='/mypage/posting' element={<Mypost active={3} />}></Route>
+          <Route path='/mypage/vote' element={<Mypost active={4} />}></Route>
+          <Route path='/mypage/liked' element={<Mypost active={5} />}></Route>
           <Route path="/write" element={<Write />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory} />}></Route>
           <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>
