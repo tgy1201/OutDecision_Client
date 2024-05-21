@@ -10,6 +10,11 @@ function MypageMenu ({active}) {
                 <h2>마이페이지</h2>
                 <ul className={styles.menu_list}>
                     <li><Link to="/mypage" className={active===1? styles.active : ""}>마이페이지 홈</Link></li>
+                    <li><Link to="/mypage/edit" className={active===2? styles.active : ""}>회원정보 수정</Link></li>
+                    <li><Link to="/" className={active===3? styles.active : ""}>작성한 글</Link></li>
+                    <li><Link to="/" className={active===4? styles.active : ""}>작성한 댓글</Link></li>
+                    <li><Link to="/" className={active===5? styles.active : ""}>좋아요한 글</Link></li>
+                    <li><Link to="/mypage/mytitle" className={active===6? styles.active : ""}>칭호</Link></li>
                     <li><Link to="/" className={active===2? styles.active : ""}>회원정보 수정</Link></li>
                     <li><Link to="/mypage/posting" className={active===3? styles.active : ""}>작성한 글</Link></li>
                     <li><Link to="/mypage/vote" className={active===4? styles.active : ""}>투표한 글</Link></li>
@@ -19,6 +24,11 @@ function MypageMenu ({active}) {
             <div className={styles.mobile}>
                 <div className={styles.menu_list}>
                     <div><Link to="/mypage" className={active===1? styles.active : ""}>마이페이지 홈</Link></div>
+                    <div><Link to="/mypage/edit" className={active===2? styles.active : ""}>회원정보 수정</Link></div>
+                    <div><Link to="/" className={active===3? styles.active : ""}>작성한 글</Link></div>
+                    <div><Link to="/" className={active===4? styles.active : ""}>작성한 댓글</Link></div>
+                    <div><Link to="/" className={active===5? styles.active : ""}>좋아요한 글</Link></div>
+                    <div><Link to="/mypage/mytitle" className={active===6? styles.active : ""}>칭호</Link></div>
                     <div><Link to="/" className={active===2? styles.active : ""}>회원정보 수정</Link></div>
                     <div><Link to="/mypage/posting" className={active===3? styles.active : ""}>작성한 글</Link></div>
                     <div><Link to="/mypage/vote" className={active===4? styles.active : ""}>투표한 글</Link></div>
