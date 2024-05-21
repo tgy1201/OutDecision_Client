@@ -9,11 +9,8 @@ import Board from './pages/board/Board';
 import { useState } from 'react';
 import Signup from './pages/signup/Signup';
 import Mypage from './pages/mypage/Mypage';
-import Infoedit from "./component/infoedit/Infoedit";
-import Mypost from "./component/mypost/Mypost";
-import Myliked from "./component/myliked/Myliked";
-import Mycomment from "./component/mycomment/Mycomment";
-import Mytitle from "./component/mytitle/Mytitle";
+import Infoedit from "./pages/infoedit/Infoedit";
+import Mytitle from "./pages/mytitle/Mytitle";
 import Ranking from './pages/ranking/Ranking';
 import SocialSignup from './pages/signup/SocialSignup';
 import SignupSuccess from './pages/signupSuccess/SignupSuccess';
@@ -38,9 +35,6 @@ function App() {
           <Route path="/signup/success" element={<SignupSuccess />}></Route>
           <Route path="/mypage" element={<Mypage />}></Route>
           <Route path="/mypage/edit" element={<Infoedit />}></Route>
-          <Route path="/mypage/posting" element={<Mypost />}></Route>
-          <Route path="/mypage/comment" element={<Mycomment />}></Route>
-          <Route path="/mypage/liked" element={<Myliked />}></Route>
           <Route path="/mypage/mytitle" element={<Mytitle />}></Route>
           <Route path='/mypage/posting' element={<Mypost active={3}/>}></Route>
           <Route path='/mypage/vote' element={<Mypost active={4}/>}></Route>
