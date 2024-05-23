@@ -42,10 +42,11 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                         </div>
                         <ul className={styles.sidemenu_item_list}>
                             <li><Link to="/mypage" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>마이페이지 홈</Link></li>
-                            <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>회원정보 수정</Link></li>
+                            <li><Link to="/mypage/edit" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>회원정보 수정</Link></li>
                             <li><Link to="/mypage/posting" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>작성한 글</Link></li>
                             <li><Link to="/mypage/vote" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>투표한 글</Link></li>
                             <li><Link to="/mypage/liked" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>좋아요한 글</Link></li>
+                            <li><Link to="/mypage/mytitle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>칭호</Link></li>
                         </ul>
                     </li>
                     <li>

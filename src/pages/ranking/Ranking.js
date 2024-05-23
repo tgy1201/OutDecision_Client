@@ -5,13 +5,14 @@ import styles from './ranking.module.css';
 function Ranking() {
     const [rankings, setRankings] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [memberId, setMemberId] = useState(null);
     const [memberRanking, setMemberRanking] = useState(null);
 
     useEffect(() => {
         const fetchRankings = async () => {
             try {
-                const response = await axios.get('https://api.outdecision.com/ranking');
+                const response = await axios.get('https://api.outdecision.com/ranking', {
+                    withCredentials: true
+                });
                 setRankings(response.data.result.rankingList);
                 setLoading(false);
             } catch (error) {
@@ -24,33 +25,24 @@ function Ranking() {
     }, []);
 
     useEffect(() => {
-        const fetchMemberId = async () => {
-            // 여기에서 사용자의 로그인 상태를 확인하고, 로그인 상태일 때 memberId를 설정합니다.
-            // 만약 로그인 상태가 아니라면 memberId는 null로 설정됩니다.
-            setMemberId(null);
-            const isLoggedIn = true; // 로그인 상태 확인 로직 구현
-            if (isLoggedIn) {
-                setMemberId(2024); // 예시로 memberId를 설정하고, 실제 로그인 상태에 따라 로직을 구현하세요.
-            }
-        };
-
-        fetchMemberId();
-    }, []);
-
-    useEffect(() => {
         const fetchMemberRanking = async () => {
-            if (memberId !== null) {
-                try {
-                    const response = await axios.get(`https://api.outdecision.com/ranking/${memberId}`);
+            try {
+                const response = await axios.get(`https://api.outdecision.com/ranking/member`, {
+                    withCredentials: true
+                });
+                if (response.data.result === null) {
+                    setMemberRanking(null);
+                } else {
                     setMemberRanking(response.data.result);
-                } catch (error) {
-                    console.error("Error fetching member ranking:", error);
                 }
+            } catch (error) {
+                console.error("Error fetching member ranking:", error);
+                setMemberRanking(null); // 오류 발생 시에도 memberRanking을 null로 설정
             }
         };
 
         fetchMemberRanking();
-    }, [memberId]);
+    }, []);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -77,7 +69,7 @@ function Ranking() {
                         </thead>
                         <tbody>
                             {rankings.map((ranking, index) => (
-                                <tr key={index} className={ranking.memberId === memberId ? styles.memberHighlight : ''}>
+                                <tr key={index}>
                                     <td>{ranking.rank}</td>
                                     <td>
                                         <div className={styles.profile}>
@@ -104,13 +96,13 @@ function Ranking() {
                                 </tr>
                             ))}
                         </tbody>
-                        <tfoot style={{ display: (memberRanking !== null && Object.keys(memberRanking).length !== 0) ? 'table-footer-group' : 'none' }}>
-                            {memberRanking && Object.keys(memberRanking).length !== 0 && (
+                        {memberRanking && (
+                            <tfoot>
                             <tr>
-                                <td>{memberRanking?.rank}</td>
+                                <td>{memberRanking.rank}</td>
                                 <td>
                                     <div className={styles.profile}>
-                                        <img src={memberRanking?.userImg} alt="프로필"/>
+                                        <img src={memberRanking.userImg} alt="프로필"/>
                                         {memberRanking.rank === 1 && (
                                             <div className={styles.wings}>
                                                 <img src="/assets/images/gold_wings.png" alt="날개" />
@@ -127,12 +119,12 @@ function Ranking() {
                                             </div>
                                         )}
                                     </div>
-                                    {memberRanking?.nickname}
+                                    {memberRanking.nickname}
                                 </td>
-                                <td>{memberRanking?.point}</td>
+                                <td>{memberRanking.point}</td>
                             </tr>
-                            )}
                         </tfoot>
+                        )}
                     </table>
                 </div>
             </div>
@@ -158,7 +150,7 @@ function Ranking() {
                             </thead>
                             <tbody>
                                 {rankings.map((ranking, index) => (
-                                    <tr key={index} className={ranking.memberId === memberId ? styles.memberHighlight : ''}>
+                                    <tr key={index}>
                                         <td>{ranking.rank}</td>
                                         <td>
                                             <div className={styles.profile}>
@@ -185,13 +177,13 @@ function Ranking() {
                                     </tr>
                                 ))}
                             </tbody>
-                            <tfoot style={{ display: (memberRanking !== null && Object.keys(memberRanking).length !== 0) ? 'table-footer-group' : 'none' }}>
-                            {memberRanking && Object.keys(memberRanking).length !== 0 && (
+                            {memberRanking && (
+                            <tfoot>
                             <tr>
-                                <td>{memberRanking?.rank}</td>
+                                <td>{memberRanking.rank}</td>
                                 <td>
                                     <div className={styles.profile}>
-                                        <img src={memberRanking?.userImg} alt="프로필"/>
+                                        <img src={memberRanking.userImg} alt="프로필"/>
                                         {memberRanking.rank === 1 && (
                                             <div className={styles.wings}>
                                                 <img src="/assets/images/gold_wings.png" alt="날개" />
@@ -208,12 +200,12 @@ function Ranking() {
                                             </div>
                                         )}
                                     </div>
-                                    {memberRanking?.nickname}
+                                    {memberRanking.nickname}
                                 </td>
-                                <td>{memberRanking?.point}</td>
+                                <td>{memberRanking.point}</td>
                             </tr>
-                            )}
                         </tfoot>
+                        )}
                         </table>
                     </div>
                 </div>

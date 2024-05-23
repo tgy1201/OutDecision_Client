@@ -18,9 +18,9 @@ import View from './pages/view/View';
 import Ourteam from './pages/ourteam/Ourteam';
 
 import Mypage from './pages/mypage/Mypage';
-import Infoedit from "./component/infoedit/Infoedit";
+import Infoedit from './pages/infoedit/Infoedit';
 import Mypost from './pages/mypost/Mypost';
-import Mytitle from "./component/mytitle/Mytitle";
+import Mytitle from './pages/mytitle/Mytitle';
 import Ranking from './pages/ranking/Ranking';
 
 function App() {

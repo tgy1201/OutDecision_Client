@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./mytitle.module.css";
-import MypageMenu from "../mypageMenu/MypageMenu";
+import MypageMenu from "../../component/mypageMenu/MypageMenu";
 
 function Mytitle() {
     return (
