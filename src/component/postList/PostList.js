@@ -129,9 +129,9 @@ function PostList ({post, bname}) {
                                     </div>
                                     } 
                                     <div className={styles.result_percent_wrap}>    
-                                        <p className={option.img ? `${styles.imgText}` : `${styles.text}`}>
+                                        <div className={option.img ? `${styles.imgText}` : `${styles.text}`}>
                                             <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
-                                        </p>
+                                        </div>
                                         <span className={styles.percent}>{option.votePercentage}%</span>
                                     </div>
                                     <div className={styles.result} style={{height: `${option.votePercentage}%`, transition: 'height 0.5s ease'}}/>
@@ -143,9 +143,9 @@ function PostList ({post, bname}) {
                                     </div>
                                     }
                                     <div className={styles.option_percent_wrap}>
-                                        <p className={option.imgUrl ? `${styles.imgText}` : `${styles.text}`}>
+                                        <div className={option.imgUrl ? `${styles.imgText}` : `${styles.text}`}>
                                             <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
                                 }

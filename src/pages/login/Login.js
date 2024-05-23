@@ -16,7 +16,7 @@ function Login () {
         params.append('password', password);
 
         try {
-          const response = await axios.post('https://api.outdecision.com/login', params, {
+          const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/login`, params, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               },

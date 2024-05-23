@@ -10,7 +10,7 @@ function Ranking() {
     useEffect(() => {
         const fetchRankings = async () => {
             try {
-                const response = await axios.get('https://api.outdecision.com/ranking', {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/ranking`, {
                     withCredentials: true
                 });
                 setRankings(response.data.result.rankingList);
@@ -27,7 +27,7 @@ function Ranking() {
     useEffect(() => {
         const fetchMemberRanking = async () => {
             try {
-                const response = await axios.get(`https://api.outdecision.com/ranking/member`, {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/ranking/member`, {
                     withCredentials: true
                 });
                 if (response.data.result === null) {

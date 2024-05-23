@@ -43,10 +43,11 @@ function SocialSignup () {
         formData.append('request', inputValue.nickname);
 
         try {
-            const response = await axios.post('http://175.45.202.225:8080/duplication/nickname', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/duplication/nickname`, formData, {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true,
             });
             console.log(response.data);
 
@@ -102,10 +103,11 @@ function SocialSignup () {
         formData.append('userImg', inputValue.profileImage);
     
         try {
-            const response = await axios.post('http://175.45.202.225:8080/register/v1', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/register/v1`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-            }
+            },
+            withCredentials: true,
             });
             console.log(response.data);
             navigate('/signup/success')

@@ -26,11 +26,12 @@ function Main () {
     useEffect(()=> {
         const handlefetchRecommendPosts = async () => {
             try {
-                const response = await axios.get(`http://175.45.202.225:8080/posts/recommend/${2024}`, {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/posts/recommend/${2024}`, {
                     params: {
                         memberId: 2024,
                         page: page,
                     },
+                    withCredentials: true,
                 });
                 setRecommendPosts(response.data.result.postList);
                 console.log(page, response.data.result);
@@ -43,7 +44,9 @@ function Main () {
 
     const handlefetchData = async () => {
         try {
-            const response = await axios.get('http://175.45.202.225:8080/');
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/`, {
+                withCredentials: true,
+            });
             setHotPosts(response.data.result.hotPostList);
             setNewPosts(response.data.result.latestPostList);
             setFinishedPosts(response.data.result.closedPostList);

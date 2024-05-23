@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './view.module.css';
-import { useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Comment from "../../component/comment/Comment";
 
@@ -65,10 +65,11 @@ function View({setCategory}) {
     useEffect(() => {
         const fetchPost = async () => {
           try {
-            const response = await axios.get(`http://175.45.202.225:8080/post/${postId}`, {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/post/${postId}`, {
                 params: {
                   postId: postId,
                 },
+                withCredentials: true,
             });
 
             setPost(response.data.result);
@@ -91,7 +92,7 @@ function View({setCategory}) {
             {post? (
                 <div className={styles.view_wrap}>
                     <div className={styles.board_title_wrap}>
-                        <h1>{boardNameMap[bname]}</h1>           
+                        <h1><Link to={`/board/${bname}`}>{boardNameMap[bname]}</Link></h1>           
                     </div>
                     <div className={styles.post_wrap}>
                         <section className={styles.postInfo_wrap}>

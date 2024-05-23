@@ -118,9 +118,9 @@ function PostCard({post, bname}) {
                                         </div>
                                         } 
                                     </div>
-                                    <p className={option.imgUrl? `${styles.text}`: `${styles.text2}`}>
+                                    <div className={option.imgUrl? `${styles.text}`: `${styles.text2}`}>
                                         <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
-                                    </p>
+                                    </div>
                                     <span className={styles.percent}>{option.votePercentage}%</span>
                                 </td>
                             :   <td className={selectedOptions.includes(idx) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(idx)}>

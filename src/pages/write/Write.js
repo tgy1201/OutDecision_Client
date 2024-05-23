@@ -19,8 +19,10 @@ import { IoGameController } from "react-icons/io5"; //취미
 import { MdFavorite } from "react-icons/md"; // 연애
 import { CgMoreO } from "react-icons/cg"; //etc
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Write () {
+    const navigate = useNavigate();
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
     });
@@ -153,6 +155,11 @@ function Write () {
           }
     };
 
+    
+    const handleGoBack = () => {
+        navigate(-1);
+    }
+
     const handlePostUpload = async (e) => {
         e.preventDefault();
 
@@ -190,12 +197,14 @@ function Write () {
         });
 
         try {
-            const response = await axios.post('http://175.45.202.225:8080/post', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-            }
+            },
+            withCredentials: true
             });
             console.log(response.data);
+            navigate('/board/all');
         } catch (error) {
             console.error(error);
         }
@@ -358,7 +367,7 @@ function Write () {
                     </tbody>
                 </table>
                 <div className={styles.submit_wrap}>
-                    <button>취소</button>
+                    <button onClick={handleGoBack}>취소</button>
                     <button onClick={handlePostUpload}>등록</button>
                 </div>
             </section>
