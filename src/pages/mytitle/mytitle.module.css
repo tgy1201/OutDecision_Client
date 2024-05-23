@@ -26,14 +26,91 @@
         width: calc(100% - 280px);
         padding: 0;
         margin: 0;
-        background-color: bisque;
+        background-color: white
     }
 
     .main {
         width: 100%;
         margin-top: 10px;
         display: flex;
+        flex-wrap: wrap;
+    }
+
+    .box {
+        width: calc(33.33% - 20px);
+        margin: 10px;
+        height: 180px;
+        border: 2px solid black;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+        display: flex; 
         flex-direction: column;
+        justify-content: space-between; 
+      }
+
+      .tswrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #0026ff;
+        margin-left: 2%;
+        margin-top: 3px;
+    }
+
+    .state {
+        font-size: 20px;
+        color: #ac2323;
+        margin-right: 2%;
+        margin-top: 5px;
+    }
+
+    .acquired {
+        color: green;
+    }
+
+    .explain {
+        font-size: 16px;
+        color: #333;
+        margin-left: 2%;
+        margin-bottom: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .progress {
+        font-size: 16px;
+        text-align: right;
+        margin-right: 2%;
+        bottom: 50px;
+    }
+
+    .bar {
+        width: 95%;
+        height: 18px;
+        background-color: #ffffff;
+        border: 1.5px solid black;
+        display: flex;
+        position: absolute;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bar::after {
+        content: "";
+        display: block;
+        width: var(--bar-width);
+        height: 100%;
+        background-color: #ffd400;
     }
 }
 
@@ -70,6 +147,11 @@
         border: 2px solid black;
         border-radius: 10px;
         position: relative;
+        cursor: pointer;
+    }
+
+    .clicked {
+        border-color: 2px solid red;
     }
 
     .tswrapper {
@@ -89,10 +171,14 @@
 
     .state {
         font-size: 16px;
-        color: #c70606;
+        color: #ac2323;
         margin-right: 2%;
         margin-top: 5px;
     }
+
+    .acquired {
+        color: green;
+      }
 
     .epwrapper {
         display: flex;
@@ -121,7 +207,6 @@
         margin-top: 5px;
         border: 1.5px solid black;
         display: flex;
-        justify-content: center;
         position: absolute;
         bottom: 10px;
         left: 50%;
@@ -131,7 +216,7 @@
     .bar::after {
         content: "";
         display: block;
-        width: 100%;
+        width: var(--bar-width);
         height: 100%;
         background-color: #ffd400;
     }
