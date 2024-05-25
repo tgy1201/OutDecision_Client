@@ -8,6 +8,30 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
         query: "(max-width: 1079px)"
     });
 
+    async function handleLogout() {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/token/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include' // withCredentials 대신 credentials: 'include' 사용
+            });
+
+            if (response.ok) {
+                // 로그아웃 성공
+                console.log("로그아웃 성공");
+                // 홈 페이지나 로그인 페이지로 리디렉션
+                window.location.href = '/';
+            } else {
+                // 오류 처리
+                console.error("로그아웃 실패");
+            }
+        } catch (error) {
+            console.error("로그아웃 중 오류 발생", error);
+        }
+    }
+
     useEffect(() => {
         if (isSidebarOpen && isMobile) {
           document.body.style.overflow = "hidden";
@@ -85,7 +109,11 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                     <div>
                         <img src="/assets/images/logout.png" alt="로그아웃" />
                     </div>
-                    <span onClick={() => setIsSidebarOpen(!isSidebarOpen)}>로그아웃</span>
+                    <span onClick={async () => {
+                        await handleLogout();
+                        setIsSidebarOpen(!isSidebarOpen);
+                    }}>로그아웃
+                    </span>
                 </div>
             </nav>
             <div className={isSidebarOpen ? `${styles.dimmed} ${styles.mobile}` : styles.mobile} onClick={() => handleSidebarOpen(false)}/>
