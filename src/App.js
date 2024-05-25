@@ -22,6 +22,7 @@ import Infoedit from './pages/infoedit/Infoedit';
 import Mypost from './pages/mypost/Mypost';
 import Mytitle from './pages/mytitle/Mytitle';
 import Ranking from './pages/ranking/Ranking';
+import Edit from './pages/edit/Edit';
 
 function App() {
   const [category, setCategory] = useState('');
@@ -43,6 +44,7 @@ function App() {
           <Route path='/mypage/liked' element={<Mypost active={5}/>}></Route>
           <Route path="/mypage/mytitle" element={<Mytitle />}></Route>
           <Route path="/write" element={<Write />}></Route>
+          <Route path="/edit/:postId" element={<Edit />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory} />}></Route>
           <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>
           <Route path="/ranking" element={<Ranking />}></Route>

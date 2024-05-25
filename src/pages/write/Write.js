@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import styles from './write.module.css'
 import DatePicker from 'react-datepicker';
@@ -21,7 +21,7 @@ import { CgMoreO } from "react-icons/cg"; //etc
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Write () {
+function Write ({edit, postId}) {
     const navigate = useNavigate();
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
@@ -45,8 +45,39 @@ function Write () {
     const [isToggleChecked, setIsToggleChecked] = useState(false);
     const [selectedGender, setSelectedGender] = useState('all');
 
-
     const [scrollPosition, setScrollPosition] = useState('left-border');
+
+    useEffect(() => {
+        const fetchPost = async () => {
+          try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/post/${postId}`, {
+                params: {
+                  postId: postId,
+                },
+                withCredentials: true,
+            });
+
+            setSelectedCategory(response.data.result.category);
+            setTitle(response.data.result.title);
+            const options = response.data.result.optionsList.map((option)=> ({
+                text: option.body,
+                imageURL: option.imgUrl,
+                image: null //이미지파일 받아야됨
+            }))
+            setOptions(options);
+            setContent(response.data.result.content);
+            setIsToggleChecked(response.data.result.pluralVoting);
+            setSelectedGender(response.data.result.gender);
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+
+        if(edit) {
+            fetchPost();
+        }
+    }, [postId, edit]);
 
     const handleScroll = (e) => {
         const container = e.target
@@ -157,7 +188,7 @@ function Write () {
 
     
     const handleGoBack = () => {
-        navigate(-1);
+        navigate('/board/all');
     }
 
     const handlePostUpload = async (e) => {
@@ -213,7 +244,7 @@ function Write () {
     return (
         <div className={styles.container}>
             <section className={styles.vote_header}>
-                <p>투표 작성</p>    
+                <p>{edit? '게시글 수정' : '게시글 작성'}</p>    
             </section>
             <section className={styles.vote_body}>
                 <table className={styles.vote_table}>
