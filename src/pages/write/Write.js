@@ -37,7 +37,7 @@ function Write ({edit, postId}) {
     const [selectedHours, setSelectedHours] = useState(hours);
     const [selectedMinutes, setSelectedMinutes] = useState(0);
 
-    const [options, setOptions] = useState([{ text: "", imageURL: "", image: null },{ text: "", imageURL: "", image: null }]);
+    const [options, setOptions] = useState([{ text: "", imageURL: "", image: null, originURL: "" },{ text: "", imageURL: "", image: null, originURL: "" }]);
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -62,7 +62,8 @@ function Write ({edit, postId}) {
             const options = response.data.result.optionsList.map((option)=> ({
                 text: option.body,
                 imageURL: option.imgUrl,
-                image: null //이미지파일 받아야됨
+                image: null, //이미지파일 받아야됨
+                originURL: option.imgUrl
             }))
             setOptions(options);
             setContent(response.data.result.content);
@@ -172,7 +173,7 @@ function Write ({edit, postId}) {
 
     const handleIncrease = () => {
         if (options.length < 10) {
-            setOptions(existingOptions => [...existingOptions, { text: "", imageURL: "", image: null }]);
+            setOptions(existingOptions => [...existingOptions, { text: "", imageURL: "", image: null, originURL: "" }]);
           } else {
             alert('최대 옵션 개수는 10개입니다.');
           }
@@ -196,6 +197,13 @@ function Write ({edit, postId}) {
 
         const textList = options.map((option) => option.text);
         const imageFileList = options.map((option) => option.image);
+        const originImageList = options.map((option) => {
+            if (option.originURL === option.imageURL) {
+                return option.originURL;
+            } else {
+                return '';
+            }
+        });
 
         const formmatedDate = `${startDate.getFullYear()}.${startDate.getMonth() + 1}.${startDate.getDate()} ${selectedHours > 9 ? selectedHours : '0'+selectedHours}:${selectedMinutes !== 0 ? selectedMinutes : '00'}`
         
@@ -227,14 +235,22 @@ function Write ({edit, postId}) {
             }
         });
 
+            const blob3 = new Blob([JSON.stringify(originImageList)], { type: 'application/json' });
+            formData.append('originImages', blob3);    
+
         try {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-            withCredentials: true
-            });
-            console.log(response.data);
+            const url = edit ? `${process.env.REACT_APP_SERVER_IP}/post/${postId}` : `${process.env.REACT_APP_SERVER_IP}/post`;
+            const method = edit ? 'PATCH' : 'POST';
+            
+            const response = await axios({
+                method,
+                url,
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }, withCredentials: true,
+              });
+            console.log(url, method, originImageList);
             navigate('/board/all');
         } catch (error) {
             console.error(error);
