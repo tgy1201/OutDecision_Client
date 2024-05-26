@@ -235,8 +235,8 @@ function Write ({edit, postId}) {
             }
         });
 
-            const blob3 = new Blob([JSON.stringify(originImageList)], { type: 'application/json' });
-            formData.append('originImages', blob3);    
+        const blob3 = new Blob([JSON.stringify(originImageList)], { type: 'application/json' });
+        formData.append('originImages', blob3);    
 
         try {
             const url = edit ? `${process.env.REACT_APP_SERVER_IP}/post/${postId}` : `${process.env.REACT_APP_SERVER_IP}/post`;
@@ -248,9 +248,10 @@ function Write ({edit, postId}) {
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                }, withCredentials: true,
+                },
+                withCredentials: true,
               });
-            console.log(url, method, originImageList);
+            console.log(response.data.result);
             navigate('/board/all');
         } catch (error) {
             console.error(error);

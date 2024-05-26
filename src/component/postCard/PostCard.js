@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styles from './postCard.module.css';
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
 // import { GoBell } from "react-icons/go";
 import { GoBellFill } from "react-icons/go";
+import axios from "axios";
 
 const boardNameMap = {
     all: '전체',
@@ -27,6 +28,7 @@ const filterMap = {
 }
 
 function PostCard({post, bname}) {
+    const navigate = useNavigate();
     /*포스트 고유넘버를 서버에 보내서 로그인 한 유저가 해당 포스트에 (1) 투표를 했는지, (2) 했다면 몇번에 투표했는지 받기*/
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
@@ -51,12 +53,40 @@ function PostCard({post, bname}) {
         }
     };
 
-    const handleVoteSubmit = () => {
+    const handleVoteSubmit = async (e) => {
+        e.preventDefault();
+        /*
+        if (sessionStorage.isLogin) {
+            alert("로그인 후 이용가능합니다")
+            navigate('/login')
+            return;
+        }
+        */
         if (selectedOptions.length === 0) {
             alert("투표옵션을 선택해주세요");
             return;
         }
-        console.log(selectedOptions, post.postId)
+
+        const selectList = selectedOptions.map((option) => option+"L");
+        const formData = new FormData();
+        const blob = new Blob([JSON.stringify(selectList)], {
+            type: 'application/json',
+        });
+
+        formData.append('optionIds', blob);
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/vote`, formData, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            });
+            console.log(response.data);
+            console.log('선택한 옵션' + selectedOptions);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const highlightText = (text, searchTerm, type) => {
@@ -123,7 +153,7 @@ function PostCard({post, bname}) {
                                     </div>
                                     <span className={styles.percent}>{option.votePercentage}%</span>
                                 </td>
-                            :   <td className={selectedOptions.includes(idx) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(idx)}>
+                            :   <td className={selectedOptions.includes(option.optionId) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(option.optionId)}>
                                     <div className={styles.option_wrap} >
                                         {option.imgUrl !== '' && 
                                         <div className={styles.option_img}>

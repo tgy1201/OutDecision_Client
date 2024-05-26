@@ -136,7 +136,7 @@ function PostList ({post, bname}) {
                                     </div>
                                     <div className={styles.result} style={{height: `${option.votePercentage}%`, transition: 'height 0.5s ease'}}/>
                                 </div>
-                                :<div className={selectedOptions.includes(idx) ? `${styles.selected} ${styles.option_wrap}` : `${styles.unselected} ${styles.option_wrap}`} onClick={()=>handleOptionChange(idx)}>
+                                :<div className={selectedOptions.includes(option.optionId) ? `${styles.selected} ${styles.option_wrap}` : `${styles.unselected} ${styles.option_wrap}`} onClick={()=>handleOptionChange(option.optionId)}>
                                     {option.imgUrl !== '' && 
                                     <div className={styles.option_img}>
                                         <img src={option.imgUrl} alt="옵션" /> 
