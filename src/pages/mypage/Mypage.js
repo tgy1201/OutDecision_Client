@@ -12,7 +12,7 @@ function Mypage() {
     const posts = searchParams.get('posts'); //작성한글(written), 투표한글(voted), 좋아요한글(liked)
 
     const [postList, setPostList] = useState();
-    const [activeMenu, setActiveMenu] = useState('post');
+    const [activeMenu, setActiveMenu] = useState('written');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [profileImage, setProfileImage] = useState('/assets/user.png');
