@@ -55,28 +55,20 @@ function PostCard({post, bname}) {
 
     const handleVoteSubmit = async (e) => {
         e.preventDefault();
-        /*
+
         if (sessionStorage.isLogin) {
-            alert("로그인 후 이용가능합니다")
+            alert("로그인 후 이용가능합니다");
             navigate('/login')
             return;
         }
-        */
+
         if (selectedOptions.length === 0) {
             alert("투표옵션을 선택해주세요");
             return;
         }
 
-        const selectList = selectedOptions.map((option) => option+"L");
-        const formData = new FormData();
-        const blob = new Blob([JSON.stringify(selectList)], {
-            type: 'application/json',
-        });
-
-        formData.append('optionIds', blob);
-
         try {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/vote`, formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/vote`, selectedOptions, {
             headers: {
                 'Content-Type': 'application/json',
             },
