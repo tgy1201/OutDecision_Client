@@ -216,10 +216,29 @@ function Mypage() {
                                 </div>
                             </div>
                             <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
-                            <div className={styles.userinfo}>포인트 <span>7000점 (랭킹 : 3위)</span></div>
+                            <div className={styles.userinfo}>포인트 <span>7480점 (랭킹 : 5위)</span></div>
                             <div className={styles.userinfo}>끌어올리기 <span>14회</span></div>
                         </div>
-                        
+                        <div className={styles.posting}>
+                            <div className={styles.menu}>
+                                <div className={styles.vote}>투표한 글</div>
+                                <div className={styles.postlist}>
+                                    <div className={styles.plus} onClick={() => navigate('/mypage/vote')}>더보기</div>
+                                    <div className={styles.post} onMouseOver={() => handleMouseOver(1)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 1 ? "#e6e6e6" : "" }}>
+                                        <div><Link className={styles.link} to="/board/view/1">저녁 메뉴 추천해줘 </Link><span>(3)</span></div>
+                                        <div>음식 | 03-08</div>
+                                    </div>
+                                    <div className={styles.post} onMouseOver={() => handleMouseOver(2)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 2 ? "#e6e6e6" : "" }}>
+                                        <div><Link className={styles.link} to="/board/view/1">공시 준비해본 사람? </Link><span>(7)</span></div>
+                                        <div>취업 | 03-29</div>
+                                    </div>
+                                    <div className={styles.post} onMouseOver={() => handleMouseOver(3)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 3 ? "#e6e6e6" : "" }}>
+                                        <div><Link className={styles.link} to="/board/view/1">바지 골라주라 </Link><span>(2)</span></div>
+                                        <div>패션 | 04-17</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
