@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './mypage.module.css';
 import MypageMenu from "../../component/mypageMenu/MypageMenu";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Modal from 'react-modal';
+import axios from "axios";
+import PostList from "../../component/postList/PostList";
 
 function Mypage() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const posts = searchParams.get('posts'); //작성한글(written), 투표한글(voted), 좋아요한글(liked)
 
+    const [postList, setPostList] = useState();
     const [activeMenu, setActiveMenu] = useState('post');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [profileImage, setProfileImage] = useState('/assets/user.png');
 
+    useEffect(()=> {
+        const handlefetchPosts = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/mypage`, {
+                    params: {
+                        posts: posts ? posts : 'written',
+                    },
+                    withCredentials: true,
+                });
+                console.log(response.data.result);
+                setPostList(response.data.result.postList);
+            } catch (error) {
+            console.error(error);
+            }
+        };
+
+        handlefetchPosts();
+    }, [posts])
+
+    /*
     const [hoveredRow, setHoveredRow] = useState(null)
 
     const handleMouseOver = (index) => {
@@ -21,13 +46,12 @@ function Mypage() {
     const handleMouseOut = () => {
         setHoveredRow(null);
     }
-
-    /* DB에 저징된 유저정보 데이터*/
+    */
 
     const openModal = () => {
         setModalIsOpen(true);
         document.body.style.overflow = "hidden";
-        document.getElementById('header').style.zIndex = 0; // 헤더가 뒤로 안감
+        document.getElementById('header').style.zIndex = 0;
         window.scrollTo(0, 0);
     }
 
@@ -51,6 +75,18 @@ function Mypage() {
 
     const handleMenu = (menu) => {
         setActiveMenu(menu);
+        searchParams.set('posts', menu);
+        navigate(`?${searchParams.toString()}`);
+    }
+
+    const handleMorePost = () => {
+        if(posts === 'voted') {
+            navigate('/mypage/vote');
+        } else if(posts === 'liked') {
+            navigate('/mypage/liked');
+        } else {
+            navigate('/mypage/posting');
+        }
     }
 
     return (
@@ -78,76 +114,21 @@ function Mypage() {
                         </div>
                         <div className={styles.posting}>
                             <div className={styles.menu}>
-                                <span onClick={() => handleMenu('post')} className={activeMenu === 'post' ? styles.active : styles.inactive}>작성한 글</span>
-                                <span onClick={() => handleMenu('comment')} className={activeMenu === 'comment' ? styles.active : styles.inactive}>작성한 댓글</span>
+                                <span onClick={() => handleMenu('written')} className={activeMenu === 'written' ? styles.active : styles.inactive}>작성한 글</span>
+                                <span onClick={() => handleMenu('voted')} className={activeMenu === 'voted' ? styles.active : styles.inactive}>투표한 글</span>
                                 <span onClick={() => handleMenu('liked')} className={activeMenu === 'liked' ? styles.active : styles.inactive}>좋아요한 글</span>
                             </div>
-                            {activeMenu === 'post' && (
-                                <div className={styles.postlist}>
-                                    <div className={styles.plus} onClick={() => navigate('/mypage/posting')}>더보기</div>
-                                    <div className={styles.post} onMouseOver={() => handleMouseOver(1)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 1 ? "#e6e6e6" : "" }}>
-                                        <div><Link className={styles.link} to="/board/view/1">게시글 제목입니다. </Link><span>(8)</span></div>
-                                        <div>패션 | 02-25</div>
-                                    </div>
-                                    <div className={styles.post} onMouseOver={() => handleMouseOver(2)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 2 ? "#e6e6e6" : "" }}>
-                                        <div><Link className={styles.link} to="/board/view/1">게시글 제목입니다. </Link><span>(8)</span></div>
-                                        <div>패션 | 02-25</div>
-                                    </div>
-                                    <div className={styles.post} onMouseOver={() => handleMouseOver(3)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 3 ? "#e6e6e6" : "" }}>
-                                        <div><Link className={styles.link} to="/board/view/1">게시글 제목입니다. </Link><span>(8)</span></div>
-                                        <div>패션 | 02-25</div>
-                                    </div>
-                                </div>
-                            )}
-                            {activeMenu === 'comment' && (
-                                <div className={styles.postlist}>
-                                    <div className={styles.plus} onClick={() => navigate('/mypage/comment')}>더보기</div>
-                                    <div className={styles.commentbox} onMouseOver={() => handleMouseOver(1)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 1 ? "#e6e6e6" : "" }}>
-                                        <div className={styles.commentitem}>
-                                            <div><Link className={styles.link} to="/board/view/1">댓글입니다 이건 게시글제목이 아닙니다.</Link></div>
-                                        </div>
-                                        <div className={styles.commentitem2}>
-                                            <div>From. 게시글 제목입니다. <span>(8)</span></div>
-                                            <div>패션 | 02-25</div>
-                                        </div>
-                                    </div>
-                                    <div className={styles.commentbox} onMouseOver={() => handleMouseOver(2)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 2 ? "#e6e6e6" : "" }}>
-                                        <div className={styles.commentitem}>
-                                            <div><Link className={styles.link} to="/board/view/1">댓글입니다 이건 게시글제목이 아닙니다.</Link></div>
-                                        </div>
-                                        <div className={styles.commentitem2}>
-                                            <div>From. 게시글 제목입니다. <span>(8)</span></div>
-                                            <div>패션 | 02-25</div>
-                                        </div>
-                                    </div>
-                                    <div className={styles.commentbox} onMouseOver={() => handleMouseOver(3)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 3 ? "#e6e6e6" : "" }}>
-                                        <div className={styles.commentitem}>
-                                            <div><Link className={styles.link} to="/board/view/1">댓글입니다 이건 게시글제목이 아닙니다.</Link></div>
-                                        </div>
-                                        <div className={styles.commentitem2}>
-                                            <div>From. 게시글 제목입니다. <span>(8)</span></div>
-                                            <div>패션 | 02-25</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                            {activeMenu === 'liked' && (
-                                <div className={styles.postlist}>
-                                    <div className={styles.plus} onClick={() => navigate('/mypage/liked')}>더보기</div>
-                                    <div className={styles.post} onMouseOver={() => handleMouseOver(1)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 1 ? "#e6e6e6" : "" }}>
-                                        <div><Link className={styles.link} to="/board/view/1">게시글 제목입니다. </Link><span>(2)</span></div>
-                                        <div>패션 | 02-25</div>
-                                    </div>
-                                    <div className={styles.post} onMouseOver={() => handleMouseOver(2)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 2 ? "#e6e6e6" : "" }}>
-                                        <div><Link className={styles.link} to="/board/view/1">게시글 제목입니다. </Link><span>(7)</span></div>
-                                        <div>패션 | 02-25</div>
-                                    </div>
-                                    <div className={styles.post} onMouseOver={() => handleMouseOver(3)} onMouseOut={handleMouseOut} style={{ backgroundColor: hoveredRow === 3 ? "#e6e6e6" : "" }}>
-                                        <div><Link className={styles.link} to="/board/view/1">게시글 제목입니다. </Link><span>(1)</span></div>
-                                        <div>패션 | 02-25</div>
-                                    </div>
-                                </div>
-                            )}
+                            <table className={styles.post_container}>
+                                <tbody>
+                                {postList && postList.map((post, idx)=>
+                                (
+                                <tr className={styles.post_wrap} key={idx}>
+                                    <td><PostList post={post}/></td>
+                                </tr>
+                                ))}
+                                </tbody> 
+                            </table>
+                            <div className={styles.plus} onClick={handleMorePost}>더보기</div>
                         </div>
                     </div>
                     <Modal className={styles.modal} isOpen={modalIsOpen}>
@@ -211,15 +192,34 @@ function Mypage() {
                                     <img src="/assets/images/profile2.png" alt="프로필" />
                                 </div>
                                 <div className={styles.namebox}>
-                                    <div>로맨티스트</div>
+                                    <div>
+                                        <div className={styles.nickname}>로맨티스트</div>
+                                        <button className={styles.changetitle}>변경</button>
+                                    </div>
                                     <span>정감자 </span>님
                                 </div>
                             </div>
                             <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
-                            <div className={styles.userinfo}>포인트 <span>7000점 (랭킹 : 3위)</span></div>
-                            <div className={styles.userinfo}>끌어올리기 <span>14회</span></div>
+                            <div className={styles.userinfo}>포인트 <span>7480점 (랭킹 : 5위)</span></div>
                         </div>
-                        
+                        <div className={styles.posting}>
+                            <div className={styles.menu}>
+                                <span onClick={() => handleMenu('written')} className={activeMenu === 'written' ? styles.active : styles.inactive}>작성한 글</span>
+                                <span onClick={() => handleMenu('voted')} className={activeMenu === 'voted' ? styles.active : styles.inactive}>투표한 글</span>
+                                <span onClick={() => handleMenu('liked')} className={activeMenu === 'liked' ? styles.active : styles.inactive}>좋아요한 글</span>
+                            </div>
+                            <table className={styles.post_container}>
+                                <tbody>
+                                {postList && postList.map((post, idx)=>
+                                (
+                                <tr className={styles.post_wrap} key={idx}>
+                                    <td><PostList post={post}/></td>
+                                </tr>
+                                ))}
+                                </tbody> 
+                            </table>
+                            <div className={styles.plus} onClick={handleMorePost}>더보기</div>
+                        </div>
                     </div>
                 </section>
             </div>
