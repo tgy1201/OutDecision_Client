@@ -16,17 +16,21 @@ function Login () {
         params.append('password', password);
 
         try {
-          const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/login`, params, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-              },
-              withCredentials: true
-          });
-          console.log('로그인성공');
-          console.log(response.data);
-          navigate('/');
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/login`, params, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                withCredentials: true
+            });
+            console.log(response.data.isSuccess);
+            if(response.data.isSuccess) {
+                sessionStorage.setItem('isLogin', true);
+                navigate('/');
+            } else {
+                return;
+            }
         } catch (error) {
-          console.error( error);
+            console.error( error);
         }
     };
 

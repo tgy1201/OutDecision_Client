@@ -97,7 +97,7 @@ function View({setCategory}) {
                     <div className={styles.post_wrap}>
                         <section className={styles.postInfo_wrap}>
                             <div className={styles.profile_wrap}>
-                                <img src={post.profile} alt="프로필"/>
+                                <img src={post.profileUrl} alt="프로필"/>
                             </div>
                             <div className={styles.user_wrap}>
                                 <p>{post.nickname}</p>

@@ -55,7 +55,7 @@ function CommonHeader ({children}) {
             <div className={styles.pc_header}>
                 <div className={scrollPosition > 160 ? `${styles.scroll_topbar}` : `${styles.topbar}`}>
                     <ul>
-                        <li><Link to="/login">로그인</Link></li>
+                        <li>{!sessionStorage.isLogin?(<Link to="/login">로그인</Link>):(<>로그아웃</>)}</li>
                         <li><Link to="/signup">회원가입</Link></li>
                     </ul>
                 </div>
