@@ -40,15 +40,17 @@ function Mytitle() {
                             >
                                 <div className={styles.tswrapper}>
                                     <div className={styles.title}>{box.title}</div>
-                                    <div className={`${styles.state} ${box.state === '획득' ? styles.acquired : ''}`}>
-                                        {box.state}
+                                    <div className={styles.statewrapper}>
+                                        <div className={`${styles.state} ${box.state === '획득' ? styles.acquired : ''}`}>
+                                            {box.state}
+                                        </div>
                                     </div>
                                 </div>
-
+                                <div className={styles.pbwrapper}>
+                                    <div className={styles.progress}>{box.progress}</div>
+                                    <div className={styles.bar} style={{ '--bar-width': box.barWidth }}></div>
+                                </div>
                                 <div className={styles.explain}>{box.explain}</div>
-                                <div className={styles.progress}>{box.progress}</div>
-
-                                <div className={styles.bar} style={{ '--bar-width': box.barWidth }}></div>
                             </div>
                         ))}
                     </div>

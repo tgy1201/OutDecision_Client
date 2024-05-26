@@ -421,22 +421,36 @@
 
     .namebox {
         font-size: 20px;
+        align-items: center;
     }
 
-    .namebox div {
+    .namebox>div {
+        display: flex;
+        align-items: center;
+    }
+
+    .namebox .nickname {
         font-size: 20px;
         color: #468FD3;
+    }
+
+    .namebox button {
+        background-color: #ac2323;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .namebox button:hover {
+        background-color: #8b1b1b;
     }
 
     .namebox span {
         font-size: 25px;
         font-weight: 600;
-    }
-
-    .namebox img {
-        width: 27px;
-        margin-left: 10px;
-        vertical-align: bottom;
     }
 
     .userinfo {
@@ -456,13 +470,21 @@
         padding: 15px;
     }
 
-    .vote {
-        color: #ac2323;
-        border-bottom: 4px solid #ac2323;
-        width: 100px;
+    .inactive {
         margin-right: 15px;
         padding: 6px;
-        font-size: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: gray;
+        cursor: pointer;
+    }
+
+    .active {
+        color: #ac2323;
+        border-bottom: 4px solid #ac2323;
+        margin-right: 15px;
+        padding: 6px;
+        font-size: 18px;
         font-weight: 600;
         cursor: pointer;
     }
@@ -476,13 +498,21 @@
     }
 
     .plus {
+        background-color: #f7f7f7;
+        border: 1px solid gray;
+        border-radius: 50px;
+        padding: 5px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
         position: absolute;
-        font-size: 15px;
-        top: -30px;
-        right: 5px;
-        color: gray;
+        font-size: 20px;
+        top: 110px;
+        color: black;
         cursor: pointer;
+        width: 100%;
     }
+
 
     .post {
         display: flex;
