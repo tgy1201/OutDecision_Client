@@ -41,8 +41,11 @@ function Ranking() {
             }
         };
 
-        fetchMemberRanking();
-    }, []);
+        // /ranking API 호출이 완료된 후에 /ranking/member API를 호출
+        if (!loading) {
+            fetchMemberRanking();
+        }
+    }, [loading]);
 
     if (loading) {
         return <div>Loading...</div>;
