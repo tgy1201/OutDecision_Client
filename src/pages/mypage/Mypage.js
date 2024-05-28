@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import styles from './mypage.module.css';
 import MypageMenu from "../../component/mypageMenu/MypageMenu";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from 'react-modal';
 
 function Mypage() {
     const navigate = useNavigate();
 
     const [activeMenu, setActiveMenu] = useState('post');
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
-    const [profileImage, setProfileImage] = useState('/assets/user.png');
-
     const [hoveredRow, setHoveredRow] = useState(null)
 
     const handleMouseOver = (index) => {
@@ -23,29 +18,10 @@ function Mypage() {
     }
 
     const openModal = () => {
-        setModalIsOpen(true);
         document.body.style.overflow = "hidden";
         document.getElementById('header').style.zIndex = 0;
         window.scrollTo(0, 0);
     }
-
-    const closeModal = () => {
-        setModalIsOpen(false);
-        document.body.style.overflow = "unset";
-        document.getElementById('header').style.zIndex = 100;
-    }
-
-    const handleImageUpload = (e) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
-
-        return new Promise((resolve) => {
-            reader.onload = () => {
-                setProfileImage(reader.result);
-                resolve();
-            };
-        });
-    };
 
     const handleMenu = (menu) => {
         setActiveMenu(menu);
@@ -72,7 +48,6 @@ function Mypage() {
                             </div>
                             <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
                             <div className={styles.userinfo}>포인트 <span>7000점 (랭킹 : 3위)</span></div>
-                            <div className={styles.userinfo}>끌어올리기 <span>14회</span></div>
                         </div>
                         <div className={styles.posting}>
                             <div className={styles.menu}>
@@ -133,53 +108,6 @@ function Mypage() {
                             )}
                         </div>
                     </div>
-                    <Modal className={styles.modal} isOpen={modalIsOpen}>
-                        <div className={styles.modalheader}>
-                            <span>프로필 설정</span>
-                        </div>
-                        <div className={styles.modalbody}>
-                            <div className={styles.profiletable}>
-                                <div className={styles.profileImage}>
-                                    <img src={profileImage} alt="프로필" />
-                                </div>
-                                <div className={styles.editprofile}>
-                                    <div class={styles.filebox}>
-                                        <label for="file">프로필 편집</label>
-                                        <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
-                                    </div>
-                                    <button onClick={() => setProfileImage('/assets/user.png')}>기본 프로필 설정</button>
-                                </div>
-                            </div>
-                            <table className={styles.profiletable2}>
-                                <colgroup>
-                                    <col width="30%" />
-                                    <col width="70%" />
-                                </colgroup>
-                                <tr>
-                                    <td>닉네임</td>
-                                    <td><input className={styles.nickname} value="패알못"></input></td>
-                                </tr>
-                                <tr>
-                                    <td>칭호</td>
-                                    <td><div className={styles.titlebox}>
-                                        칭호 사용 <input className={styles.checkbox} type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
-                                        {isChecked && (
-                                            <select className={styles.titleoption}>
-                                                <option>새싹</option>
-                                                <option>패셔니스타</option>
-                                            </select>
-                                        )}
-                                    </div>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <div className={styles.buttonbox2}>
-                                <button onClick={closeModal}>변경</button>
-                                <button onClick={closeModal}>취소</button>
-                            </div>
-                        </div>
-                    </Modal>
                 </section>
             </div>
             <div className={styles.mobile_mypage}>

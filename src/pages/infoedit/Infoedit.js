@@ -28,9 +28,6 @@ function Infoedit() {
     }
 
     const handleSubmit = () => {
-        /*
-        서버에 수정 내용 전송 
-        */
         navigate('/mypage');
     }
 
@@ -39,7 +36,51 @@ function Infoedit() {
         <div className={styles.container}>
             <div className={styles.pc_infoedit}>
                 <section className={styles.sidebar_wrap}>
+                    <MypageMenu active={2} />
+                </section>
+                <section className={styles.content}>
+                    <div className={styles.main}>
+                        <div className={styles.edit}>회원정보</div>
 
+                        <div className={styles.editform}>
+                            <div className={styles.required}><span>*</span> 필수</div>
+                            <table className={styles.edittable}>
+                                <colgroup>
+                                    <col width="30%" />
+                                    <col width="70%" />
+                                </colgroup>
+                                <tr>
+                                    <td>프로필사진</td>
+                                    <td className={styles.imagebox}>
+                                        <div className={styles.image}>
+                                            <img src="/assets/images/profile2.png" alt="프로필" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>이름 <span>*</span></td>
+                                    <td><input value={name} onChange={handleNameChange} style={{ width: "80px" }}></input></td>
+                                </tr>
+                                <tr>
+                                    <td>닉네임 <span>*</span></td>
+                                    <td><input value="패알못"></input></td>
+                                </tr>
+                                <tr>
+                                    <td>이메일 <span>*</span></td>
+                                    <td>aaa@naver.com</td>
+                                </tr>
+                                <tr>
+                                    <td>비밀번호 <span>*</span></td>
+                                    <td><button onClick={openModal}>비밀번호 변경</button></td>
+                                </tr>
+                                <tr>
+                                    <td>휴대폰번호 <span>*</span></td>
+                                    <td><input value="010-3333-8888"></input></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
                 </section>
             </div>
             <div className={styles.mobile_infoedit}>

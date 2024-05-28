@@ -26,7 +26,6 @@
         width: calc(100% - 280px);
         padding: 0;
         margin: 0;
-        background-color: white
     }
 
     .main {
@@ -49,6 +48,10 @@
         justify-content: space-between;
     }
 
+    .clicked {
+        border: 2px solid #ac2323;
+    }
+
     .tswrapper {
         display: flex;
         flex-direction: column;
@@ -59,7 +62,7 @@
     .title {
         font-size: 24px;
         font-weight: bold;
-        color: #0026ff;
+        color: #354edd;
         text-align: center;
         flex-grow: 1;
         margin-top: 5px;
@@ -110,6 +113,12 @@
         margin-right: 10px;
     }
 
+    .maxProgress {
+        font-size: 16px;
+        text-align: right;
+        margin-right: 10px;
+    }
+
     .bar {
         width: 90%;
         height: 18px;
@@ -124,6 +133,24 @@
         width: var(--bar-width);
         height: 100%;
         background-color: #ffd400;
+    }
+
+    .apply {
+        width: 400px;
+        height: 50px;
+        background-color: #ac2323;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        border: 2px solid black;
+        border-radius: 10px;
+        font-size: 30px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
     }
 }
 
@@ -164,7 +191,7 @@
     }
 
     .clicked {
-        border-color: 2px solid red;
+        border: 2px solid #ac2323;
     }
 
     .tswrapper {
@@ -177,7 +204,7 @@
     .title {
         font-size: 20px;
         font-weight: bold;
-        color: #0026ff;
+        color: #354edd;
         margin-left: 2%;
         margin-top: 3px;
     }
@@ -211,6 +238,12 @@
         text-align: right;
         margin-right: 2%;
         margin-top: -5px;
+    }
+
+    .maxProgress {
+        font-size: 16px;
+        text-align: right;
+        margin-right: 10px;
     }
 
     .bar {
@@ -249,5 +282,6 @@
         justify-content: center;
         align-items: center;
         text-align: center;
+        cursor: pointer;
     }
 }

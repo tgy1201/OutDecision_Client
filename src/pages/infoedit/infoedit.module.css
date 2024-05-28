@@ -4,7 +4,7 @@
 }
 
 @media (min-width: 1080px) {
-    .pc_mypage {
+    .pc_infoedit {
         max-width: 1200px;
         margin: 0 auto;
         padding: 35px 0 60px;
@@ -12,7 +12,7 @@
         flex-wrap: nowrap;
     }
 
-    .mobile_mypage {
+    .mobile_infoedit {
         display: none;
     }
 
@@ -20,14 +20,209 @@
         width: 220px;
         margin-right: 60px;
     }
+
+    .content {
+        float: left;
+        width: calc(100% - 280px);
+        padding: 0;
+        margin: 0;
+    }
+
+    .main {
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .edit {
+        font-size: 30px;
+        font-weight: 600;
+        color: #ac2323;
+        padding-left: 20px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #ac2323;
+    }
+
+
+    .editform {
+        width: 400px;
+        height: 500px;
+        margin: 0 auto;
+        background-color: #f7f7f7;
+    }
+
+    .editform span {
+        color: #ac2323;
+        font-weight: 600;
+    }
+
+    .required {
+        font-size: 30px;
+        position: absolute;
+        right: 5px;
+        top: -45px;
+    }
+
+    .imagebox {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .image {
+        width: 80px;
+        height: 80px;
+        border-radius: 70%;
+        overflow: hidden;
+        background-color: white;
+        margin-right: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .edittable {
+        border-collapse: separate;
+        border-spacing: 20px 25px;
+        font-size: 20px;
+    }
+
+    .edittable tr td input {
+        width: 200px;
+        height: 40px;
+        font-size: 17px;
+        border-radius: 8px;
+        padding-left: 10px;
+        letter-spacing: 1.5px;
+    }
+
+    .edittable td:nth-child(1) {
+        width: 200px;
+    }
+
+    .edittable td:nth-child(2) {
+        padding-left: 20px;
+    }
+
+    .edittable tr td button {
+        padding: 10px;
+    }
+
+    .buttonbox {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .buttonbox button:nth-child(1) {
+        width: 100px;
+        height: 40px;
+        font-size: 20px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #ac2323;
+        color: white;
+    }
+
+    .buttonbox button:nth-child(2) {
+        width: 100px;
+        height: 40px;
+        font-size: 20px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #C2C2C2;
+        color: white;
+        cursor: pointer;
+    }
+
+    .modal {
+        position: fixed;
+        top: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        width: 400px;
+        height: 300px;
+
+        background-color: #f7f7f7;
+        border-radius: 12px;
+        border: 1px solid gray;
+        padding: 0;
+    }
+
+    .modalheader {
+        height: 40px;
+        background-color: #ac2323;
+        color: white;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modalbody {
+        padding: 15px;
+    }
+
+    .passwordtable {
+        border-collapse: separate;
+        border-spacing: 10px 15px;
+        font-size: 10px;
+    }
+
+    .passwordtable tr td input {
+        width: 300px;
+        height: 30px;
+    }
+
+    .buttonbox2 {
+        padding-top: 20px;
+        margin-top: 15px;
+        border-top: 1px solid gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .buttonbox2 button:nth-child(1) {
+        width: 80px;
+        height: 30px;
+        font-size: 15px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #ac2323;
+        color: white;
+        cursor: pointer;
+    }
+
+    .buttonbox2 button:nth-child(2) {
+        width: 80px;
+        height: 30px;
+        font-size: 15px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #C2C2C2;
+        color: white;
+    }
 }
 
 @media (max-width: 1079px) {
-    .pc_mypage {
+    .pc_infoedit {
         display: none;
     }
 
-    .mobile_mypage {
+    .mobile_infoedit {
         display: block;
     }
 
@@ -54,7 +249,7 @@
         border-bottom: 2px solid #ac2323;
     }
 
-    
+
     .editform {
         width: 400px;
         height: 500px;
