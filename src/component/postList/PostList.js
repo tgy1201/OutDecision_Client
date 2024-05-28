@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import styles from './postList.module.css'
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-import { Link, useSearchParams } from "react-router-dom";
+import { GoBell, GoBellFill } from "react-icons/go";
+import { IoMdMale, IoMdFemale } from "react-icons/io";
+import axios from "axios";
+
 
 const boardNameMap = {
     all: '전체',
@@ -28,10 +32,15 @@ function PostList ({post, bname}) {
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [scrollPosition, setScrollPosition] = useState('left-border');
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
+    const [isAlarmCheck, setIsAlarmCheck] = useState(false);
 
     const [searchParams] = useSearchParams();
     const search = searchParams.get('search'); // 검색어
     const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
+
+    useEffect(()=>{
+        setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
+    }, [post]) 
 
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
@@ -99,8 +108,47 @@ function PostList ({post, bname}) {
         return highlightedText;
     };
 
+    const handleClickAlarm = async (e) => {
+        e.preventDefault();
+        
+        if(!sessionStorage.isLogin) {
+            alert('로그인 후 이용가능합니다');
+            return;
+        }
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${post.postId}/notification`, {}, {
+                withCredentials: true,
+            });
+
+            console.log(response.data);
+            setIsAlarmCheck(response.data.result);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleCancelAlarm = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${post.postId}/notification`, {}, {
+                withCredentials: true,
+            });
+
+            console.log(response.data);
+            //setIsAlarmCheck(response.data.result);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <div className={styles.container}>
+            {isAlarmCheck ? 
+            <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "2px", top: "2px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
+            : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "2px", top: "2px", fontSize: "1.6rem", color: "#4a4a4a"}} />
+            }
             <section className={styles.title_wrap}>
                 <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
                 <Link to={bname ? `/board/${bname}/view/${post.postId}` : `/board/${post.category}/view/${post.postId}`}>
@@ -111,7 +159,10 @@ function PostList ({post, bname}) {
                 </Link>
             </section>
             <section className={styles.voteInfo_wrap}>   
-                <div>{post.deadline} 종료  • {post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여</div>
+                <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+                    {post.deadline} 종료  • {post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여
+                    {post.gender === 'male' ?  <> • <IoMdMale style={{color: '#5445dc', verticalAlign: 'middle'}}/></>: post.gender === 'female' ? <> • <IoMdFemale style={{color: '#ac2323', verticalAlign: 'middle'}}/></> : ''}
+                </div>
             </section>
             <section className={styles.vote_wrap}>
                 <table className={styles.vote_table}>

@@ -17,30 +17,26 @@ function Main () {
     const [newPosts, setNewPosts] =  useState([]);
     const [ranks, setRanks] = useState([]);
     const [finishedPosts, setFinishedPosts] = useState([]);
-    const [page, setPage] = useState(1);
 
     useEffect(() => {    
         handlefetchData();
     }, []);
 
     useEffect(()=> {
-        const handlefetchRecommendPosts = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/posts/recommend/${2024}`, {
-                    params: {
-                        memberId: 2024,
-                        page: page,
-                    },
-                    withCredentials: true,
-                });
-                setRecommendPosts(response.data.result.postList);
-                console.log(page, response.data.result);
-            } catch(error) {
-                console.log(error);
-            }
-        };
         handlefetchRecommendPosts();
-    }, [page]); 
+    }, []);
+
+    const handlefetchRecommendPosts = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/recommend`, {
+                withCredentials: true,
+            });
+            setRecommendPosts(response.data.result.recommendPostList);
+            console.log(response.data.result);
+        } catch(error) {
+            console.log(error);
+        }
+    };
 
     const handlefetchData = async () => {
         try {
@@ -56,10 +52,6 @@ function Main () {
         }
     };
     
-    const handleRefreshPost = () => {
-        setPage(page + 1);
-    }
-
     return (
         <div className={styles.container}>
             <Banner />
@@ -69,7 +61,7 @@ function Main () {
                     <Category />
                 </section>
                 <section className={styles.recommend}>
-                    <Recommend posts={recommendPosts} handleClick={handleRefreshPost}/>
+                    <Recommend posts={recommendPosts} handleClick={handlefetchRecommendPosts}/>
                 </section>
                 <section className={styles.hot}>
                     <div className={styles.post_header}>

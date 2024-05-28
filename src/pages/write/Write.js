@@ -10,6 +10,7 @@ import { ko } from 'date-fns/locale'
 import { GoPlus } from "react-icons/go";
 import { LuImagePlus } from "react-icons/lu";
 import { ImCancelCircle } from "react-icons/im";
+import { MdOutlineCancel } from "react-icons/md";
 
 import { MdFastfood } from "react-icons/md"; // 음식
 import { FaShirt } from "react-icons/fa6"; //패션
@@ -187,6 +188,12 @@ function Write ({edit, postId}) {
           }
     };
 
+    const handleClearImage = (optionIdx) => {
+        const updatedOptions = [...options];
+        updatedOptions[optionIdx].imageURL = "";
+        updatedOptions[optionIdx].image = null;
+        setOptions(updatedOptions);
+    };
     
     const handleGoBack = () => {
         navigate('/board/all');
@@ -331,7 +338,7 @@ function Write ({edit, postId}) {
                                                 </div>
                                                 <button className={styles.delete_btn} onClick={() => handleRemoveOption(index)}><ImCancelCircle className={styles.delete_icon}/></button>
                                             </div>
-                                            {options[index].imageURL && <div className={styles.preview}><img src={options[index].imageURL} alt="preview-img" /></div>}
+                                            {options[index].imageURL && <div className={styles.preview}><img src={options[index].imageURL} alt="preview-img" /><MdOutlineCancel className={styles.delete_img_icon} onClick={()=> handleClearImage(index)}/></div>}
                                         </div>
                                     ))}
                                     <div className={styles.add_wrap}><button onClick={handleIncrease}><GoPlus className={styles.plus_icon}/>항목 추가</button></div>

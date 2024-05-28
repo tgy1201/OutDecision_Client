@@ -1,3 +1,15 @@
+.delete_img_icon {
+    position: absolute; 
+    right: 3px; 
+    top: 3px; 
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.delete_img_icon:hover {
+    color: #ac2323;
+}
+
 @media (min-width: 1080px) {
     .container {
         max-width: 1200px;
@@ -202,6 +214,7 @@
     }
 
     .preview {
+        position: relative;
         margin-top: 7px;
         width: 70px;
         height: 70px;
@@ -434,6 +447,7 @@
     }
 
     .preview {
+        position: relative;
         margin-top: 7px;
         width: 65px;
         height: 65px;

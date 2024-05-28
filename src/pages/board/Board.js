@@ -86,6 +86,7 @@ function Board ({setCategory}) {
             
                 setPostsNum(response.data.result.totalElements);
                 setPosts(response.data.result.postList);
+                console.log(response.data);
             } catch (error) {
             console.error(error);
             }

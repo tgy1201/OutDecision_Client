@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import styles from './mobileMenu.module.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) { 
+    const navigate = useNavigate();
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
     });
 
-    async function handleLogout() {
+    const handleLogout = async () => {
         try {
             const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/token/logout`, {
                 method: 'POST',
@@ -19,10 +20,10 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
             });
 
             if (response.ok) {
-                // 로그아웃 성공
                 console.log("로그아웃 성공");
+                sessionStorage.setItem('isLogin', false);
                 // 홈 페이지나 로그인 페이지로 리디렉션
-                window.location.href = '/';
+                navigate('/');
             } else {
                 // 오류 처리
                 console.error("로그아웃 실패");
@@ -109,8 +110,8 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                     <div>
                         <img src="/assets/images/logout.png" alt="로그아웃" />
                     </div>
-                    <span onClick={async () => {
-                        await handleLogout();
+                    <span onClick={() => {
+                        handleLogout();
                         setIsSidebarOpen(!isSidebarOpen);
                     }}>로그아웃
                     </span>

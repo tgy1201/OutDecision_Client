@@ -6,7 +6,10 @@ import Comment from "../../component/comment/Comment";
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
+import { GoBell } from "react-icons/go";
+import { GoBellFill } from "react-icons/go";
 import { FaUser } from "react-icons/fa";
+import { IoMdMale, IoMdFemale } from "react-icons/io";
 
 
 const boardNameMap = {
@@ -37,6 +40,9 @@ function View({setCategory}) {
     const [comments, setComments] = useState([]);
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
+    const [isAlarmCheck, setIsAlarmCheck] = useState(false);
+    const [likesCnt, setLikesCnt] = useState(0);
+    const [isLiked, setIsLiked] = useState(false);
 
     const handleOptionChange = (index) => {
         if (post.multiple) {
@@ -61,6 +67,40 @@ function View({setCategory}) {
         }
         console.log(selectedOptions, postId)
     }
+
+    const handleClickAlarm = async (e) => {
+        e.preventDefault();
+        
+        if(!sessionStorage.isLogin) {
+            alert('로그인 후 이용가능합니다');
+            return;
+        }
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/notification`, {}, {
+                withCredentials: true,
+            });
+
+            console.log(response.data);
+            setIsAlarmCheck(response.data.result);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleCancelAlarm = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/notification`, {}, {
+                withCredentials: true,
+            });
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     
     useEffect(() => {
         const fetchPost = async () => {
@@ -74,6 +114,12 @@ function View({setCategory}) {
 
             setPost(response.data.result);
             setComments(response.data.result.commentsList.commentsDTOList);
+            setLikesCnt(response.data.result.likesCnt);
+
+            if(response.data.result.loginMemberPostInfoDTOList) {
+                setIsAlarmCheck(response.data.result.loginMemberPostInfoDTOList.receiveAlert);
+                setIsLiked(response.data.result.loginMemberPostInfoDTOList.isLiked);
+            }
             console.log(response.data);
           } catch (error) {
             console.error(error);
@@ -86,6 +132,28 @@ function View({setCategory}) {
     useEffect(() => {  
         setCategory(bname);
     }, [bname, setCategory]);
+
+    const handleLike = async (e) => {
+        e.preventDefault();
+
+        if (sessionStorage.isLogin !== 'true') {
+            alert("로그인 후 이용가능합니다");
+            return;
+        }
+        if (isLiked) {
+            alert("이미 좋아요를 누른 게시글입니다");
+            return;
+        }
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/like`, null, {
+                withCredentials: true,
+            });
+            setLikesCnt(response.data.result);
+            setIsLiked(true);
+        } catch (error) {
+            console.error("Error liking the post:", error);
+        }
+    };
 
     return (
         <div className={styles.container}>
@@ -104,13 +172,22 @@ function View({setCategory}) {
                                 <p>{post.createdAt}</p>
                             </div>
                             <ul>
-                                <li style={{color: "#b00000"}}><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.likesCnt}</div></li>
+                                <li style={{color: "#b00000"}}><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{likesCnt}</div></li>
                                 <li style={{color: "#412ed1"}}><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{comments.length}</div></li> 
                                 <li style={{color: "5a5a5a"}}><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.views}</div></li>
                             </ul>
                         </section>
                         <section className={styles.voteInfo_wrap}>
                             <div className={styles.voteInfo}>
+                                {post.gender === 'male' ?  
+                                <IoMdMale style={{position: "absolute", left: "11px", top: "11px", fontSize: "1.6rem", color: '#5445dc', verticalAlign: 'middle'}}/>
+                                : post.gender === 'female' ?
+                                <IoMdFemale style={{position: "absolute", left: "11px", top: "11px", fontSize: "1.6rem", color: '#ac2323', verticalAlign: 'middle'}}/> : ''
+                                }
+                                {isAlarmCheck ? 
+                                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
+                                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
+                                }
                                 <section className={styles.state_wrap}>
                                     <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
                                 </section>
@@ -172,7 +249,7 @@ function View({setCategory}) {
                                 {post.content}
                             </section>
                             <section className={styles.like_wrap}>
-                                <button>♥ 좋아요 {post.likesCnt}</button>
+                                <button onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
                             </section>
                         </section>
                     </div>
