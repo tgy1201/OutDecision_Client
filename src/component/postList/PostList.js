@@ -4,7 +4,7 @@ import styles from './postList.module.css'
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-import { GoBell, GoBellFill } from "react-icons/go";
+import { GoBell, GoBellFill, GoBellSlash } from "react-icons/go";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
 import axios from "axios";
 
@@ -145,9 +145,11 @@ function PostList ({post, bname}) {
 
     return (
         <div className={styles.container}>
-            {isAlarmCheck ? 
-            <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "2px", top: "2px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
-            : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "2px", top: "2px", fontSize: "1.6rem", color: "#4a4a4a"}} />
+            {post.status==='progress'?
+                isAlarmCheck ? 
+                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
+                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}} />
+            : <GoBellSlash style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
             }
             <section className={styles.title_wrap}>
                 <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>

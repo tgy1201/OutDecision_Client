@@ -321,7 +321,7 @@ function Write ({edit, postId}) {
                         </tr>
                         <tr>
                             <td>투표 제목</td>
-                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={12}/><div className={styles.limit}>0 / 12</div></td>
+                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={12}/><div className={styles.limit}>{title.length} / 12</div></td>
                         </tr>
                         <tr>
                             <td>투표 항목</td>
@@ -350,7 +350,7 @@ function Write ({edit, postId}) {
                             <td>
                                 <div className={styles.mobile_content}>
                                     {isMobile && <span>설명</span>}
-                                    <textarea className={styles.vote_content} value={content} onChange={(e)=>handleContentChange(e.target.value)}placeholder="작성한 투표에 대해 부가적인 설명을 적어주세요" maxLength={70}/><div className={styles.limit}>0 / 100</div>
+                                    <textarea className={styles.vote_content} value={content} onChange={(e)=>handleContentChange(e.target.value)}placeholder="작성한 투표에 대해 부가적인 설명을 적어주세요" maxLength={70}/><div className={styles.limit}>{content.length} / 100</div>
                                 </div>
                             </td>
                         </tr>

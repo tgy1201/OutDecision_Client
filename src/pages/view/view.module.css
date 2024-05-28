@@ -5,7 +5,7 @@
 
 .post_wrap {
     border-top: 3px solid #ac2323;
-    padding: 10px 0;
+    padding: 10px 0 0 0;
 }
 
 .postInfo_wrap {
@@ -295,6 +295,27 @@
     border-radius: 4px;
     border: 1px solid #ac2323;
     font-size: 1.0rem;
+}
+
+.util_wrap {
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 13px;
+    padding: 0 10px;
+}
+
+.util_wrap button {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 1.0rem;
+    cursor: pointer;
+}
+
+.util_wrap button:hover {
+    color: #ac2323;
 }
 
 @media (min-width: 1080px) {

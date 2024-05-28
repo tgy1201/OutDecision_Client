@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from './postCard.module.css';
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-import { GoBell, GoBellFill } from "react-icons/go";
+import { GoBell, GoBellFill, GoBellSlash } from "react-icons/go";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
 
 const boardNameMap = {
@@ -29,7 +29,6 @@ const filterMap = {
 }
 
 function PostCard({post, bname}) {
-    const navigate = useNavigate();
     /*포스트 고유넘버를 서버에 보내서 로그인 한 유저가 해당 포스트에 (1) 투표를 했는지, (2) 했다면 몇번에 투표했는지 받기*/
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
@@ -64,7 +63,6 @@ function PostCard({post, bname}) {
 
         if (!sessionStorage.isLogin) {
             alert("로그인 후 이용가능합니다");
-            navigate('/login')
             return;
         }
 
@@ -153,9 +151,11 @@ function PostCard({post, bname}) {
 
     return(
         <>
-            {isAlarmCheck ? 
-            <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
-            : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
+            {post.status==='progress'?
+                isAlarmCheck ? 
+                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
+                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}} />
+            : <GoBellSlash style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
             }
             <section className={styles.state_wrap}>
                 <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>

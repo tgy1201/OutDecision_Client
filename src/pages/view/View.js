@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from './view.module.css';
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Comment from "../../component/comment/Comment";
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-import { GoBell } from "react-icons/go";
-import { GoBellFill } from "react-icons/go";
+import { GoBell, GoBellFill, GoBellSlash} from "react-icons/go";
 import { FaUser } from "react-icons/fa";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
-
+import { TbPencilCog } from "react-icons/tb";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
 const boardNameMap = {
     all: '전체',
@@ -32,6 +32,7 @@ const filterMap = {
 }
 
 function View({setCategory}) {
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const page = searchParams.get('page'); // 댓글페이지번호
 
@@ -137,7 +138,7 @@ function View({setCategory}) {
     const handleLike = async (e) => {
         e.preventDefault();
 
-        if (sessionStorage.isLogin !== 'true') {
+        if (!sessionStorage.isLogin) {
             alert("로그인 후 이용가능합니다");
             return;
         }
@@ -155,6 +156,28 @@ function View({setCategory}) {
             console.error("Error liking the post:", error);
         }
     };
+
+    const handleEditPost = () => {
+        if (post.participationCnt > 0) {
+            alert('투표참여자가 존재하여 게시글을 삭제할 수 없습니다');
+            return;
+        }
+        navigate(`/edit/${postId}`);
+    }
+
+    const handleRemovePost = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${postId}`, {
+                withCredentials: true,
+            });
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className={styles.container}>
@@ -185,9 +208,11 @@ function View({setCategory}) {
                                 : post.gender === 'female' ?
                                 <IoMdFemale style={{position: "absolute", left: "11px", top: "11px", fontSize: "1.6rem", color: '#ac2323', verticalAlign: 'middle'}}/> : ''
                                 }
-                                {isAlarmCheck ? 
-                                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
-                                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
+                                {post.status==='progress'?
+                                isAlarmCheck ? 
+                                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
+                                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}} />
+                                : <GoBellSlash style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
                                 }
                                 <section className={styles.state_wrap}>
                                     <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
@@ -249,9 +274,15 @@ function View({setCategory}) {
                             <section className={styles.content_wrap}>
                                 {post.content}
                             </section>
-                            <section className={styles.like_wrap}>
+                            <section className={styles.like_wrap} style={{marginBottom: post.bumps? 0 : '40px'}}>
                                 <button onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
                             </section>
+                            {post.bumps &&
+                            <section className={styles.util_wrap}>
+                                <button onClick={handleEditPost}><TbPencilCog />수정</button>
+                                <button onClick={handleRemovePost}><MdOutlineDeleteOutline />삭제</button>
+                            </section>
+                            }
                         </section>
                     </div>
                     <Comment comments={comments} setComments={setComments} postId={postId} page={page}/>
