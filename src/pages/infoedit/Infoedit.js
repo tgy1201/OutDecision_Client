@@ -1,36 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from './infoedit.module.css';
 import { useNavigate } from "react-router-dom";
 import MypageMenu from "../../component/mypageMenu/MypageMenu";
 import Modal from 'react-modal';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 function Infoedit() {
 
     const navigate = useNavigate();
-    const [name, setName] = useState("홍길동");
+    const [formData, setFormData] = useState({
+        name: "",
+        nickname: "",
+        phone: ""
+    });
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    const handleNameChange = (e) => {
-        setName(e.target.value);
+    useEffect(() => {
+        // 여기서 memberId에 해당하는 회원 정보를 불러오는 API 호출
+        // fetchMemberInfo(memberId)
+        //     .then((data) => {
+        //         setFormData(data);
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error fetching member info:", error);
+        //     });
+
+        // 임시로 데이터 설정
+        setFormData({
+            name: "신짱구",
+            nickname: "짱구는 못말려",
+            phone: "010-2222-2222"
+        });
+    }, []); // memberId를 의존성 배열에 추가해야 함
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    }
+
+    const handleSubmit = () => {
+        // 여기서 memberId에 해당하는 회원 정보를 수정하는 API 호출
+        // updateMemberInfo(memberId, formData)
+        //     .then((response) => {
+        //         console.log(response);
+        //         navigate('/mypage');
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error updating member info:", error);
+        //     });
+
+        // 임시로 수정 성공 시 바로 이동
+        navigate('/mypage');
     }
 
     const openModal = () => {
         setModalIsOpen(true);
-        document.body.style.overflow = "hidden";
-        document.getElementById('header').style.zIndex = 0; // 헤더가 뒤로 안감
-        window.scrollTo(0, 0);
+        disableBodyScroll();
     }
 
     const closeModal = () => {
         setModalIsOpen(false);
-        document.body.style.overflow = "unset";
-        document.getElementById('header').style.zIndex = 100;
+        enableBodyScroll();
     }
-
-    const handleSubmit = () => {
-        navigate('/mypage');
-    }
-
 
     return (
         <div className={styles.container}>
@@ -56,14 +90,16 @@ function Infoedit() {
                                             <img src="/assets/images/profile2.png" alt="프로필" />
                                         </div>
                                     </td>
+                                    <button>등록</button>
+                                    <button>삭제</button>
                                 </tr>
                                 <tr>
                                     <td>이름 <span>*</span></td>
-                                    <td><input value={name} onChange={handleNameChange} style={{ width: "80px" }}></input></td>
+                                    <td><input name="name" value={formData.name} onChange={handleInputChange} style={{ width: "80px" }}></input></td>
                                 </tr>
                                 <tr>
                                     <td>닉네임 <span>*</span></td>
-                                    <td><input value="패알못"></input></td>
+                                    <td><input name="nickname" value={formData.nickname} onChange={handleInputChange}></input></td>
                                 </tr>
                                 <tr>
                                     <td>이메일 <span>*</span></td>
@@ -75,12 +111,49 @@ function Infoedit() {
                                 </tr>
                                 <tr>
                                     <td>휴대폰번호 <span>*</span></td>
-                                    <td><input value="010-3333-8888"></input></td>
+                                    <td><input name="phone" value={formData.phone} onChange={handleInputChange}></input></td>
                                 </tr>
                             </table>
                         </div>
-
                     </div>
+
+                    <div className={styles.buttonbox}>
+                        <button onClick={handleSubmit}>수정</button>
+                        <button onClick={() => navigate('/mypage')}>취소</button>
+                    </div>
+
+                    <Modal className={styles.modal} isOpen={modalIsOpen}>
+                        <div className={styles.modalheader}>
+                            <span>비밀번호 변경</span>
+                        </div>
+                        <div className={styles.modalbody}>
+                            <table className={styles.passwordtable}>
+                                <colgroup>
+                                    <col width="40%" />
+                                    <col width="60%" />
+                                </colgroup>
+                                <tr>
+                                    <td>현재 비밀번호</td>
+                                    <td><input type="password" /></td>
+                                </tr>
+                                <tr>
+                                    <td>새 비밀번호</td>
+                                    <td><input></input></td>
+                                </tr>
+                                <tr>
+                                    <td>새 비밀번호 확인</td>
+                                    <td><input></input></td>
+                                </tr>
+                            </table>
+
+                            <div className={styles.buttonbox2}>
+                                <button onClick={closeModal}>변경</button>
+                                <button onClick={closeModal}>취소</button>
+                            </div>
+                        </div>
+                    </Modal>
+
+
                 </section>
             </div>
             <div className={styles.mobile_infoedit}>
@@ -104,15 +177,17 @@ function Infoedit() {
                                         <div className={styles.image}>
                                             <img src="/assets/images/profile2.png" alt="프로필" />
                                         </div>
+                                        <button>등록</button>
+                                        <button>삭제</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>이름 <span>*</span></td>
-                                    <td><input value={name} onChange={handleNameChange} style={{ width: "80px" }}></input></td>
+                                    <td><input name="name" value={formData.name} onChange={handleInputChange} style={{ width: "80px" }}></input></td>
                                 </tr>
                                 <tr>
                                     <td>닉네임 <span>*</span></td>
-                                    <td><input value="패알못"></input></td>
+                                    <td><input name="nickname" value={formData.nickname} onChange={handleInputChange}></input></td>
                                 </tr>
                                 <tr>
                                     <td>이메일 <span>*</span></td>
@@ -124,11 +199,10 @@ function Infoedit() {
                                 </tr>
                                 <tr>
                                     <td>휴대폰번호 <span>*</span></td>
-                                    <td><input value="010-3333-8888"></input></td>
+                                    <td><input name="phone" value={formData.phone} onChange={handleInputChange}></input></td>
                                 </tr>
                             </table>
                         </div>
-
                     </div>
 
                     <div className={styles.buttonbox}>

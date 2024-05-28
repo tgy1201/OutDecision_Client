@@ -17,12 +17,6 @@ function Mypage() {
         setHoveredRow(null);
     }
 
-    const openModal = () => {
-        document.body.style.overflow = "hidden";
-        document.getElementById('header').style.zIndex = 0;
-        window.scrollTo(0, 0);
-    }
-
     const handleMenu = (menu) => {
         setActiveMenu(menu);
     }
@@ -42,8 +36,11 @@ function Mypage() {
                                     <img src="/assets/images/profile2.png" alt="프로필" />
                                 </div>
                                 <div className={styles.namebox}>
-                                    <div>로맨티스트</div>
-                                    <span>정감자 님</span><img src="/assets/images/setting.png" alt="설정" onClick={openModal} />
+                                    <div>
+                                        <div className={styles.nickname}>로맨티스트</div>
+                                        <button>변경</button>
+                                    </div>
+                                    <span>정감자 </span>님
                                 </div>
                             </div>
                             <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
@@ -124,7 +121,7 @@ function Mypage() {
                                 <div className={styles.namebox}>
                                     <div>
                                         <div className={styles.nickname}>로맨티스트</div>
-                                        <button className={styles.changetitle}>변경</button>
+                                        <button>변경</button>
                                     </div>
                                     <span>정감자 </span>님
                                 </div>

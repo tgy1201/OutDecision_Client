@@ -18,9 +18,33 @@ function Mytitle({ memberId }) {
     const [boxData, setBoxData] = useState(initialBoxData);
     const [selectedBoxIndex, setSelectedBoxIndex] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [applyMessage, setApplyMessage] = useState(null);
 
     const handleClick = (index) => {
         setSelectedBoxIndex(index);
+    };
+
+    const applyTitle = () => {
+        // API 호출
+        fetch(`/mypage/${memberId}/title`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title: boxData[selectedBoxIndex].title })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.isSuccess && data.code === "2000") {
+                    setApplyMessage("칭호가 성공적으로 변경되었습니다.");
+                } else {
+                    setApplyMessage("칭호 변경에 실패하였습니다.");
+                }
+            })
+            .catch(error => {
+                console.error('Error applying title:', error);
+                setApplyMessage("칭호 변경 중 오류가 발생하였습니다.");
+            });
     };
 
     useEffect(() => {
@@ -83,12 +107,13 @@ function Mytitle({ memberId }) {
                                 </div>
                                 <div className={styles.pbwrapper}>
                                     <div className={styles.progress}>{`${box.progress}/${box.maxProgress}`}</div>
-                                    <div className={styles.bar} style={{ '--bar-width': box.barWidth }}></div>
+                                    <div className={styles.bar} style={{ '--bar-width': `${(box.progress / box.maxProgress) * 100}%` }}></div>
                                 </div>
                                 <div className={styles.explain}>{box.explain}</div>
                             </div>
                         ))}
-                        <div className={styles.apply}>칭호 적용</div>
+                        <button className={styles.apply} onClick={applyTitle}>칭호 적용</button>
+                        {applyMessage && <div className={styles.applyMessage}>{applyMessage}</div>}
                     </div>
                 </section>
             </div>
@@ -114,10 +139,11 @@ function Mytitle({ memberId }) {
                                     <div className={styles.explain}>{box.explain}</div>
                                     <div className={styles.progress}>{`${box.progress}/${box.maxProgress}`}</div>
                                 </div>
-                                <div className={styles.bar} style={{ '--bar-width': box.barWidth }}></div>
+                                <div className={styles.bar} style={{ '--bar-width': `${(box.progress / box.maxProgress) * 100}%` }}></div>
                             </div>
                         ))}
-                        <div className={styles.apply}>칭호 적용</div>
+                        <button className={styles.apply} onClick={applyTitle}>칭호 적용</button>
+                        {applyMessage && <div className={styles.applyMessage}>{applyMessage}</div>}
                     </div>
                 </section>
             </div>

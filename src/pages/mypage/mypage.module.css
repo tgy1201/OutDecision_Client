@@ -74,18 +74,38 @@
         object-fit: cover;
     }
 
-    .namebox div {
+    .namebox {
+        font-size: 20px;
+        align-items: center;
+    }
+
+    .namebox>div {
+        display: flex;
+        align-items: center;
+    }
+
+    .namebox .nickname {
+        font-size: 20px;
         color: #468FD3;
     }
 
     .namebox span {
         font-size: 25px;
+        font-weight: 600;
     }
 
-    .namebox img {
-        width: 27px;
+    .namebox button {
+        background-color: #ac2323;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
         margin-left: 10px;
-        vertical-align: bottom;
+        cursor: pointer;
+    }
+
+    .namebox button:hover {
+        background-color: #8b1b1b;
     }
 
     .userinfo {
@@ -153,19 +173,6 @@
     .post div:nth-child(1) span {
         color: #ac2323;
         font-weight: 600;
-    }
-
-    .link {
-        text-decoration: none;
-        color: black;
-    }
-
-    .link:hover {
-        text-decoration: underline;
-    }
-
-    .link2 {
-        text-decoration: none;
     }
 }
 
@@ -319,7 +326,6 @@
         cursor: pointer;
         width: 100%;
     }
-
 
     .post {
         display: flex;

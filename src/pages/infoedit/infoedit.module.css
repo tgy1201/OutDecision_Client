@@ -44,17 +44,12 @@
         border-bottom: 2px solid #ac2323;
     }
 
-
     .editform {
         width: 400px;
         height: 500px;
-        margin: 0 auto;
+        margin-top: 80px;
         background-color: #f7f7f7;
-    }
-
-    .editform span {
-        color: #ac2323;
-        font-weight: 600;
+        padding: 20px;
     }
 
     .required {
@@ -73,7 +68,7 @@
     .image {
         width: 80px;
         height: 80px;
-        border-radius: 70%;
+        border-radius: 50%;
         overflow: hidden;
         background-color: white;
         margin-right: 15px;
@@ -102,8 +97,8 @@
         letter-spacing: 1.5px;
     }
 
-    .edittable td:nth-child(1) {
-        width: 200px;
+    .edittable td:first-child {
+        width: 30%;
     }
 
     .edittable td:nth-child(2) {
@@ -120,27 +115,23 @@
         justify-content: center;
     }
 
-    .buttonbox button:nth-child(1) {
+    .buttonbox button {
         width: 100px;
         height: 40px;
         font-size: 20px;
         margin-right: 10px;
         border: none;
         border-radius: 8px;
-        background-color: #ac2323;
-        color: white;
-    }
-
-    .buttonbox button:nth-child(2) {
-        width: 100px;
-        height: 40px;
-        font-size: 20px;
-        margin-left: 10px;
-        border: none;
-        border-radius: 8px;
-        background-color: #C2C2C2;
         color: white;
         cursor: pointer;
+    }
+
+    .buttonbox button:first-child {
+        background-color: #ac2323;
+    }
+
+    .buttonbox button:last-child {
+        background-color: #C2C2C2;
     }
 
     .modal {
@@ -148,10 +139,8 @@
         top: 160px;
         left: 50%;
         transform: translateX(-50%);
-
         width: 400px;
         height: 300px;
-
         background-color: #f7f7f7;
         border-radius: 12px;
         border: 1px solid gray;
@@ -193,27 +182,22 @@
         justify-content: center;
     }
 
-    .buttonbox2 button:nth-child(1) {
+    .buttonbox2 button {
         width: 80px;
         height: 30px;
         font-size: 15px;
         margin-right: 10px;
         border: none;
         border-radius: 8px;
-        background-color: #ac2323;
-        color: white;
         cursor: pointer;
     }
 
-    .buttonbox2 button:nth-child(2) {
-        width: 80px;
-        height: 30px;
-        font-size: 15px;
-        margin-left: 10px;
-        border: none;
-        border-radius: 8px;
+    .buttonbox2 button:first-child {
+        background-color: #ac2323;
+    }
+
+    .buttonbox2 button:last-child {
         background-color: #C2C2C2;
-        color: white;
     }
 }
 
