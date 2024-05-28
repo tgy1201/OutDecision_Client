@@ -82,7 +82,7 @@ function View({setCategory}) {
             });
 
             console.log(response.data);
-            setIsAlarmCheck(response.data.result);
+            setIsAlarmCheck(true);
         } catch (error) {
             console.error(error);
         }
@@ -92,11 +92,12 @@ function View({setCategory}) {
         e.preventDefault();
 
         try {
-            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/notification`, {}, {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/notification`, {
                 withCredentials: true,
             });
 
             console.log(response.data);
+            setIsAlarmCheck(false);
         } catch (error) {
             console.error(error);
         }

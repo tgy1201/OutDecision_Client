@@ -122,7 +122,7 @@ function PostList ({post, bname}) {
             });
 
             console.log(response.data);
-            setIsAlarmCheck(response.data.result);
+            setIsAlarmCheck(true);
         } catch (error) {
             console.error(error);
         }
@@ -132,12 +132,12 @@ function PostList ({post, bname}) {
         e.preventDefault();
 
         try {
-            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${post.postId}/notification`, {}, {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${post.postId}/notification`, {
                 withCredentials: true,
             });
 
             console.log(response.data);
-            //setIsAlarmCheck(response.data.result);
+            setIsAlarmCheck(false);
         } catch (error) {
             console.error(error);
         }

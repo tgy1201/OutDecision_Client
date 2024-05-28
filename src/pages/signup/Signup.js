@@ -117,7 +117,7 @@ function Signup () {
     /* 프로필 업로드 */
     const handleImageUpload = (e) => {
         if (e.target.files[0]) {
-			setInputValue((prevState) => ({ ...prevState, profileImage: e.target.files[0] }));
+         setInputValue((prevState) => ({ ...prevState, profileImage: e.target.files[0] }));
         }
 
         const reader = new FileReader();
@@ -252,6 +252,14 @@ function Signup () {
         } catch (error) {
           console.error(error);
         }
+    }
+
+    const handleKakaoLogin = () => {
+        window.location.href = `${process.env.REACT_APP_SERVER_IP}/oauth2/authorization/kakao`;
+    }
+
+    const handleGoogleLogin = () => {
+        window.location.href = `${process.env.REACT_APP_SERVER_IP}/oauth2/authorization/google`;
     };
 
     return (
@@ -367,8 +375,12 @@ function Signup () {
                         <div className={styles.account}>이미 계정이 있으신가요? <Link to="/login">Log in</Link></div>
                         <p><span>간편회원가입</span></p>
                         <div className={styles.social_wrap}>
-                            <Link to="/signup/social"><img src="/assets/images/kakao.png" alt="카카오"/></Link>
-                            <Link to="/signup/social" style={{border: "1px solid lightgray"}}><img src="/assets/images/google.png" alt="구글"/></Link>
+                            <Link onClick={handleKakaoLogin}>
+                            <img src="/assets/images/kakao.png" alt="카카오"/>
+                            </Link>
+                            <Link onClick={handleGoogleLogin} style={{border: "1px solid lightgray"}}>
+                            <img src="/assets/images/google.png" alt="구글"/>
+                            </Link>
                         </div>
                     </div>
                 </div>
