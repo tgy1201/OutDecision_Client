@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from "react";
 import styles from './infoedit.module.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MypageMenu from "../../component/mypageMenu/MypageMenu";
 import Modal from 'react-modal';
+import axios from "axios";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 function Infoedit() {
 
     const navigate = useNavigate();
+    const { memberId } = useParams();
     const [formData, setFormData] = useState({
         name: "",
+        email: "",
         nickname: "",
         phone: ""
     });
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    useEffect(() => {
-        // 여기서 memberId에 해당하는 회원 정보를 불러오는 API 호출
-        // fetchMemberInfo(memberId)
-        //     .then((data) => {
-        //         setFormData(data);
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error fetching member info:", error);
-        //     });
 
-        // 임시로 데이터 설정
-        setFormData({
-            name: "신짱구",
-            nickname: "짱구는 못말려",
-            phone: "010-2222-2222"
-        });
-    }, []); // memberId를 의존성 배열에 추가해야 함
+    useEffect(() => {
+        const fetchMemberInfo = async () => {
+            try {
+                const response = await axios.get(`/mypage/${memberId}/edit`);
+                if (response.data.isSuccess) {
+                    const { name, email, nickname } = response.data.result;
+                    setFormData({ name, email, nickname });
+                } else {
+                    console.error(response.data.message);
+                }
+            } catch (error) {
+                console.error("Error fetching member info:", error);
+                console.error("개인정보를 불러오는 데 실패했습니다.");
+            }
+        };
+
+        fetchMemberInfo();
+    }, [memberId]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -41,19 +46,18 @@ function Infoedit() {
         }));
     }
 
-    const handleSubmit = () => {
-        // 여기서 memberId에 해당하는 회원 정보를 수정하는 API 호출
-        // updateMemberInfo(memberId, formData)
-        //     .then((response) => {
-        //         console.log(response);
-        //         navigate('/mypage');
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error updating member info:", error);
-        //     });
-
-        // 임시로 수정 성공 시 바로 이동
-        navigate('/mypage');
+    const handleSubmit = async () => {
+        try {
+            const response = await axios.put(`/mypage/${memberId}`, formData);
+            if (response.data.isSuccess) {
+                navigate('/mypage');
+            } else {
+                console.error(response.data.message);
+            }
+        } catch (error) {
+            console.error("Error updating member info:", error);
+            console.error("개인정보를 수정하는 데 실패했습니다.");
+        }
     }
 
     const openModal = () => {
@@ -103,7 +107,7 @@ function Infoedit() {
                                 </tr>
                                 <tr>
                                     <td>이메일 <span>*</span></td>
-                                    <td>aaa@naver.com</td>
+                                    <td>{formData.email}</td>
                                 </tr>
                                 <tr>
                                     <td>비밀번호 <span>*</span></td>
@@ -162,23 +166,26 @@ function Infoedit() {
                 </section>
                 <section className={styles.content}>
                     <div className={styles.main}>
-                        <div className={styles.edit}>회원정보</div>
-
-                        <div className={styles.editform}>
+                        <div className={styles.editwrap}>
+                            <div className={styles.edit}>회원정보</div>
                             <div className={styles.required}><span>*</span> 필수</div>
+                        </div>
+                        <div className={styles.editform}>
                             <table className={styles.edittable}>
                                 <colgroup>
                                     <col width="30%" />
                                     <col width="70%" />
                                 </colgroup>
                                 <tr>
-                                    <td>프로필사진</td>
-                                    <td className={styles.imagebox}>
-                                        <div className={styles.image}>
+                                    <td>프로필 사진</td>
+                                    <td className="imagebox">
+                                        <div className="image">
                                             <img src="/assets/images/profile2.png" alt="프로필" />
                                         </div>
-                                        <button>등록</button>
-                                        <button>삭제</button>
+                                        <div className="buttons">
+                                            <button>등록</button>
+                                            <button>삭제</button>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -191,7 +198,7 @@ function Infoedit() {
                                 </tr>
                                 <tr>
                                     <td>이메일 <span>*</span></td>
-                                    <td>aaa@naver.com</td>
+                                    <td>{formData.email}</td>
                                 </tr>
                                 <tr>
                                     <td>비밀번호 <span>*</span></td>
