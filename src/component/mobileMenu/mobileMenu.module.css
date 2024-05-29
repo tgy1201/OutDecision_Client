@@ -136,6 +136,7 @@
         align-items: center;
         flex-direction: column;
         position: relative;
+        cursor: pointer;
     }
 
     .point_wrap {
@@ -144,6 +145,7 @@
         gap: 3px;
         align-items: center;
         flex-direction: column;
+        cursor: pointer;
     }
 
     .mytitle_wrap::after {

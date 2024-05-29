@@ -93,11 +93,11 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                     </section>
                     <section className={styles.userItem_wrap}>
                         <ul>
-                            <li className={styles.mytitle_wrap}>
+                            <li className={styles.mytitle_wrap} onClick={()=>navigate('/mypage/mytitle')}>
                                 <div>보유칭호</div>
                                 <p>{info.titleCnt}</p>
                             </li>
-                            <li className={styles.point_wrap}>
+                            <li className={styles.point_wrap} onClick={()=>navigate('/ranking')}>
                                 <div>결정포인트</div>
                                 <p><span style={{color: '#ac2323', fontWeight: '600'}}>{info.point}</span> P</p>
                             </li>
