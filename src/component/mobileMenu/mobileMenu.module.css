@@ -79,8 +79,9 @@
     }
 
     .userInfo_wrap > div {
-        width: 90px;
-        height: 90px;
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
         position: relative;
         border-radius: 50%;
         border: 1px solid #5a5a5a;
@@ -101,17 +102,17 @@
     }
 
     .selected {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         color: #5040dc;
     }
 
     .unselected {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         color: #6b6b6b;
     }
 
     .userInfo_wrap > ul li:nth-child(2) {
-        font-size: 1.6rem;
+        font-size: 1.1rem;
         font-weight: 600;
     }
 
@@ -121,7 +122,7 @@
         justify-content: center;
         align-items: center;
         position: relative;
-        font-size: 1.4rem;
+        font-size: 1.0rem;
     }
 
     .userItem_wrap li {
@@ -226,7 +227,7 @@
 
     .logout_wrap > span {
         font-weight: 600;
-        font-size: 1.1em;
+        font-size: 1.0em;
         letter-spacing: -1px;
         cursor: pointer;
         position: relative;

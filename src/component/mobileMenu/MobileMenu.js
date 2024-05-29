@@ -166,7 +166,6 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                         setIsSidebarOpen(!isSidebarOpen);
                     }}>로그아웃
                     </span>
-                    <span>• 회원탈퇴</span>
                 </div>
                 :
                 <div className={styles.logout_wrap}>
@@ -176,10 +175,6 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                         setIsSidebarOpen(!isSidebarOpen);
                     }}>로그인
                     </span>
-                    <span onClick={() => {
-                        navigate('/signup')
-                        setIsSidebarOpen(!isSidebarOpen);
-                    }}> • 회원가입</span>
                 </div>
                 }
             </nav>
