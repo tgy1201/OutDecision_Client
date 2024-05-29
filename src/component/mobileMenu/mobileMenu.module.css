@@ -75,7 +75,6 @@
     .userInfo_wrap {
         display: flex;
         gap: 12px;
-        padding-left: 20px;
     }
 
     .userInfo_wrap > div {
