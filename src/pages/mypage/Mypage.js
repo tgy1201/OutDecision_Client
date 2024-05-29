@@ -16,6 +16,30 @@ function Mypage() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [profileImage, setProfileImage] = useState('/assets/user.png');
+    const [title, setTitle] = useState('새싹');
+
+    const [memberInfo, setMemberInfo] = useState(null);
+
+    useEffect(() => {
+        const fetchMemberInfo = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/mypage/edit`, {
+                    withCredentials: true
+                });
+                if (response.data.isSuccess) {
+                    setMemberInfo(response.data.result);
+                } else {
+                    console.error(response.data.message);
+                }
+            } catch (error) {
+                console.error("Error fetching member info:", error);
+                console.error("개인정보를 불러오는 데 실패했습니다.");
+            }
+        };
+
+        fetchMemberInfo();
+    }, []);
+
 
     useEffect(() => {
         const handlefetchPosts = async () => {
@@ -73,6 +97,27 @@ function Mypage() {
         });
     };
 
+    const handleChangeTitle = async () => {
+        // 여기에 칭호 변경 관련 로직 추가
+        // 서버에 요청하여 변경된 칭호를 가져오거나, 사용자가 입력한 값을 서버에 전송하여 변경할 수 있습니다.
+        try {
+            // 칭호 변경 API 호출 예시
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_IP}/mypage/title`, {
+                title: "변경된 칭호" // 변경된 칭호를 서버에 전송
+            }, {
+                withCredentials: true
+            });
+
+            if (response.data.isSuccess && response.data.code === "2000") {
+                setTitle("변경된 칭호"); // 변경 성공 시 상태 업데이트
+            } else {
+                console.error("칭호 변경 실패:", response.data.message);
+            }
+        } catch (error) {
+            console.error("칭호 변경 중 오류:", error);
+        }
+    };
+
     const handleMenu = (menu) => {
         setActiveMenu(menu);
         searchParams.set('posts', menu);
@@ -98,22 +143,24 @@ function Mypage() {
                 <section className={styles.content}>
                     <div className={styles.main}>
                         <div className={styles.mypage}>마이페이지</div>
-                        <div className={styles.profile}>
-                            <div className={styles.imagebox}>
-                                <div className={styles.image}>
-                                    <img src="/assets/images/profile2.png" alt="프로필" />
-                                </div>
-                                <div className={styles.namebox}>
-                                    <div>
-                                        <div className={styles.nickname}>로맨티스트</div>
-                                        <button>변경</button>
+                        {memberInfo && (
+                            <div className={styles.profile}>
+                                <div className={styles.imagebox}>
+                                    <div className={styles.image}>
+                                        <img src="/assets/images/profile2.png" alt="프로필" />
                                     </div>
-                                    <span>정감자 </span>님
+                                    <div className={styles.namebox}>
+                                        <div>
+                                            <div className={styles.title}>새싹</div>
+                                            <button onClick={handleChangeTitle}>변경</button>
+                                        </div>
+                                        <span>{memberInfo.name} </span>님
+                                    </div>
                                 </div>
+                                <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
+                                <div className={styles.userinfo}>포인트 <span>7000점 (랭킹 : 3위)</span></div>
                             </div>
-                            <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
-                            <div className={styles.userinfo}>포인트 <span>7000점 (랭킹 : 3위)</span></div>
-                        </div>
+                        )}
                         <div className={styles.posting}>
                             <div className={styles.menu}>
                                 <span onClick={() => handleMenu('written')} className={activeMenu === 'written' ? styles.active : styles.inactive}>작성한 글</span>
@@ -141,22 +188,24 @@ function Mypage() {
                 </section>
                 <section className={styles.content}>
                     <div className={styles.main}>
-                        <div className={styles.profile}>
-                            <div className={styles.imagebox}>
-                                <div className={styles.image}>
-                                    <img src="/assets/images/profile2.png" alt="프로필" />
-                                </div>
-                                <div className={styles.namebox}>
-                                    <div>
-                                        <div className={styles.nickname}>로맨티스트</div>
-                                        <button className={styles.changetitle}>변경</button>
+                        {memberInfo && (
+                            <div className={styles.profile}>
+                                <div className={styles.imagebox}>
+                                    <div className={styles.image}>
+                                        <img src="/assets/images/profile2.png" alt="프로필" />
                                     </div>
-                                    <span>정감자 </span>님
+                                    <div className={styles.namebox}>
+                                        <div>
+                                            <div className={styles.title}>새싹</div>
+                                            <button onClick={handleChangeTitle}>변경</button>
+                                        </div>
+                                        <span>{memberInfo.name} </span>님
+                                    </div>
                                 </div>
+                                <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
+                                <div className={styles.userinfo}>포인트 <span>7000점 (랭킹 : 3위)</span></div>
                             </div>
-                            <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
-                            <div className={styles.userinfo}>포인트 <span>7480점 (랭킹 : 5위)</span></div>
-                        </div>
+                        )}
                         <div className={styles.posting}>
                             <div className={styles.menu}>
                                 <span onClick={() => handleMenu('written')} className={activeMenu === 'written' ? styles.active : styles.inactive}>작성한 글</span>

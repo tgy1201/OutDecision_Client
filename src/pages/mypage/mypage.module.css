@@ -95,7 +95,7 @@
         align-items: center;
     }
 
-    .namebox .nickname {
+    .namebox .title {
         font-size: 20px;
         color: #468FD3;
     }
@@ -254,7 +254,7 @@
         align-items: center;
     }
 
-    .namebox .nickname {
+    .namebox .title {
         font-size: 20px;
         color: #468FD3;
     }
@@ -332,7 +332,7 @@
         flex-direction: column;
         position: absolute;
         font-size: 20px;
-        top: 110px;
+        top: 500px;
         color: black;
         cursor: pointer;
         width: 100%;

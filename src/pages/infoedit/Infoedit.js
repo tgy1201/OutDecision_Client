@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from './infoedit.module.css';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MypageMenu from "../../component/mypageMenu/MypageMenu";
 import Modal from 'react-modal';
 import axios from "axios";
@@ -9,23 +9,31 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 function Infoedit() {
 
     const navigate = useNavigate();
-    const { memberId } = useParams();
     const [formData, setFormData] = useState({
+        memberId: "",
         name: "",
         email: "",
         nickname: "",
-        phone: ""
+        socialType: "",
+        userImg: ""
     });
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
+    const [passwordData, setPasswordData] = useState({
+        currentPassword: "",
+        newPassword: "",
+        confirmNewPassword: ""
+    });
+    const [passwordError, setPasswordError] = useState("");
 
     useEffect(() => {
         const fetchMemberInfo = async () => {
             try {
-                const response = await axios.get(`/mypage/${memberId}/edit`);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/mypage/edit`, {
+                    withCredentials: true
+                });
                 if (response.data.isSuccess) {
-                    const { name, email, nickname } = response.data.result;
-                    setFormData({ name, email, nickname });
+                    const { memberId, name, email, nickname, socialType, userImg } = response.data.result;
+                    setFormData({ memberId, name, email, nickname, socialType, userImg });
                 } else {
                     console.error(response.data.message);
                 }
@@ -36,7 +44,57 @@ function Infoedit() {
         };
 
         fetchMemberInfo();
-    }, [memberId]);
+    }, []);
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        // 파일이 존재하지 않으면 업로드를 시도하지 않음
+        if (!file) {
+            console.error("No file selected");
+            return;
+        }
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const response = await axios.patch(`${process.env.REACT_APP_SERVER_IP}/mypage/edit/profile`, formData, {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+            if (response.data.isSuccess) {
+                setFormData(prevData => ({
+                    ...prevData,
+                    userImg: response.data.result
+                }));
+            } else {
+                console.error(response.data.message);
+            }
+        } catch (error) {
+            console.error("Error uploading profile image:", error);
+        }
+    }
+
+    const handleDeleteProfile = async () => {
+        try {
+            const response = await axios.patch(`${process.env.REACT_APP_SERVER_IP}/mypage/delete/profile`, {
+                newImg: "profile.png"
+            }, {
+                withCredentials: true
+            });
+            if (response.data.isSuccess) {
+                setFormData(prevData => ({
+                    ...prevData,
+                    userImg: "profile.png"
+                }));
+            } else {
+                console.error(response.data.message);
+            }
+        } catch (error) {
+            console.error("Error deleting profile:", error);
+        }
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -46,9 +104,19 @@ function Infoedit() {
         }));
     }
 
+    const handlePasswordChange = (e) => {
+        const { name, value } = e.target;
+        setPasswordData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    }
+
     const handleSubmit = async () => {
         try {
-            const response = await axios.put(`/mypage/${memberId}`, formData);
+            const response = await axios.patch(`${process.env.REACT_APP_SERVER_IP}/mypage/edit`, formData, {
+                withCredentials: true
+            });
             if (response.data.isSuccess) {
                 navigate('/mypage');
             } else {
@@ -59,6 +127,34 @@ function Infoedit() {
             console.error("개인정보를 수정하는 데 실패했습니다.");
         }
     }
+
+    const handlePasswordSubmit = async () => {
+        if (passwordData.newPassword !== passwordData.confirmNewPassword) {
+            setPasswordError("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
+        try {
+            const response = await axios.patch(`${process.env.REACT_APP_SERVER_IP}/mypage/edit/password`, {
+                currentPassword: passwordData.currentPassword,
+                newPassword: passwordData.newPassword,
+                confirmNewPassword: passwordData.confirmNewPassword
+            }, {
+                withCredentials: true
+            });
+            if (response.data.isSuccess) {
+                closeModal();
+                setPasswordError("");
+            } else {
+                setPasswordError(response.data.message);
+                console.error(response.data.message);
+            }
+        } catch (error) {
+            setPasswordError("비밀번호를 변경하는 데 실패했습니다.");
+            console.error("Error updating password:", error);
+        }
+    }
+
 
     const openModal = () => {
         setModalIsOpen(true);
@@ -91,11 +187,11 @@ function Infoedit() {
                                     <td>프로필사진</td>
                                     <td className={styles.imagebox}>
                                         <div className={styles.image}>
-                                            <img src="/assets/images/profile2.png" alt="프로필" />
+                                            <img src={formData.userImg} alt="프로필" />
                                         </div>
                                     </td>
-                                    <button>등록</button>
-                                    <button>삭제</button>
+                                    <button onClick={handleImageUpload}>등록</button>
+                                    <button onClick={handleDeleteProfile}>삭제</button>
                                 </tr>
                                 <tr>
                                     <td>이름 <span>*</span></td>
@@ -112,10 +208,6 @@ function Infoedit() {
                                 <tr>
                                     <td>비밀번호 <span>*</span></td>
                                     <td><button onClick={openModal}>비밀번호 변경</button></td>
-                                </tr>
-                                <tr>
-                                    <td>휴대폰번호 <span>*</span></td>
-                                    <td><input name="phone" value={formData.phone} onChange={handleInputChange}></input></td>
                                 </tr>
                             </table>
                         </div>
@@ -136,22 +228,26 @@ function Infoedit() {
                                     <col width="40%" />
                                     <col width="60%" />
                                 </colgroup>
-                                <tr>
-                                    <td>현재 비밀번호</td>
-                                    <td><input type="password" /></td>
-                                </tr>
-                                <tr>
-                                    <td>새 비밀번호</td>
-                                    <td><input></input></td>
-                                </tr>
-                                <tr>
-                                    <td>새 비밀번호 확인</td>
-                                    <td><input></input></td>
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>현재 비밀번호</td>
+                                        <td><input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>새 비밀번호</td>
+                                        <td><input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>새 비밀번호 확인</td>
+                                        <td><input type="password" name="confirmNewPassword" value={passwordData.confirmNewPassword} onChange={handlePasswordChange} /></td>
+                                    </tr>
+                                </tbody>
                             </table>
 
+                            {passwordError && <div className={styles.error}>{passwordError}</div>}
+
                             <div className={styles.buttonbox2}>
-                                <button onClick={closeModal}>변경</button>
+                                <button onClick={handlePasswordSubmit}>변경</button>
                                 <button onClick={closeModal}>취소</button>
                             </div>
                         </div>
@@ -180,11 +276,11 @@ function Infoedit() {
                                     <td>프로필 사진</td>
                                     <td className="imagebox">
                                         <div className="image">
-                                            <img src="/assets/images/profile2.png" alt="프로필" />
+                                            <img src={formData.userImg} alt="프로필" />
                                         </div>
                                         <div className="buttons">
-                                            <button>등록</button>
-                                            <button>삭제</button>
+                                            <button onClick={handleImageUpload}>등록</button>
+                                            <button onClick={handleDeleteProfile}>삭제</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -203,10 +299,6 @@ function Infoedit() {
                                 <tr>
                                     <td>비밀번호 <span>*</span></td>
                                     <td><button onClick={openModal}>비밀번호 변경</button></td>
-                                </tr>
-                                <tr>
-                                    <td>휴대폰번호 <span>*</span></td>
-                                    <td><input name="phone" value={formData.phone} onChange={handleInputChange}></input></td>
                                 </tr>
                             </table>
                         </div>
@@ -230,22 +322,26 @@ function Infoedit() {
                             <col width="40%" />
                             <col width="60%" />
                         </colgroup>
-                        <tr>
-                            <td>현재 비밀번호</td>
-                            <td><input type="password" /></td>
-                        </tr>
-                        <tr>
-                            <td>새 비밀번호</td>
-                            <td><input></input></td>
-                        </tr>
-                        <tr>
-                            <td>새 비밀번호 확인</td>
-                            <td><input></input></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>현재 비밀번호</td>
+                                <td><input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} /></td>
+                            </tr>
+                            <tr>
+                                <td>새 비밀번호</td>
+                                <td><input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} /></td>
+                            </tr>
+                            <tr>
+                                <td>새 비밀번호 확인</td>
+                                <td><input type="password" name="confirmNewPassword" value={passwordData.confirmNewPassword} onChange={handlePasswordChange} /></td>
+                            </tr>
+                        </tbody>
                     </table>
 
+                    {passwordError && <div className={styles.error}>{passwordError}</div>}
+
                     <div className={styles.buttonbox2}>
-                        <button onClick={closeModal}>변경</button>
+                        <button onClick={handlePasswordSubmit}>변경</button>
                         <button onClick={closeModal}>취소</button>
                     </div>
                 </div>
