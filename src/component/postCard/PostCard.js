@@ -50,6 +50,7 @@ function PostCard({post, bname}) {
         setVotedOptionId(post?.loginMemberPostInfoDTO?.votedOptionIds);
         setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
         setPostOptions(post?.optionsList);
+        setSelectedOptions([]);
     }, [post, type, page])    
 
     const handleOptionChange = (index) => {
