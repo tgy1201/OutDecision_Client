@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './postCard.module.css';
 import { Link, useSearchParams } from "react-router-dom";
+import axios from "axios";
+
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-// import { GoBell } from "react-icons/go";
-import { GoBellFill } from "react-icons/go";
+import { GoBell, GoBellFill, GoBellSlash } from "react-icons/go";
+import { IoMdMale, IoMdFemale } from "react-icons/io";
 
 const boardNameMap = {
     all: '전체',
@@ -30,11 +32,16 @@ function PostCard({post, bname}) {
     /*포스트 고유넘버를 서버에 보내서 로그인 한 유저가 해당 포스트에 (1) 투표를 했는지, (2) 했다면 몇번에 투표했는지 받기*/
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
+    const [isAlarmCheck, setIsAlarmCheck] = useState(false);
 
     const [searchParams] = useSearchParams();
     const search = searchParams.get('search'); // 검색어
     const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
   
+    useEffect(()=>{
+        setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
+    }, [post])    
+
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
             if (selectedOptions.includes(index)) {
@@ -51,12 +58,31 @@ function PostCard({post, bname}) {
         }
     };
 
-    const handleVoteSubmit = () => {
+    const handleVoteSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!sessionStorage.isLogin) {
+            alert("로그인 후 이용가능합니다");
+            return;
+        }
+
         if (selectedOptions.length === 0) {
             alert("투표옵션을 선택해주세요");
             return;
         }
-        console.log(selectedOptions, post.postId)
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/vote`, selectedOptions, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            });
+            console.log(response.data);
+            console.log('선택한 옵션' + selectedOptions);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const highlightText = (text, searchTerm, type) => {
@@ -88,9 +114,49 @@ function PostCard({post, bname}) {
         return highlightedText;
     };
 
+    const handleClickAlarm = async (e) => {
+        e.preventDefault();
+        
+        if(!sessionStorage.isLogin) {
+            alert('로그인 후 이용가능합니다');
+            return;
+        }
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${post.postId}/notification`, {}, {
+                withCredentials: true,
+            });
+
+            console.log(response.data);
+            setIsAlarmCheck(true);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleCancelAlarm = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${post.postId}/notification`, {
+                withCredentials: true,
+            });
+
+            console.log(response.data);
+            setIsAlarmCheck(false);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return(
         <>
-            <GoBellFill style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}}/>
+            {post.status==='progress'?
+                isAlarmCheck ? 
+                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
+                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}} />
+            : <GoBellSlash style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
+            }
             <section className={styles.state_wrap}>
                 <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
             </section>
@@ -102,7 +168,10 @@ function PostCard({post, bname}) {
                     </div>
                 </Link>
                 <div>{post.deadline} 종료</div>
-                <div>{post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여</div>
+                <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+                    {post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여 
+                    {post.gender === 'male' ?  <> • <IoMdMale style={{color: '#5445dc', verticalAlign: 'middle'}}/></>: post.gender === 'female' ? <> • <IoMdFemale style={{color: '#ac2323', verticalAlign: 'middle'}}/></> : ''}
+                </div>
             </section>
             <section className={styles.vote_wrap}>
                 <table className={styles.vote_table}>
@@ -118,12 +187,12 @@ function PostCard({post, bname}) {
                                         </div>
                                         } 
                                     </div>
-                                    <p className={option.imgUrl? `${styles.text}`: `${styles.text2}`}>
+                                    <div className={option.imgUrl? `${styles.text}`: `${styles.text2}`}>
                                         <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
-                                    </p>
+                                    </div>
                                     <span className={styles.percent}>{option.votePercentage}%</span>
                                 </td>
-                            :   <td className={selectedOptions.includes(idx) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(idx)}>
+                            :   <td className={selectedOptions.includes(option.optionId) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(option.optionId)}>
                                     <div className={styles.option_wrap} >
                                         {option.imgUrl !== '' && 
                                         <div className={styles.option_img}>

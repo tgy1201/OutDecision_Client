@@ -17,18 +17,18 @@ function Mypost({ active }) {
     useEffect(() => {
         const handlefetchPosts = async () => {
             try {
-                const memberId = 2024; //example
                 const url = active === 3
-                    ? `${process.env.REACT_APP_SERVER_IP}/mypage/${memberId}/posting`
+                    ? `${process.env.REACT_APP_SERVER_IP}/mypage/posting`
                     : active === 4
-                        ? `${process.env.REACT_APP_SERVER_IP}/mypage/${memberId}/vote`
-                        : `${process.env.REACT_APP_SERVER_IP}/mypage/${memberId}/liked`; //active 5
+                        ? `${process.env.REACT_APP_SERVER_IP}/mypage/vote`
+                        : `${process.env.REACT_APP_SERVER_IP}/mypage/liked`; //active 5
 
                 const response = await axios.get(url, {
                     params: {
                         status: status && status,
                         page: page ? parseInt(page) : 1,
                     },
+                    withCredentials: true,
                 });
                 setPostsNum(response.data.result.totalElements);
                 setPosts(response.data.result.postList);

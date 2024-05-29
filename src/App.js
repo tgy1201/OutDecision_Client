@@ -18,10 +18,12 @@ import View from './pages/view/View';
 import Ourteam from './pages/ourteam/Ourteam';
 
 import Mypage from './pages/mypage/Mypage';
-import Infoedit from "./pages/infoedit/Infoedit";
+import Infoedit from './pages/infoedit/Infoedit';
 import Mypost from './pages/mypost/Mypost';
 import Mytitle from './pages/mytitle/Mytitle';
 import Ranking from './pages/ranking/Ranking';
+import Edit from './pages/edit/Edit';
+import PrivateRoute from './component/PrivateRoute';
 
 function App() {
   const [category, setCategory] = useState('');
@@ -36,17 +38,21 @@ function App() {
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/signup/social" element={<SocialSignup />}></Route>
           <Route path="/signup/success" element={<SignupSuccess />}></Route>
-          <Route path="/mypage" element={<Mypage />}></Route>
-          <Route path="/mypage/edit" element={<Infoedit />}></Route>
-          <Route path='/mypage/posting' element={<Mypost active={3} />}></Route>
-          <Route path='/mypage/vote' element={<Mypost active={4} />}></Route>
-          <Route path='/mypage/liked' element={<Mypost active={5} />}></Route>
-          <Route path='/mypage/mytitle' element={<Mytitle />}></Route>
-          <Route path="/write" element={<Write />}></Route>
           <Route path="/board/:bname" element={<Board setCategory={setCategory} />}></Route>
           <Route path="/board/:bname/view/:postId" element={<View setCategory={setCategory} />}></Route>
           <Route path="/ranking" element={<Ranking />}></Route>
           <Route path="/ourteam" element={<Ourteam />}></Route>
+          {/*로그인 후 사용가능한 페이지목록*/}
+          <Route element={<PrivateRoute />}>
+            <Route path="/write" element={<Write />}></Route>
+            <Route path="/edit/:postId" element={<Edit />}></Route>
+            <Route path="/mypage" element={<Mypage />}></Route>
+            <Route path="/mypage/edit" element={<Infoedit />}></Route>
+            <Route path='/mypage/posting' element={<Mypost active={3} />}></Route>
+            <Route path='/mypage/vote' element={<Mypost active={4} />}></Route>
+            <Route path='/mypage/liked' element={<Mypost active={5} />}></Route>
+            <Route path="/mypage/mytitle" element={<Mytitle />}></Route>
+          </Route>
         </Routes>
       </div>
       <Footer />

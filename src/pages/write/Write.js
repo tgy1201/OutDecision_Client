@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import styles from './write.module.css'
 import DatePicker from 'react-datepicker';
@@ -10,6 +10,7 @@ import { ko } from 'date-fns/locale'
 import { GoPlus } from "react-icons/go";
 import { LuImagePlus } from "react-icons/lu";
 import { ImCancelCircle } from "react-icons/im";
+import { MdOutlineCancel } from "react-icons/md";
 
 import { MdFastfood } from "react-icons/md"; // 음식
 import { FaShirt } from "react-icons/fa6"; //패션
@@ -19,8 +20,10 @@ import { IoGameController } from "react-icons/io5"; //취미
 import { MdFavorite } from "react-icons/md"; // 연애
 import { CgMoreO } from "react-icons/cg"; //etc
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Write () {
+function Write ({edit, postId}) {
+    const navigate = useNavigate();
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
     });
@@ -35,7 +38,7 @@ function Write () {
     const [selectedHours, setSelectedHours] = useState(hours);
     const [selectedMinutes, setSelectedMinutes] = useState(0);
 
-    const [options, setOptions] = useState([{ text: "", imageURL: "", image: null },{ text: "", imageURL: "", image: null }]);
+    const [options, setOptions] = useState([{ text: "", imageURL: "", image: null, originURL: "" },{ text: "", imageURL: "", image: null, originURL: "" }]);
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -43,8 +46,40 @@ function Write () {
     const [isToggleChecked, setIsToggleChecked] = useState(false);
     const [selectedGender, setSelectedGender] = useState('all');
 
-
     const [scrollPosition, setScrollPosition] = useState('left-border');
+
+    useEffect(() => {
+        const fetchPost = async () => {
+          try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/post/${postId}`, {
+                params: {
+                  postId: postId,
+                },
+                withCredentials: true,
+            });
+
+            setSelectedCategory(response.data.result.category);
+            setTitle(response.data.result.title);
+            const options = response.data.result.optionsList.map((option)=> ({
+                text: option.body,
+                imageURL: option.imgUrl,
+                image: null, //이미지파일 받아야됨
+                originURL: option.imgUrl
+            }))
+            setOptions(options);
+            setContent(response.data.result.content);
+            setIsToggleChecked(response.data.result.pluralVoting);
+            setSelectedGender(response.data.result.gender);
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+
+        if(edit) {
+            fetchPost();
+        }
+    }, [postId, edit]);
 
     const handleScroll = (e) => {
         const container = e.target
@@ -139,7 +174,7 @@ function Write () {
 
     const handleIncrease = () => {
         if (options.length < 10) {
-            setOptions(existingOptions => [...existingOptions, { text: "", imageURL: "", image: null }]);
+            setOptions(existingOptions => [...existingOptions, { text: "", imageURL: "", image: null, originURL: "" }]);
           } else {
             alert('최대 옵션 개수는 10개입니다.');
           }
@@ -153,11 +188,29 @@ function Write () {
           }
     };
 
+    const handleClearImage = (optionIdx) => {
+        const updatedOptions = [...options];
+        updatedOptions[optionIdx].imageURL = "";
+        updatedOptions[optionIdx].image = null;
+        setOptions(updatedOptions);
+    };
+    
+    const handleGoBack = () => {
+        navigate('/board/all');
+    }
+
     const handlePostUpload = async (e) => {
         e.preventDefault();
 
         const textList = options.map((option) => option.text);
         const imageFileList = options.map((option) => option.image);
+        const originImageList = options.map((option) => {
+            if (option.originURL === option.imageURL) {
+                return option.originURL;
+            } else {
+                return '';
+            }
+        });
 
         const formmatedDate = `${startDate.getFullYear()}.${startDate.getMonth() + 1}.${startDate.getDate()} ${selectedHours > 9 ? selectedHours : '0'+selectedHours}:${selectedMinutes !== 0 ? selectedMinutes : '00'}`
         
@@ -189,13 +242,24 @@ function Write () {
             }
         });
 
+        const blob3 = new Blob([JSON.stringify(originImageList)], { type: 'application/json' });
+        formData.append('originImages', blob3);    
+
         try {
-            const response = await axios.post('http://175.45.202.225:8080/post', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            }
-            });
-            console.log(response.data);
+            const url = edit ? `${process.env.REACT_APP_SERVER_IP}/post/${postId}` : `${process.env.REACT_APP_SERVER_IP}/post`;
+            const method = edit ? 'PATCH' : 'POST';
+            
+            const response = await axios({
+                method,
+                url,
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                withCredentials: true,
+              });
+            console.log(response.data.result);
+            navigate('/board/all');
         } catch (error) {
             console.error(error);
         }
@@ -204,7 +268,7 @@ function Write () {
     return (
         <div className={styles.container}>
             <section className={styles.vote_header}>
-                <p>투표 작성</p>    
+                <p>{edit? '게시글 수정' : '게시글 작성'}</p>    
             </section>
             <section className={styles.vote_body}>
                 <table className={styles.vote_table}>
@@ -257,7 +321,7 @@ function Write () {
                         </tr>
                         <tr>
                             <td>투표 제목</td>
-                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={12}/><div className={styles.limit}>0 / 12</div></td>
+                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={12}/><div className={styles.limit}>{title.length} / 12</div></td>
                         </tr>
                         <tr>
                             <td>투표 항목</td>
@@ -274,7 +338,7 @@ function Write () {
                                                 </div>
                                                 <button className={styles.delete_btn} onClick={() => handleRemoveOption(index)}><ImCancelCircle className={styles.delete_icon}/></button>
                                             </div>
-                                            {options[index].imageURL && <div className={styles.preview}><img src={options[index].imageURL} alt="preview-img" /></div>}
+                                            {options[index].imageURL && <div className={styles.preview}><img src={options[index].imageURL} alt="preview-img" /><MdOutlineCancel className={styles.delete_img_icon} onClick={()=> handleClearImage(index)}/></div>}
                                         </div>
                                     ))}
                                     <div className={styles.add_wrap}><button onClick={handleIncrease}><GoPlus className={styles.plus_icon}/>항목 추가</button></div>
@@ -286,7 +350,7 @@ function Write () {
                             <td>
                                 <div className={styles.mobile_content}>
                                     {isMobile && <span>설명</span>}
-                                    <textarea className={styles.vote_content} value={content} onChange={(e)=>handleContentChange(e.target.value)}placeholder="작성한 투표에 대해 부가적인 설명을 적어주세요" maxLength={70}/><div className={styles.limit}>0 / 100</div>
+                                    <textarea className={styles.vote_content} value={content} onChange={(e)=>handleContentChange(e.target.value)}placeholder="작성한 투표에 대해 부가적인 설명을 적어주세요" maxLength={70}/><div className={styles.limit}>{content.length} / 100</div>
                                 </div>
                             </td>
                         </tr>
@@ -358,7 +422,7 @@ function Write () {
                     </tbody>
                 </table>
                 <div className={styles.submit_wrap}>
-                    <button>취소</button>
+                    <button onClick={handleGoBack}>취소</button>
                     <button onClick={handlePostUpload}>등록</button>
                 </div>
             </section>

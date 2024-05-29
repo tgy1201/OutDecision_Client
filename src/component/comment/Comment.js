@@ -30,10 +30,11 @@ function Comment({comments, setComments, postId, page}) {
         formData.append('body', newComment);
 
         try {
-            const response = await axios.post(`http://www.outdecision.com:8080/posts/${postId}/comments`, formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/posts/${postId}/comments`, formData, {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true,
             });
             console.log(response.data);
             setComments([response.data.result, ...comments]); //새로운 댓글 맨앞에 추가

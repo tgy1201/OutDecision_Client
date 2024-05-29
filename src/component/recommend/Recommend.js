@@ -43,7 +43,7 @@ function Recommend ({posts, handleClick}) {
                 }
             }}
             >
-            {posts.length > 0 ? (
+            {posts && posts.length > 0 ? (
             posts.map((post, idx)=>
                 (
                     <SwiperSlide key={idx} className={styles.post_wrap}>

@@ -13,7 +13,12 @@ function SocialSignup () {
         profileImage: null,
     });
 
+    /* 프로필 업로드 */
     const handleImageUpload = (e) => {
+        if (e.target.files[0]) {
+         setInputValue((prevState) => ({ ...prevState, profileImage: e.target.files[0] }));
+        }
+
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
 
@@ -25,6 +30,7 @@ function SocialSignup () {
         });
     };
 
+    /* 프로필 업로드 취소 */
     const handleImageCancel = () => {
         setInputValue((prevState) => ({ ...prevState, profileImage: null }));
         setProfile('/assets/images/profile.png');
@@ -35,7 +41,7 @@ function SocialSignup () {
         e.preventDefault();
 
         if (!inputValue.nickname) {
-            setAlertMessage('닉네임을 입력해주세요');
+            setAlertMessage('닉네임을 입력해주세요' );
             return;
         }
 
@@ -43,16 +49,16 @@ function SocialSignup () {
         formData.append('request', inputValue.nickname);
 
         try {
-            const response = await axios.post('http://175.45.202.225:8080/duplication/nickname', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/duplication/nickname`, formData, {
             headers: {
                 'Content-Type': 'application/json',
             },
             });
-            console.log(response.data);
+            console.log(response);
 
             response.data.isSuccess 
             ? setAlertMessage('사용 가능한 닉네임입니다')
-            : setAlertMessage('중복된 닉네임입니다') 
+            : setAlertMessage('중복된 닉네임입니다');
         } catch (error) {
             console.error(error);
         }
@@ -62,10 +68,10 @@ function SocialSignup () {
     const handleValidNickname = (e) => {
         e.preventDefault();
 
-        if (alertMessage.nickname === '사용 가능한 닉네임입니다') return;
+        if (alertMessage === '사용 가능한 닉네임입니다') return;
 
         if (!inputValue.nickname) {
-            setAlertMessage('닉네임을 입력해주세요');
+            setAlertMessage('닉네임을 입력해주세요');    
         } else {
             setAlertMessage('아이디 중복을 확인해주세요');
         }
@@ -77,35 +83,39 @@ function SocialSignup () {
         setAlertMessage('');
     }
 
+    const handleValidForm = (e) => {
+        handleValidNickname(e);
+
+        if(alertMessage==='사용 가능한 닉네임입니다') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     const handleSignup = async (e) => {
         e.preventDefault();
 
-        handleValidNickname(e);
+        const valid = handleValidForm(e);
 
-        if (alertMessage.nickname !=='사용 가능한 닉네임입니다') {
-            return;
-        }
-
-        const {nickname} = inputValue;
-
-        const data = {
-            nickname,
-        }
+        if(!valid) return;
 
         const formData = new FormData();
-        const json = JSON.stringify(data);
-        const blob = new Blob([json], {
-            type: "application/json",
-        });
+        formData.append('nickname', inputValue.nickname);
 
-        formData.append('request', blob );
-        formData.append('userImg', inputValue.profileImage);
+        const emptyFile = new Blob([], { type: 'application/octet-stream' });
+        if(inputValue.profileImage !== null) {
+            formData.append('userImg', inputValue.profileImage);
+        } else {
+            formData.append('userImg', emptyFile);
+        }
     
         try {
-            const response = await axios.post('http://175.45.202.225:8080/register/v1', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/register/v1`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-            }
+            },
+            withCredentials: true,
             });
             console.log(response.data);
             navigate('/signup/success')
@@ -126,8 +136,8 @@ function SocialSignup () {
                             <div className={styles.profile_image_wrap}>
                                 <img src={profile} alt="프로필" />
                             </div>
-                            <div class={styles.filebox}>
-                                <label for="file"><img src="/assets/images/camera.png" alt="카메라" /></label>
+                            <div className={styles.filebox}>
+                                <label htmlFor="file"><img src="/assets/images/camera.png" alt="카메라" /></label>
                                 <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
                             </div>
                             {profile !== '/assets/images/profile.png' ?
@@ -144,6 +154,10 @@ function SocialSignup () {
                                     vale={inputValue.nickname}
                                     onChange={handleChange}
                                     onBlur={handleValidNickname}
+                                    className={
+                                        alertMessage !== '' && alertMessage !== '사용 가능한 닉네임입니다'
+                                        ? `${styles.false}` : ''
+                                    }
                                     maxLength={12}/>
                                 <div className={styles.limit}>{inputValue.nickname.length} / 12</div>
                             </div>

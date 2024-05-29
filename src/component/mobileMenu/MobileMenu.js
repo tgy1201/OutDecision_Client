@@ -1,12 +1,37 @@
 import React, { useEffect } from "react";
 import styles from './mobileMenu.module.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) { 
+    const navigate = useNavigate();
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
     });
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/token/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include' // withCredentials 대신 credentials: 'include' 사용
+            });
+
+            if (response.ok) {
+                console.log("로그아웃 성공");
+                sessionStorage.removeItem("isLogin");
+                // 홈 페이지나 로그인 페이지로 리디렉션
+                navigate('/');
+            } else {
+                // 오류 처리
+                console.error("로그아웃 실패");
+            }
+        } catch (error) {
+            console.error("로그아웃 중 오류 발생", error);
+        }
+    }
 
     useEffect(() => {
         if (isSidebarOpen && isMobile) {
@@ -42,10 +67,11 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                         </div>
                         <ul className={styles.sidemenu_item_list}>
                             <li><Link to="/mypage" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>마이페이지 홈</Link></li>
-                            <li><Link to="/" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>회원정보 수정</Link></li>
+                            <li><Link to="/mypage/edit" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>회원정보 수정</Link></li>
                             <li><Link to="/mypage/posting" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>작성한 글</Link></li>
                             <li><Link to="/mypage/vote" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>투표한 글</Link></li>
                             <li><Link to="/mypage/liked" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>좋아요한 글</Link></li>
+                            <li><Link to="/mypage/mytitle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>칭호</Link></li>
                         </ul>
                     </li>
                     <li>
@@ -84,7 +110,11 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                     <div>
                         <img src="/assets/images/logout.png" alt="로그아웃" />
                     </div>
-                    <span onClick={() => setIsSidebarOpen(!isSidebarOpen)}>로그아웃</span>
+                    <span onClick={() => {
+                        handleLogout();
+                        setIsSidebarOpen(!isSidebarOpen);
+                    }}>로그아웃
+                    </span>
                 </div>
             </nav>
             <div className={isSidebarOpen ? `${styles.dimmed} ${styles.mobile}` : styles.mobile} onClick={() => handleSidebarOpen(false)}/>

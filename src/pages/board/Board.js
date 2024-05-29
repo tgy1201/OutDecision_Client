@@ -51,12 +51,14 @@ function Board ({setCategory}) {
     const [filterOpen, setFilterOpen] = useState(false);
     const [posts, setPosts] = useState([]);
     const [postsNum, setPostsNum] = useState(0);
+    const [sortType, setSorType] = useState('latest');
     const [searchText, setSearchText] = useState('');
     const [searchTextType, setSearchTextType] = useState('all'); //default 전체
 
     /* 게시판 카테고리 갱신 */
     useEffect(() => {  
         setCategory(bname);
+        setSorType('latest');
         setSearchText('');
         setSearchTextType('all');
     }, [bname, setCategory]);
@@ -65,8 +67,8 @@ function Board ({setCategory}) {
         const handlefetchPosts = async (bname) => {
             try {
                 const url = bname === 'all'
-                    ? 'https://api.outdecision.com/posts'
-                    : `https://api.outdecision.com/posts/${bname}`;
+                    ? `${process.env.REACT_APP_SERVER_IP}/posts`
+                    : `${process.env.REACT_APP_SERVER_IP}/posts/${bname}`;
             
                 const response = await axios.get(url, {
                     params: {
@@ -79,10 +81,12 @@ function Board ({setCategory}) {
                         searchType: searchType && searchType,
                         category: bname === 'all' ? null : bname, // 'all' 이외의 경우 bname 값 사용
                     },
+                    withCredentials: true,
                 });
             
                 setPostsNum(response.data.result.totalElements);
                 setPosts(response.data.result.postList);
+                console.log(response.data);
             } catch (error) {
             console.error(error);
             }
@@ -110,7 +114,8 @@ function Board ({setCategory}) {
     }
 
     const handleChangeSort = (sortValue) => {
-        searchParams.set('sort', sortValue);
+        setSorType(sortValue);
+        searchParams.set('sort', sortValue); // sortType로 변경?
         searchParams.delete('page');
         navigate(`?${searchParams.toString()}`)
     }
@@ -155,7 +160,7 @@ function Board ({setCategory}) {
         <div className={styles.container}>
             <div className={styles.board}>
                 <div className={styles.board_title_wrap}>
-                    <h1>{boardNameMap[bname]}<span>{postsNum}</span></h1>           
+                    <h1><Link to={`/board/${bname}`}>{boardNameMap[bname]}</Link><span>{postsNum}</span></h1>           
                 </div>
                 <div className={styles.board_nav}>
                     <div>
@@ -171,7 +176,7 @@ function Board ({setCategory}) {
                 </div>
                 <div className={styles.board_filter_wrap}>
                     <div className={styles.board_filter}>
-                        <select className={styles.filter_sort} onChange={(e) => handleChangeSort(e.target.value)}>
+                        <select className={styles.filter_sort} onChange={(e) => handleChangeSort(e.target.value)} value={sortType}>
                             <option value="latest">최신순</option>
                             <option value="views">조회순</option>
                             <option value="likes">좋아요순</option>
@@ -263,7 +268,7 @@ function Board ({setCategory}) {
 
                 {/* 검색바 */}
                 <div className={styles.search_wrap}>
-                    <select onChange={(e) => handleChangeSearchType(e.target.value)}>
+                    <select onChange={(e) => handleChangeSearchType(e.target.value)} value={searchTextType} >
                         <option value="all">전체</option>
                         <option value="title">제목</option>
                         <option value="content">내용</option>

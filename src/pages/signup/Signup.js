@@ -117,7 +117,7 @@ function Signup () {
     /* 프로필 업로드 */
     const handleImageUpload = (e) => {
         if (e.target.files[0]) {
-			setInputValue((prevState) => ({ ...prevState, profileImage: e.target.files[0] }));
+         setInputValue((prevState) => ({ ...prevState, profileImage: e.target.files[0] }));
         }
 
         const reader = new FileReader();
@@ -150,7 +150,7 @@ function Signup () {
         formData.append('request', inputValue.nickname);
 
         try {
-            const response = await axios.post('http://175.45.202.225:8080/duplication/nickname', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/duplication/nickname`, formData, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -181,7 +181,7 @@ function Signup () {
         formData.append('request', inputValue.email);
 
         try {
-            const response = await axios.post('http://175.45.202.225:8080/duplication/email', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/duplication/email`, formData, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -242,7 +242,7 @@ function Signup () {
         }
     
         try {
-            const response = await axios.post('http://175.45.202.225:8080/register/v2', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/register/v2`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
@@ -252,6 +252,14 @@ function Signup () {
         } catch (error) {
           console.error(error);
         }
+    }
+
+    const handleKakaoLogin = () => {
+        window.location.href = `${process.env.REACT_APP_SERVER_IP}/oauth2/authorization/kakao`;
+    }
+
+    const handleGoogleLogin = () => {
+        window.location.href = `${process.env.REACT_APP_SERVER_IP}/oauth2/authorization/google`;
     };
 
     return (
@@ -266,8 +274,8 @@ function Signup () {
                             <div className={styles.profile_image_wrap}>
                                 <img src={profile} alt="프로필" />
                             </div>
-                            <div class={styles.filebox}>
-                                <label for="file"><img src="/assets/images/camera.png" alt="카메라" /></label>
+                            <div className={styles.filebox}>
+                                <label htmlFor="file"><img src="/assets/images/camera.png" alt="카메라" /></label>
                                 <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
                             </div>
                             {profile !== '/assets/images/profile.png' ?
@@ -286,9 +294,8 @@ function Signup () {
                                         onChange={handleChange}
                                         onBlur={handleValidNickname} 
                                         className={
-                                            alertMessage.nickname !== '' 
-                                            && alertMessage.nickname !== '사용 가능한 닉네임입니다'
-                                            && `${styles.false}`
+                                            alertMessage.nickname !== '' && alertMessage.nickname !== '사용 가능한 닉네임입니다'
+                                            ? `${styles.false}` : ''
                                         } 
                                         maxLength={12}
                                     />
@@ -313,7 +320,7 @@ function Signup () {
                                     onChange={handleChange} 
                                     onBlur={handleValidName} 
                                     maxLength={5} 
-                                    className={alertMessage.name !== '' && `${styles.false}`}
+                                    className={alertMessage.name !== '' ? `${styles.false}` : ''}
                                 />
                                 {alertMessage.name !== '' && <div className={styles.alert} style={{color: '#ac2323'}} >*{alertMessage.name}</div>}
                             </div>
@@ -325,7 +332,7 @@ function Signup () {
                                     value={inputValue.email} 
                                     onChange={handleChange} 
                                     onBlur={handleCheckEmail} 
-                                    className={alertMessage.email !== '' && `${styles.false}`}
+                                    className={alertMessage.email !== '' ? `${styles.false}` : ''}
                                 />
                                 {alertMessage.email !== '' && <div className={styles.alert} style={{color: '#ac2323'}} >*{alertMessage.email}</div>}
                             </div>
@@ -338,7 +345,7 @@ function Signup () {
                                         value={inputValue.password} 
                                         onChange={handleChange}
                                         onBlur={handleValidPassword}
-                                        className={alertMessage.password !== '' && `${styles.false}`}
+                                        className={alertMessage.password !== '' ? `${styles.false}`: ''}
                                     />
                                     <button onClick={()=>handleShowPassword('password')} className={styles.limit}>
                                     {showPassword ? <IoEye className={styles.icon}/> : <IoEyeOff className={styles.icon}/>}
@@ -355,7 +362,7 @@ function Signup () {
                                         value={inputValue.pwCheck} 
                                         onChange={handleChange} 
                                         onBlur={handleValidPwCheck} 
-                                        className={alertMessage.pwCheck !== '' && `${styles.false}`}
+                                        className={alertMessage.pwCheck !== '' ? `${styles.false}` : ''}
                                     />
                                     <button onClick={()=>handleShowPassword('pwcheck')} className={styles.limit}>
                                     {showPwCheck ? <IoEye className={styles.icon}/> : <IoEyeOff className={styles.icon}/>}
@@ -368,8 +375,12 @@ function Signup () {
                         <div className={styles.account}>이미 계정이 있으신가요? <Link to="/login">Log in</Link></div>
                         <p><span>간편회원가입</span></p>
                         <div className={styles.social_wrap}>
-                            <Link to="/signup/social"><img src="/assets/images/kakao.png" alt="카카오"/></Link>
-                            <Link to="/signup/social" style={{border: "1px solid lightgray"}}><img src="/assets/images/google.png" alt="구글"/></Link>
+                            <Link onClick={handleKakaoLogin}>
+                            <img src="/assets/images/kakao.png" alt="카카오"/>
+                            </Link>
+                            <Link onClick={handleGoogleLogin} style={{border: "1px solid lightgray"}}>
+                            <img src="/assets/images/google.png" alt="구글"/>
+                            </Link>
                         </div>
                     </div>
                 </div>

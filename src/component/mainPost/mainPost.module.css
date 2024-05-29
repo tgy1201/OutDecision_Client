@@ -37,7 +37,7 @@
 @media (min-width: 900px) {
     .main_post {
         flex: 0 0 49%;
-        padding: 14px 18px;
+        padding: 14px 14px;
         border: 1px solid #ccc;
         border-radius: 8px;
         display: flex;
