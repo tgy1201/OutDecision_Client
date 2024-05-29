@@ -41,6 +41,7 @@ function PostList ({post, bname}) {
     const search = searchParams.get('search'); // 검색어
     const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
     const type = searchParams.get('type');
+    const page = searchParams.get('page');
 
     //post가 변경되지 않는 type에 대한 의존성 변수를 설정해줘야함.
     useEffect(()=>{
@@ -49,7 +50,8 @@ function PostList ({post, bname}) {
         setVotedOptionId(post?.loginMemberPostInfoDTO?.votedOptionIds);
         setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
         setPostOptions(post?.optionsList);
-    }, [post, type]) 
+        setSelectedOptions([]); //선택한 투표옵션 초기화
+    }, [post, type, page]) 
 
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
