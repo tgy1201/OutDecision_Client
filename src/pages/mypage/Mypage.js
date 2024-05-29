@@ -98,18 +98,15 @@ function Mypage() {
     };
 
     const handleChangeTitle = async () => {
-        // 여기에 칭호 변경 관련 로직 추가
-        // 서버에 요청하여 변경된 칭호를 가져오거나, 사용자가 입력한 값을 서버에 전송하여 변경할 수 있습니다.
         try {
-            // 칭호 변경 API 호출 예시
             const response = await axios.put(`${process.env.REACT_APP_SERVER_IP}/mypage/title`, {
-                title: "변경된 칭호" // 변경된 칭호를 서버에 전송
+                title: "변경된 칭호"
             }, {
                 withCredentials: true
             });
 
             if (response.data.isSuccess && response.data.code === "2000") {
-                setTitle("변경된 칭호"); // 변경 성공 시 상태 업데이트
+                setTitle("변경된 칭호");
             } else {
                 console.error("칭호 변경 실패:", response.data.message);
             }
