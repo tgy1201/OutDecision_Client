@@ -48,7 +48,7 @@ function View({setCategory}) {
     const [votedOptionId, setVotedOptionId] = useState([]);
 
     const handleOptionChange = (index) => {
-        if (post.multiple) {
+        if (post.pluralVoting) {
             if (selectedOptions.includes(index)) {
             setSelectedOptions(selectedOptions.filter((o) => o !== index));
             } else {
@@ -259,7 +259,7 @@ function View({setCategory}) {
                                     <div>{post.deadline} 종료</div>
                                 </section>
                                 <section className={styles.vote_wrap}>                          
-                                    <div>단일 선택</div>
+                                    <div>{post.pluralVoting ? '복수 선택' : '단일 선택'}</div>
                                     <div><FaUser style={{verticalAlign: "middle", marginRight: "5px"}}/><span style={{color: "#ac2323", fontWeight: "600"}}>{post.participationCnt}</span> 명 참여</div>
                                     <table className={styles.vote_table}>
                                         <tbody>
