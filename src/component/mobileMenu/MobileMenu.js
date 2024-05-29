@@ -160,20 +160,18 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                 
                 {sessionStorage.isLogin?
                 <div className={styles.logout_wrap}>
-                    <TbLogout style={{fontSize: '1.3rem'}}/>
                     <span onClick={() => {
                         handleLogout();
                         setIsSidebarOpen(!isSidebarOpen);
-                    }}>로그아웃
+                    }}><TbLogout style={{fontSize: '1.3rem'}}/> 로그아웃
                     </span>
                 </div>
                 :
-                <div className={styles.logout_wrap}>
-                    <TbLogin style={{fontSize: '1.3rem'}}/>
+                <div className={styles.logout_wrap}>                
                     <span onClick={() => {
                         navigate('/login')
                         setIsSidebarOpen(!isSidebarOpen);
-                    }}>로그인
+                    }}><TbLogin style={{fontSize: '1.3rem'}}/> 로그인
                     </span>
                 </div>
                 }
