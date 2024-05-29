@@ -63,6 +63,103 @@
         font-size: 0.9rem;
     }
 
+    .sidemenu_info_wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        padding: 5px 20px;
+        margin-bottom: 10px;
+    }
+
+    .userInfo_wrap {
+        display: flex;
+        gap: 12px;
+        padding-left: 20px;
+    }
+
+    .userInfo_wrap > div {
+        width: 90px;
+        height: 90px;
+        position: relative;
+        border-radius: 50%;
+        border: 1px solid #5a5a5a;
+    }
+
+    .userInfo_wrap > div img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .userInfo_wrap > ul {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .selected {
+        font-size: 1.2rem;
+        color: #5040dc;
+    }
+
+    .unselected {
+        font-size: 1.2rem;
+        color: #6b6b6b;
+    }
+
+    .userInfo_wrap > ul li:nth-child(2) {
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
+
+    .userItem_wrap ul {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        font-size: 1.4rem;
+    }
+
+    .userItem_wrap li {
+        display: flex;
+        flex: 0 0 50%;
+    }
+
+    .mytitle_wrap {
+        justify-content: center;
+        display: flex;
+        gap: 3px;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .point_wrap {
+        justify-content: center;
+        display: flex;
+        gap: 3px;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .mytitle_wrap::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 50px;
+        right: 0px;
+        vertical-align: middle;
+        background-color: #a6a6a6;
+    }
+
+    .breakline {
+        border: 6px solid #dddddd;
+    }
+
     .mobile_header {
         padding: 5px 20px;
         position: relative;
@@ -110,17 +207,14 @@
 
     .logout_wrap {
         padding: 15px 0;
-        border-top: 1px solid #8b8b8b;
-        background-color: #e7e7e7;
-        color:gray;
+        color:rgb(150, 150, 150);
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
     .logout_wrap > div {
-        width: 25px;
-        margin-right: 5px;
+        width: 20px;
     }
 
     .logout_wrap > div img {
@@ -130,8 +224,11 @@
 
     .logout_wrap > span {
         font-weight: 600;
-        font-size: 1.2em;
+        font-size: 1.1em;
+        letter-spacing: -1px;
         cursor: pointer;
+        position: relative;
+        margin-left: 5px;
     }
 
     .dimmed {

@@ -4,9 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
 
+import { TbLogout, TbLogin } from "react-icons/tb";
+
 function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) { 
     const navigate = useNavigate();
     const [info, setInfo] = useState();
+
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
     });
@@ -41,7 +44,8 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/loginSuccess`, {
                     withCredentials: true,
                 });
-                
+
+                setInfo(response.data.result);
                 console.log(response.data);
             } catch (error) {
             console.error(error);
@@ -70,17 +74,38 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                     <li><Link to="/" onClick={() => handleSidebarOpen(!isSidebarOpen)}><img src="/assets/images/home_b.png" alt="홈" /></Link></li>
                     <li><button onClick={handleSidebarOpen}><img src="/assets/images/cancel.png" alt="취소" /></button></li>
                 </ul>
-                {sessionStorage.isLogin?
+                {!sessionStorage.isLogin?
                 <div className={styles.sidemenu_login_wrap}>
                 <Link to="/signup" onClick={() => handleSidebarOpen(!isSidebarOpen)}>회원가입</Link>
                 <Link to="/login" onClick={() => handleSidebarOpen(!isSidebarOpen)}>로그인</Link>
                 </div>
                 :
+                (info ?
                 <div className={styles.sidemenu_info_wrap}>
-
+                    <section className={styles.userInfo_wrap}>
+                        <div>
+                            <img src={info.userImg} alt="프로필"/>
+                        </div>
+                        <ul>
+                            <li className={info.memberTitle?`${styles.selected}`:`${styles.unselected}`}>{info.memberTitle? info.memberTitle: '칭호없음'}</li>
+                            <li>{info.nickname} 님</li>
+                        </ul>
+                    </section>
+                    <section className={styles.userItem_wrap}>
+                        <ul>
+                            <li className={styles.mytitle_wrap}>
+                                <div>보유칭호</div>
+                                <p>{info.titleCnt}</p>
+                            </li>
+                            <li className={styles.point_wrap}>
+                                <div>결정포인트</div>
+                                <p><span style={{color: '#ac2323', fontWeight: '600'}}>{info.point}</span> P</p>
+                            </li>
+                        </ul>
+                    </section>
                 </div>
-                }
-                
+                : <>Loading...</>)
+                }  
 
                 <hr className={styles.breakline} />
 
@@ -133,16 +158,30 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                     </li> 
                 </ul>
                 
+                {sessionStorage.isLogin?
                 <div className={styles.logout_wrap}>
-                    <div>
-                        <img src="/assets/images/logout.png" alt="로그아웃" />
-                    </div>
+                    <TbLogout style={{fontSize: '1.3rem'}}/>
                     <span onClick={() => {
                         handleLogout();
                         setIsSidebarOpen(!isSidebarOpen);
                     }}>로그아웃
                     </span>
+                    <span>• 회원탈퇴</span>
                 </div>
+                :
+                <div className={styles.logout_wrap}>
+                    <TbLogin style={{fontSize: '1.3rem'}}/>
+                    <span onClick={() => {
+                        navigate('/login')
+                        setIsSidebarOpen(!isSidebarOpen);
+                    }}>로그인
+                    </span>
+                    <span onClick={() => {
+                        navigate('/signup')
+                        setIsSidebarOpen(!isSidebarOpen);
+                    }}> • 회원가입</span>
+                </div>
+                }
             </nav>
             <div className={isSidebarOpen ? `${styles.dimmed} ${styles.mobile}` : styles.mobile} onClick={() => handleSidebarOpen(false)}/>
         </>

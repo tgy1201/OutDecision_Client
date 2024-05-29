@@ -50,7 +50,7 @@ function PostCard({post, bname}) {
         setVotedOptionId(post?.loginMemberPostInfoDTO?.votedOptionIds);
         setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
         setPostOptions(post?.optionsList);
-        setSelectedOptions([]);
+        setSelectedOptions([]); //선택한 투표옵션 초기화
     }, [post, type, page])    
 
     const handleOptionChange = (index) => {
