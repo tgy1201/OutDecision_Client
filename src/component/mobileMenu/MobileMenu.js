@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './mobileMenu.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import axios from "axios";
 
 function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) { 
     const navigate = useNavigate();
+    const [info, setInfo] = useState();
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
     });
@@ -33,6 +35,24 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
         }
     }
 
+    useEffect(()=> {
+        const handlefetchInfo = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/loginSuccess`, {
+                    withCredentials: true,
+                });
+                
+                console.log(response.data);
+            } catch (error) {
+            console.error(error);
+            }
+        };
+
+        if(sessionStorage.isLogin) {
+            handlefetchInfo();
+        }
+    }, [])
+
     useEffect(() => {
         if (isSidebarOpen && isMobile) {
           document.body.style.overflow = "hidden";
@@ -50,10 +70,17 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
                     <li><Link to="/" onClick={() => handleSidebarOpen(!isSidebarOpen)}><img src="/assets/images/home_b.png" alt="홈" /></Link></li>
                     <li><button onClick={handleSidebarOpen}><img src="/assets/images/cancel.png" alt="취소" /></button></li>
                 </ul>
+                {sessionStorage.isLogin?
                 <div className={styles.sidemenu_login_wrap}>
-                    <Link to="/signup" onClick={() => handleSidebarOpen(!isSidebarOpen)}>회원가입</Link>
-                    <Link to="/login" onClick={() => handleSidebarOpen(!isSidebarOpen)}>로그인</Link>
+                <Link to="/signup" onClick={() => handleSidebarOpen(!isSidebarOpen)}>회원가입</Link>
+                <Link to="/login" onClick={() => handleSidebarOpen(!isSidebarOpen)}>로그인</Link>
                 </div>
+                :
+                <div className={styles.sidemenu_info_wrap}>
+
+                </div>
+                }
+                
 
                 <hr className={styles.breakline} />
 

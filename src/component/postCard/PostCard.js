@@ -42,6 +42,7 @@ function PostCard({post, bname}) {
     const search = searchParams.get('search'); // 검색어
     const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
     const type = searchParams.get('type');
+    const page = searchParams.get('page');
   
     useEffect(()=>{
         setVoteCnt(post?.participationCnt);
@@ -49,7 +50,7 @@ function PostCard({post, bname}) {
         setVotedOptionId(post?.loginMemberPostInfoDTO?.votedOptionIds);
         setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
         setPostOptions(post?.optionsList);
-    }, [post, type])    
+    }, [post, type, page])    
 
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
