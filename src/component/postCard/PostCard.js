@@ -32,15 +32,24 @@ function PostCard({post, bname}) {
     /*포스트 고유넘버를 서버에 보내서 로그인 한 유저가 해당 포스트에 (1) 투표를 했는지, (2) 했다면 몇번에 투표했는지 받기*/
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
+    const [voteCnt, setVoteCnt] = useState(0);
     const [isAlarmCheck, setIsAlarmCheck] = useState(false);
+    const [isVoted, setIsVoted] = useState(false);
+    const [votedOptionId, setVotedOptionId] = useState([]);
+    const [postOptions, setPostOptions] = useState([]);
 
     const [searchParams] = useSearchParams();
     const search = searchParams.get('search'); // 검색어
     const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
+    const type = searchParams.get('type');
   
     useEffect(()=>{
+        setVoteCnt(post?.participationCnt);
+        setIsVoted(post?.loginMemberPostInfoDTO?.votedOptionIds.length > 0 ? true : false);
+        setVotedOptionId(post?.loginMemberPostInfoDTO?.votedOptionIds);
         setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
-    }, [post])    
+        setPostOptions(post?.optionsList);
+    }, [post, type])    
 
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
@@ -78,8 +87,13 @@ function PostCard({post, bname}) {
             },
             withCredentials: true,
             });
+            if(response.data.isSuccess) {
+                setPostOptions(response.data.result.optionsList);
+                setIsVoted(true);
+                setVoteCnt(voteCnt + 1);
+                setVotedOptionId(response.data.result.selectedOptions);
+            }
             console.log(response.data);
-            console.log('선택한 옵션' + selectedOptions);
         } catch (error) {
             console.error(error);
         }
@@ -153,7 +167,7 @@ function PostCard({post, bname}) {
         <>
             {post.status==='progress'?
                 isAlarmCheck ? 
-                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
+                <GoBellFill onClick={handleCancelAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
                 : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}} />
             : <GoBellSlash style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
             }
@@ -169,18 +183,18 @@ function PostCard({post, bname}) {
                 </Link>
                 <div>{post.deadline} 종료</div>
                 <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
-                    {post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여 
+                    {post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{voteCnt}</span> 명 참여 
                     {post.gender === 'male' ?  <> • <IoMdMale style={{color: '#5445dc', verticalAlign: 'middle'}}/></>: post.gender === 'female' ? <> • <IoMdFemale style={{color: '#ac2323', verticalAlign: 'middle'}}/></> : ''}
                 </div>
             </section>
             <section className={styles.vote_wrap}>
                 <table className={styles.vote_table}>
                     <tbody>
-                    {Object.values(post.optionsList).map((option, idx)=>    
+                    {postOptions && postOptions.map((option, idx)=>    
                         <tr key={idx}>
-                            {isOpenResult || filterMap[post.status] ==="투표종료" || post.voted ?
-                                <td style={{border: "1px solid gray"}}>
-                                    <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`}}>
+                            {isOpenResult || filterMap[post.status] ==="투표종료" || isVoted ?
+                                <td className={votedOptionId?.includes(option.optionId)?`${styles.selected}`:`${styles.unselected}`}>
+                                    <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`, backgroundColor: votedOptionId?.includes(option.optionId)? '#fbdbdb':'#cacaca'}}>
                                         {option.imgUrl !== '' && 
                                         <div className={styles.option_img} style={{marginLeft: "8px"}}>
                                             <img src={option.imgUrl} alt="옵션" />
@@ -209,7 +223,7 @@ function PostCard({post, bname}) {
                         <tr>
                             {filterMap[post.status] === "투표종료" ?
                                 <td><div>이미 종료된 투표입니다.</div></td>
-                            : post.voted?
+                            : isVoted?
                                 <td><div>이미 완료한 투표입니다.</div></td> 
                             : !isOpenResult ?
                                 <td>

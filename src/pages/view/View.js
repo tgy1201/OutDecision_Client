@@ -44,6 +44,8 @@ function View({setCategory}) {
     const [isAlarmCheck, setIsAlarmCheck] = useState(false);
     const [likesCnt, setLikesCnt] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
+    const [isVoted, setIsVoted] = useState(false);
+    const [votedOptionId, setVotedOptionId] = useState([]);
 
     const handleOptionChange = (index) => {
         if (post.multiple) {
@@ -61,12 +63,38 @@ function View({setCategory}) {
         }
     };
 
-    const handleVoteSubmit = () => {
+    const handleVoteSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!sessionStorage.isLogin) {
+            alert("로그인 후 이용가능합니다");
+            return;
+        }
+
         if (selectedOptions.length === 0) {
             alert("투표옵션을 선택해주세요");
             return;
         }
-        console.log(selectedOptions, postId)
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/vote`, selectedOptions, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            });
+            if(response.data.isSuccess) {
+                setIsVoted(true);
+                setPost((preState)=> ({...preState,
+                participationCnt: post.participationCnt+1,
+                optionsList: response.data.result.optionsList,
+                }))
+                setVotedOptionId(response.data.result.selectedOptions);
+            }
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const handleClickAlarm = async (e) => {
@@ -121,6 +149,8 @@ function View({setCategory}) {
             if(response.data.result.loginMemberPostInfoDTOList) {
                 setIsAlarmCheck(response.data.result.loginMemberPostInfoDTOList.receiveAlert);
                 setIsLiked(response.data.result.loginMemberPostInfoDTOList.isLiked);
+                setIsVoted(response.data.result.loginMemberPostInfoDTOList.votedOptionIds.length > 0 ? true : false);
+                setVotedOptionId(response.data.result.loginMemberPostInfoDTOList.votedOptionIds);
             }
             console.log(response.data);
           } catch (error) {
@@ -159,7 +189,7 @@ function View({setCategory}) {
 
     const handleEditPost = () => {
         if (post.participationCnt > 0) {
-            alert('투표참여자가 존재하여 게시글을 삭제할 수 없습니다');
+            alert('투표참여자가 존재하여 게시글을 수정할 수 없습니다');
             return;
         }
         navigate(`/edit/${postId}`);
@@ -167,12 +197,19 @@ function View({setCategory}) {
 
     const handleRemovePost = async (e) => {
         e.preventDefault();
+        if (post.participationCnt > 0) {
+            alert('투표참여자가 존재하여 게시글을 삭제할 수 없습니다');
+            return;
+        }
 
         try {
             const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${postId}`, {
                 withCredentials: true,
             });
-
+            if(response.data.isSuccess) {
+                alert('게시글 삭제 완료');
+                navigate(`/board/${bname}`);
+            }
             console.log(response.data);
         } catch (error) {
             console.error(error);
@@ -228,9 +265,9 @@ function View({setCategory}) {
                                         <tbody>
                                         {Object.values(post.optionsList).map((option, idx)=>    
                                             <tr key={idx}>
-                                                {isOpenResult || filterMap[post.status] ==="투표종료" || post.voted ?
-                                                    <td style={{border: "1px solid gray"}}>
-                                                        <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`}}>
+                                                {isOpenResult || filterMap[post.status] ==="투표종료" || isVoted ?
+                                                    <td className={votedOptionId?.includes(option.optionId)?`${styles.selected}`:`${styles.unselected}`}>
+                                                        <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`, backgroundColor: votedOptionId?.includes(option.optionId)? '#fbdbdb':'#cacaca'}}>
                                                             {option.imgUrl !== '' && 
                                                             <div className={styles.option_img} style={{marginLeft: '8px'}}>
                                                                 <img src={option.imgUrl} alt="옵션" />
@@ -242,7 +279,7 @@ function View({setCategory}) {
                                                         </p>
                                                         <span className={styles.percent}>{option.votePercentage}%</span>
                                                     </td>
-                                                :   <td className={selectedOptions.includes(idx) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(idx)}>
+                                                :   <td className={selectedOptions.includes(option.optionId) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(option.optionId)}>
                                                         <div className={styles.option_wrap} >
                                                             {option.imgUrl !== '' && 
                                                             <div className={styles.option_img}>
@@ -259,7 +296,7 @@ function View({setCategory}) {
                                     <div className={styles.resultBtn_wrap}>
                                         {filterMap[post.status] === "투표종료" ?
                                             <div>이미 종료된 투표입니다.</div>
-                                        : post.voted?
+                                        : isVoted?
                                             <div>이미 완료한 투표입니다.</div>
                                         : !isOpenResult ?
                                         <>

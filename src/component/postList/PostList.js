@@ -8,7 +8,6 @@ import { GoBell, GoBellFill, GoBellSlash } from "react-icons/go";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
 import axios from "axios";
 
-
 const boardNameMap = {
     all: '전체',
     hot: 'HOT',
@@ -32,15 +31,25 @@ function PostList ({post, bname}) {
     const [isOpenResult, setIsOpenResult] = useState(false);
     const [scrollPosition, setScrollPosition] = useState('left-border');
     const [selectedOptions, setSelectedOptions] = useState([]); //사용자가 선택한 투표옵션
+    const [voteCnt, setVoteCnt] = useState(0);
     const [isAlarmCheck, setIsAlarmCheck] = useState(false);
+    const [isVoted, setIsVoted] = useState(false);
+    const [votedOptionId, setVotedOptionId] = useState([]);
+    const [postOptions, setPostOptions] = useState([]);
 
     const [searchParams] = useSearchParams();
     const search = searchParams.get('search'); // 검색어
     const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
+    const type = searchParams.get('type');
 
+    //post가 변경되지 않는 type에 대한 의존성 변수를 설정해줘야함.
     useEffect(()=>{
+        setVoteCnt(post?.participationCnt);
+        setIsVoted(post?.loginMemberPostInfoDTO?.votedOptionIds.length > 0 ? true : false);
+        setVotedOptionId(post?.loginMemberPostInfoDTO?.votedOptionIds);
         setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
-    }, [post]) 
+        setPostOptions(post?.optionsList);
+    }, [post, type]) 
 
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
@@ -71,12 +80,36 @@ function PostList ({post, bname}) {
         }
     };
 
-    const handleVoteSubmit = () => {
+    const handleVoteSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!sessionStorage.isLogin) {
+            alert("로그인 후 이용가능합니다");
+            return;
+        }
+
         if (selectedOptions.length === 0) {
             alert("투표옵션을 선택해주세요");
             return;
         }
-        console.log(selectedOptions, post.postId)
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/vote`, selectedOptions, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            });
+            if(response.data.isSuccess) {
+                setPostOptions(response.data.result.optionsList);
+                setIsVoted(true);
+                setVoteCnt(voteCnt + 1);
+                setVotedOptionId(response.data.result.selectedOptions);
+            }
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
     }
     
     const highlightText = (text, searchTerm, type) => {
@@ -147,9 +180,9 @@ function PostList ({post, bname}) {
         <div className={styles.container}>
             {post.status==='progress'?
                 isAlarmCheck ? 
-                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
-                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}} />
-            : <GoBellSlash style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
+                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "3px", top: "3px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
+                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "3px", top: "3px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}} />
+            : <GoBellSlash style={{position: "absolute", right: "3px", top: "3px", fontSize: "1.6rem", color: "#4a4a4a"}} />
             }
             <section className={styles.title_wrap}>
                 <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
@@ -162,7 +195,7 @@ function PostList ({post, bname}) {
             </section>
             <section className={styles.voteInfo_wrap}>   
                 <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
-                    {post.deadline} 종료  • {post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{post.participationCnt}</span> 명 참여
+                    {post.deadline} 종료  • {post.pluralVoting ? '복수 선택' : '단일 선택'} • <span style={{color: "#ac2323"}}>{voteCnt}</span> 명 참여
                     {post.gender === 'male' ?  <> • <IoMdMale style={{color: '#5445dc', verticalAlign: 'middle'}}/></>: post.gender === 'female' ? <> • <IoMdFemale style={{color: '#ac2323', verticalAlign: 'middle'}}/></> : ''}
                 </div>
             </section>
@@ -172,10 +205,10 @@ function PostList ({post, bname}) {
                     <thead className={scrollPosition === 'left-border' || scrollPosition === 'middle' ? styles.next : ''}></thead>
                     <tbody onScroll={handleScroll}>
                         <tr>
-                        {Object.values(post.optionsList).map((option, idx)=>
+                        {postOptions && postOptions.map((option, idx)=>
                             <td key={idx}>
-                                {isOpenResult || filterMap[post.status] ==="투표종료" || post.voted ?    
-                                <div className={styles.result_wrap}>
+                                {isOpenResult || filterMap[post.status] ==="투표종료" || isVoted ?    
+                                <div className={votedOptionId?.includes(option.optionId)?`${styles.selected} ${styles.result_wrap}`:`${styles.unselected} ${styles.result_wrap}`}>
                                     {option.imgUrl !== '' && 
                                     <div className={styles.option_img}>
                                         <img src={option.imgUrl} alt="옵션" />
@@ -187,7 +220,7 @@ function PostList ({post, bname}) {
                                         </div>
                                         <span className={styles.percent}>{option.votePercentage}%</span>
                                     </div>
-                                    <div className={styles.result} style={{height: `${option.votePercentage}%`, transition: 'height 0.5s ease'}}/>
+                                    <div className={styles.result} style={{height: `${option.votePercentage}%`, transition: 'height 0.5s ease', backgroundColor: votedOptionId?.includes(option.optionId)? '#fbdbdb':'#cacaca'}}/>
                                 </div>
                                 :<div className={selectedOptions.includes(option.optionId) ? `${styles.selected} ${styles.option_wrap}` : `${styles.unselected} ${styles.option_wrap}`} onClick={()=>handleOptionChange(option.optionId)}>
                                     {option.imgUrl !== '' && 
@@ -210,7 +243,7 @@ function PostList ({post, bname}) {
                 <div className={styles.voteBtn_wrap}>
                 {filterMap[post.status] === "투표종료" ?
                     <div>이미 종료된 투표입니다.</div>
-                    : post.voted ?
+                    : isVoted ?
                     <div>이미 완료한 투표입니다.</div>
                     : !isOpenResult ?
                     <>

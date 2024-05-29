@@ -8,6 +8,7 @@
 .title_wrap {
     display: flex;
     gap: 0 5px;
+    padding-right: 20px;
 }
 .title_wrap > div{
     padding: 3px 6px;
@@ -152,7 +153,6 @@
 
 .result_wrap {
     padding: 8px 9px 6px 9px;
-    border: 1px solid #5a5a5a;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -169,7 +169,6 @@
 .result {
     position: absolute;
     bottom:0;
-    background-color: #eaeaea;
     z-index: -1;
     width: 100%;
     border-top-left-radius: 4px;

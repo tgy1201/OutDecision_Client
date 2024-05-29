@@ -3,10 +3,15 @@ import styles from './login.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import { IoEye } from "react-icons/io5";
+import { IoEyeOff } from "react-icons/io5";
+
 function Login () {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -27,6 +32,7 @@ function Login () {
                 sessionStorage.setItem('isLogin', true);
                 navigate('/');
             } else {
+                setAlertMessage('아이디 또는 비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요.');
                 return;
             }
         } catch (error) {
@@ -54,15 +60,25 @@ function Login () {
                             type="email" 
                             value={email} 
                             placeholder="이메일"
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {setEmail(e.target.value); setAlertMessage('')}}
                         />
-                        <input 
-                            type="password" 
-                            value={password} 
-                            placeholder="비밀번호" 
-                            onChange={(e) => setPassword(e.target.value)}
-                            style={{marginTop: "20px"}} 
-                        />
+                        <div style={{position: "relative", width: '100%'}}>
+                            <input 
+                                type={showPassword ? 'text' : 'password'} 
+                                value={password} 
+                                placeholder="비밀번호" 
+                                onChange={(e) => {setPassword(e.target.value); setAlertMessage('')}}
+                                style={{marginTop: "20px"}} 
+                            />
+                            <button onClick={()=>setShowPassword(!showPassword)} className={styles.limit}>
+                                {showPassword ? <IoEye className={styles.icon}/> : <IoEyeOff className={styles.icon}/>}
+                            </button>
+                            <div className={styles.errorMsg}>
+                            {alertMessage && alertMessage.split('\n').map((line,idx) => (
+                                <p key={idx}>{line}</p>
+                            ))}
+                            </div>
+                        </div>
                         <Link to="/" className={styles.find_pwd}>비밀번호 찾기</Link>
                         <button onClick={handleLogin}>로그인</button>
                         <div className={styles.account}>계정이 없으신가요? <Link to="/signup">Sign up</Link></div>

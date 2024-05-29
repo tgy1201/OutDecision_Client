@@ -44,6 +44,30 @@ function CommonHeader ({children}) {
         }
     }
 
+    const handleLogout = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_IP}/token/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include' // withCredentials 대신 credentials: 'include' 사용
+            });
+
+            if (response.ok) {
+                console.log("로그아웃 성공");
+                sessionStorage.removeItem("isLogin");
+                // 홈 페이지나 로그인 페이지로 리디렉션
+                navigate('/');
+            } else {
+                // 오류 처리
+                console.error("로그아웃 실패");
+            }
+        } catch (error) {
+            console.error("로그아웃 중 오류 발생", error);
+        }
+    }
+
     useEffect(()=> {
         setSearchText('');
     }, [path]);
@@ -55,7 +79,7 @@ function CommonHeader ({children}) {
             <div className={styles.pc_header}>
                 <div className={scrollPosition > 160 ? `${styles.scroll_topbar}` : `${styles.topbar}`}>
                     <ul>
-                        <li>{!sessionStorage.isLogin?(<Link to="/login">로그인</Link>):(<>로그아웃</>)}</li>
+                        <li>{!sessionStorage.isLogin?(<Link to="/login">로그인</Link>):(<span onClick={()=> handleLogout()}>로그아웃</span>)}</li>
                         <li><Link to="/signup">회원가입</Link></li>
                     </ul>
                 </div>
