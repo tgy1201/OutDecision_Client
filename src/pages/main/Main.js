@@ -18,12 +18,13 @@ function Main() {
     const [ranks, setRanks] = useState([]);
     const [finishedPosts, setFinishedPosts] = useState([]);
 
-    useEffect(() => {
-        handlefetchData();
+    useEffect(() => {   
+        handlefetchRecommendPosts();   
     }, []);
 
-    useEffect(() => {
-        handlefetchRecommendPosts();
+    useEffect(()=> {
+        handlefetchData();
+
     }, []);
 
     const handlefetchRecommendPosts = async () => {

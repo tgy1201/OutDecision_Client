@@ -6,11 +6,13 @@ import Comment from "../../component/comment/Comment";
 
 import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
-import { GoBell, GoBellFill, GoBellSlash } from "react-icons/go";
+import { GoBell, GoBellFill, GoBellSlash} from "react-icons/go";
 import { FaUser } from "react-icons/fa";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
 import { TbPencilCog } from "react-icons/tb";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { LuArrowUpWideNarrow } from "react-icons/lu";
+import ImageModal from "../../component/imageModal/ImageModal";
 
 const boardNameMap = {
     all: '전체',
@@ -31,12 +33,12 @@ const filterMap = {
     end: '투표종료'
 }
 
-function View({ setCategory }) {
+function View({setCategory}) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const page = searchParams.get('page'); // 댓글페이지번호
 
-    const { bname, postId } = useParams();
+    const {bname, postId} = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [isOpenResult, setIsOpenResult] = useState(false);
@@ -46,13 +48,16 @@ function View({ setCategory }) {
     const [isLiked, setIsLiked] = useState(false);
     const [isVoted, setIsVoted] = useState(false);
     const [votedOptionId, setVotedOptionId] = useState([]);
+    
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
 
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
             if (selectedOptions.includes(index)) {
-                setSelectedOptions(selectedOptions.filter((o) => o !== index));
+            setSelectedOptions(selectedOptions.filter((o) => o !== index));
             } else {
-                setSelectedOptions([...selectedOptions, index]);
+            setSelectedOptions([...selectedOptions, index]);
             }
         } else {
             if (selectedOptions.includes(index)) {
@@ -99,8 +104,8 @@ function View({ setCategory }) {
 
     const handleClickAlarm = async (e) => {
         e.preventDefault();
-
-        if (!sessionStorage.isLogin) {
+        
+        if(!sessionStorage.isLogin) {
             alert('로그인 후 이용가능합니다');
             return;
         }
@@ -131,20 +136,20 @@ function View({ setCategory }) {
             console.error(error);
         }
     }
-
+    
     useEffect(() => {
         const fetchPost = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/post/${postId}`, {
-                    params: {
-                        postId: postId,
-                    },
-                    withCredentials: true,
-                });
+          try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/post/${postId}`, {
+                params: {
+                  postId: postId,
+                },
+                withCredentials: true,
+            });
 
-                setPost(response.data.result);
-                setComments(response.data.result.commentsList.commentsDTOList);
-                setLikesCnt(response.data.result.likesCnt);
+            setPost(response.data.result);
+            setComments(response.data.result.commentsList.commentsDTOList);
+            setLikesCnt(response.data.result.likesCnt);
 
             if(response.data.result.loginMemberPostInfoDTOList) {
                 setIsAlarmCheck(response.data.result.loginMemberPostInfoDTOList.receiveAlert);
@@ -157,11 +162,11 @@ function View({ setCategory }) {
             console.error(error);
           }
         };
-
+    
         fetchPost();
     }, [postId]);
 
-    useEffect(() => {
+    useEffect(() => {  
         setCategory(bname);
     }, [bname, setCategory]);
 
@@ -186,6 +191,30 @@ function View({ setCategory }) {
             console.error("Error liking the post:", error);
         }
     };
+
+    const handleUptoPost = async (e) => {
+        e.preventDefault();
+
+        if(post.bumps === 0) {
+            alert('끌어올리기 개수가 모두 소진되었습니다');
+            return;    
+        }
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/bumps`, null, {
+                withCredentials: true,
+            });
+            if(response.data.isSuccess) {
+                alert('끌어올리기 성공');
+                setPost((preState)=> ({...preState,
+                    bumps: post.bumps - 1,
+                    }))
+            }
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const handleEditPost = () => {
         if (post.participationCnt > 0) {
@@ -216,43 +245,48 @@ function View({ setCategory }) {
         }
     }
 
+    const handleZoomImage = (imgUrl) => {
+        setSelectedImage(imgUrl);
+        setIsOpen(true);
+    }
+
     return (
         <div className={styles.container}>
-            {post ? (
+            {post? (
                 <div className={styles.view_wrap}>
                     <div className={styles.board_title_wrap}>
-                        <h1><Link to={`/board/${bname}`}>{boardNameMap[bname]}</Link></h1>
+                        <h1><Link to={`/board/${bname}`}>{boardNameMap[bname]}</Link></h1>           
                     </div>
                     <div className={styles.post_wrap}>
                         <section className={styles.postInfo_wrap}>
                             <div className={styles.profile_wrap}>
-                                <img src={post.profileUrl} alt="프로필" />
+                                <img src={post.profileUrl} alt="프로필"/>
                             </div>
                             <div className={styles.user_wrap}>
                                 <p>{post.nickname}</p>
                                 <p>{post.createdAt}</p>
                             </div>
                             <ul>
-                                <li style={{ color: "#b00000" }}><div><IoHeartOutline style={{ verticalAlign: "middle", marginRight: "2px" }} />{likesCnt}</div></li>
-                                <li style={{ color: "#412ed1" }}><div><LiaCommentDotsSolid style={{ verticalAlign: "middle", marginRight: "2px" }} />{comments.length}</div></li>
-                                <li style={{ color: "5a5a5a" }}><div><IoEyeOutline style={{ verticalAlign: "middle", marginRight: "2px" }} />{post.views}</div></li>
+                                <li style={{color: "#b00000"}}><div><IoHeartOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{likesCnt}</div></li>
+                                <li style={{color: "#412ed1"}}><div><LiaCommentDotsSolid style={{verticalAlign: "middle", marginRight: "2px"}}/>{comments.length}</div></li> 
+                                <li style={{color: "5a5a5a"}}><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.views}</div></li>
                             </ul>
                         </section>
                         <section className={styles.voteInfo_wrap}>
                             <div className={styles.voteInfo}>
-                                {post.gender === 'male' ?
-                                    <IoMdMale style={{ position: "absolute", left: "11px", top: "11px", fontSize: "1.6rem", color: '#5445dc', verticalAlign: 'middle' }} />
-                                    : post.gender === 'female' ?
-                                        <IoMdFemale style={{ position: "absolute", left: "11px", top: "11px", fontSize: "1.6rem", color: '#ac2323', verticalAlign: 'middle' }} /> : ''
+                                {post.gender === 'male' ?  
+                                <IoMdMale style={{position: "absolute", left: "11px", top: "11px", fontSize: "1.6rem", color: '#5445dc', verticalAlign: 'middle'}}/>
+                                : post.gender === 'female' ?
+                                <IoMdFemale style={{position: "absolute", left: "11px", top: "11px", fontSize: "1.6rem", color: '#ac2323', verticalAlign: 'middle'}}/> : ''
                                 }
-                                {post.status === 'progress' ?
-                                    isAlarmCheck ?
-                                        <GoBellFill onClick={handleCancelAlarm} style={{ position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer" }} />
-                                        : <GoBell onClick={handleClickAlarm} style={{ position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer" }} />
-                                    : <GoBellSlash style={{ position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a" }} />
+                                {post.status==='progress'?
+                                isAlarmCheck ? 
+                                <GoBellFill onClick={handleCancelAlarm}style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}}/>
+                                : <GoBell onClick={handleClickAlarm} style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a", cursor: "pointer"}} />
+                                : <GoBellSlash style={{position: "absolute", right: "11px", top: "11px", fontSize: "1.6rem", color: "#4a4a4a"}} />
                                 }
                                 <section className={styles.state_wrap}>
-                                    <div style={{ backgroundColor: filterMap[post.status] === '투표중' ? "#ac2323" : "gray" }}>{filterMap[post.status]}</div>
+                                    <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
                                 </section>
                                 <section className={styles.voteTitle_wrap}>
                                     <p>Q. {post.title}</p>
@@ -269,7 +303,7 @@ function View({ setCategory }) {
                                                     <td className={votedOptionId?.includes(option.optionId)?`${styles.selected}`:`${styles.unselected}`}>
                                                         <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`, backgroundColor: votedOptionId?.includes(option.optionId)? '#fbdbdb':'#cacaca'}}>
                                                             {option.imgUrl !== '' && 
-                                                            <div className={styles.option_img} style={{marginLeft: '8px'}}>
+                                                            <div className={styles.option_img} style={{marginLeft: '8px'}} onClick={()=>handleZoomImage(option.imgUrl)}>
                                                                 <img src={option.imgUrl} alt="옵션" />
                                                             </div>
                                                             } 
@@ -311,18 +345,20 @@ function View({ setCategory }) {
                             <section className={styles.content_wrap}>
                                 {post.content}
                             </section>
-                            <section className={styles.like_wrap} style={{ marginBottom: post.bumps ? 0 : '40px' }}>
+                            <section className={styles.like_wrap} style={{marginBottom: post.bumps? 0 : '40px'}}>
                                 <button onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
                             </section>
-                            {post.bumps &&
-                                <section className={styles.util_wrap}>
-                                    <button onClick={handleEditPost}><TbPencilCog />수정</button>
-                                    <button onClick={handleRemovePost}><MdOutlineDeleteOutline />삭제</button>
-                                </section>
+                            {!(post.bumps === null) &&
+                            <section className={styles.util_wrap}>           
+                                <button className={styles.upto_btn} onClick={handleUptoPost}><LuArrowUpWideNarrow />끌어올리기 {post.bumps}</button>
+                                <button onClick={handleEditPost}><TbPencilCog />수정</button>
+                                <button onClick={handleRemovePost}><MdOutlineDeleteOutline />삭제</button>
+                            </section>
                             }
                         </section>
                     </div>
-                    <Comment comments={comments} setComments={setComments} postId={postId} page={page} />
+                    <Comment comments={comments} setComments={setComments} postId={postId} page={page}/>
+                    <ImageModal isOpen={isOpen} setIsOpen={setIsOpen} imgUrl={selectedImage} />
                 </div>
             ) : (
                 <p>로딩 중...</p>

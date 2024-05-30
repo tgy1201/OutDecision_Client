@@ -58,7 +58,7 @@ function CommonHeader ({children}) {
                 console.log("로그아웃 성공");
                 sessionStorage.removeItem("isLogin");
                 // 홈 페이지나 로그인 페이지로 리디렉션
-                navigate('/');
+                window.location.href = '/';
             } else {
                 // 오류 처리
                 console.error("로그아웃 실패");
