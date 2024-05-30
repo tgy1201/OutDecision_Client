@@ -8,6 +8,7 @@ import { IoHeartOutline, IoEyeOutline } from "react-icons/io5";
 import { LiaCommentDotsSolid } from "react-icons/lia";
 import { GoBell, GoBellFill, GoBellSlash } from "react-icons/go";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
+import ImageModal from "../imageModal/ImageModal";
 
 const boardNameMap = {
     all: '전체',
@@ -43,6 +44,9 @@ function PostCard({post, bname}) {
     const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
     const type = searchParams.get('type');
     const page = searchParams.get('page');
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
   
     useEffect(()=>{
         setVoteCnt(post?.participationCnt);
@@ -165,6 +169,21 @@ function PostCard({post, bname}) {
         }
     }
 
+    const handleZoomImage = (imgUrl) => {
+        setSelectedImage(imgUrl);
+        setIsOpen(true);
+    }
+
+    useEffect(() => {
+        if (isOpen) {
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        } else {
+          document.body.style.overflow = "auto";
+          document.body.style.touchAction = "auto";
+        }
+    }, [isOpen]); 
+
     return(
         <>
             {post.status==='progress'?
@@ -198,7 +217,7 @@ function PostCard({post, bname}) {
                                 <td className={votedOptionId?.includes(option.optionId)?`${styles.selected}`:`${styles.unselected}`}>
                                     <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`, backgroundColor: votedOptionId?.includes(option.optionId)? '#fbdbdb':'#cacaca'}}>
                                         {option.imgUrl !== '' && 
-                                        <div className={styles.option_img} style={{marginLeft: "8px"}}>
+                                        <div className={styles.option_img} style={{marginLeft: "8px"}} onClick={()=>handleZoomImage(option.imgUrl)}>
                                             <img src={option.imgUrl} alt="옵션" />
                                         </div>
                                         } 
@@ -211,7 +230,7 @@ function PostCard({post, bname}) {
                             :   <td className={selectedOptions.includes(option.optionId) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(option.optionId)}>
                                     <div className={styles.option_wrap} >
                                         {option.imgUrl !== '' && 
-                                        <div className={styles.option_img}>
+                                        <div className={styles.option_img} onClick={()=>handleZoomImage(option.imgUrl)}>
                                             <img src={option.imgUrl} alt="옵션" /> 
                                         </div>} 
                                         <p dangerouslySetInnerHTML={ {__html: highlightText(option.body, search, 'option')} }></p>
@@ -250,6 +269,7 @@ function PostCard({post, bname}) {
                     <li><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.views}</div></li>
                 </ul>
             </section>
+            <ImageModal isOpen={isOpen} setIsOpen={setIsOpen} imgUrl={selectedImage} />
         </>
     );
 }

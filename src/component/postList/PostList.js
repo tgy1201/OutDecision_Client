@@ -7,6 +7,7 @@ import { LiaCommentDotsSolid } from "react-icons/lia";
 import { GoBell, GoBellFill, GoBellSlash } from "react-icons/go";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
 import axios from "axios";
+import ImageModal from "../imageModal/ImageModal";
 
 const boardNameMap = {
     all: '전체',
@@ -42,6 +43,9 @@ function PostList ({post, bname}) {
     const searchType = searchParams.get('searchType'); // 검색 유형(title, content)
     const type = searchParams.get('type');
     const page = searchParams.get('page');
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
 
     //post가 변경되지 않는 type에 대한 의존성 변수를 설정해줘야함.
     useEffect(()=>{
@@ -178,6 +182,21 @@ function PostList ({post, bname}) {
         }
     }
 
+    const handleZoomImage = (imgUrl) => {
+        setSelectedImage(imgUrl);
+        setIsOpen(true);
+    }
+
+    useEffect(() => {
+        if (isOpen) {
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        } else {
+          document.body.style.overflow = "auto";
+          document.body.style.touchAction = "auto";
+        }
+    }, [isOpen]); 
+
     return (
         <div className={styles.container}>
             {post.status==='progress'?
@@ -212,7 +231,7 @@ function PostList ({post, bname}) {
                                 {isOpenResult || filterMap[post.status] ==="투표종료" || isVoted ?    
                                 <div className={votedOptionId?.includes(option.optionId)?`${styles.selected} ${styles.result_wrap}`:`${styles.unselected} ${styles.result_wrap}`}>
                                     {option.imgUrl !== '' && 
-                                    <div className={styles.option_img}>
+                                    <div className={styles.option_img} onClick={()=>handleZoomImage(option.imgUrl)}>
                                         <img src={option.imgUrl} alt="옵션" />
                                     </div>
                                     } 
@@ -226,7 +245,7 @@ function PostList ({post, bname}) {
                                 </div>
                                 :<div className={selectedOptions.includes(option.optionId) ? `${styles.selected} ${styles.option_wrap}` : `${styles.unselected} ${styles.option_wrap}`} onClick={()=>handleOptionChange(option.optionId)}>
                                     {option.imgUrl !== '' && 
-                                    <div className={styles.option_img}>
+                                    <div className={styles.option_img} onClick={()=>handleZoomImage(option.imgUrl)}>
                                         <img src={option.imgUrl} alt="옵션" /> 
                                     </div>
                                     }
@@ -268,6 +287,7 @@ function PostList ({post, bname}) {
                     <li><div><IoEyeOutline style={{verticalAlign: "middle", marginRight: "2px"}}/>{post.views}</div></li>
                 </ul>
             </section>
+            <ImageModal isOpen={isOpen} setIsOpen={setIsOpen} imgUrl={selectedImage} />
         </div>
     )
 }

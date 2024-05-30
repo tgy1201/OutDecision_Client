@@ -250,6 +250,16 @@ function View({setCategory}) {
         setIsOpen(true);
     }
 
+    useEffect(() => {
+        if (isOpen) {
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        } else {
+          document.body.style.overflow = "auto";
+          document.body.style.touchAction = "auto";
+        }
+    }, [isOpen]); 
+
     return (
         <div className={styles.container}>
             {post? (
@@ -316,7 +326,7 @@ function View({setCategory}) {
                                                 :   <td className={selectedOptions.includes(option.optionId) ? `${styles.selected}` : `${styles.unselected}`} onClick={()=>handleOptionChange(option.optionId)}>
                                                         <div className={styles.option_wrap} >
                                                             {option.imgUrl !== '' && 
-                                                            <div className={styles.option_img}>
+                                                            <div className={styles.option_img} onClick={()=>handleZoomImage(option.imgUrl)}>
                                                                 <img src={option.imgUrl} alt="옵션" /> 
                                                             </div>} 
                                                             <p>{option.body}</p>

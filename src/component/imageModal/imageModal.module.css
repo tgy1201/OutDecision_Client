@@ -1,0 +1,19 @@
+.image_wrap {
+    position: relative;
+}
+
+.image_wrap img {
+    width: fit-content;
+    height: fit-content;
+    max-width: 75vw;
+    max-height: 75vh;
+    min-width: 40vw;
+    min-height: 10vh;
+    object-fit: contain;
+}
+
+.image_wrap button{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
