@@ -191,12 +191,20 @@ function View({setCategory}) {
     const handleUptoPost = async (e) => {
         e.preventDefault();
 
+        if(post.bumps === 0) {
+            alert('끌어올리기 개수가 모두 소진되었습니다');
+            return;    
+        }
+
         try {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/bumps`, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/bumps`, null, {
                 withCredentials: true,
             });
             if(response.data.isSuccess) {
                 alert('끌어올리기 성공');
+                setPost((preState)=> ({...preState,
+                    bumps: post.bumps - 1,
+                    }))
             }
             console.log(response.data);
         } catch (error) {
@@ -331,9 +339,9 @@ function View({setCategory}) {
                             <section className={styles.like_wrap} style={{marginBottom: post.bumps? 0 : '40px'}}>
                                 <button onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
                             </section>
-                            {post.bumps &&
+                            {!(post.bumps === null) &&
                             <section className={styles.util_wrap}>           
-                                <button className={styles.upto_btn} onClick={handleUptoPost}><LuArrowUpWideNarrow />끌어올리기</button>
+                                <button className={styles.upto_btn} onClick={handleUptoPost}><LuArrowUpWideNarrow />끌어올리기 {post.bumps}</button>
                                 <button onClick={handleEditPost}><TbPencilCog />수정</button>
                                 <button onClick={handleRemovePost}><MdOutlineDeleteOutline />삭제</button>
                             </section>
