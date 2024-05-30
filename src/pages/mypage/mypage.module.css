@@ -164,8 +164,8 @@
 
     .plus {
         position: absolute;
-        top: -30px;
-        right: 5px;
+        top: 510px;
+        right: 180px;
         color: gray;
         cursor: pointer;
     }
