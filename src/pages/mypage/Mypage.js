@@ -151,7 +151,7 @@ function Mypage() {
                                             <div className={styles.title}>새싹</div>
                                             <button onClick={handleChangeTitle}>변경</button>
                                         </div>
-                                        <span>{memberInfo.name} </span>님
+                                        <span>{memberInfo.nickname} </span>님
                                     </div>
                                 </div>
                                 <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
@@ -196,7 +196,7 @@ function Mypage() {
                                             <div className={styles.title}>새싹</div>
                                             <button onClick={handleChangeTitle}>변경</button>
                                         </div>
-                                        <span>{memberInfo.name} </span>님
+                                        <span>{memberInfo.nickname} </span>님
                                     </div>
                                 </div>
                                 <div className={styles.userinfo}>보유칭호 <span>3개</span></div>

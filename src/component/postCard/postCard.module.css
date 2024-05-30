@@ -175,7 +175,6 @@
         align-items: center;
         height: 100%;
         border-radius: 7px;
-        background-color: #cacaca;
     }
 /*text: 이미지 있는 옵션, text2 : 이미지 없는 옵션*/
     .text {
@@ -370,7 +369,6 @@
         align-items: center;
         height: 100%;
         border-radius: 7px;
-        background-color: #cecece;
     }
 
     .text {
@@ -388,7 +386,7 @@
 
     .text2 {
         position: absolute;
-        left: 10px;
+        left: 8px;
         width: calc(100% - 60px);
         text-overflow: ellipsis;
         overflow: hidden;
