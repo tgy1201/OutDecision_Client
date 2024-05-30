@@ -11,10 +11,10 @@ import { Link } from "react-router-dom";
 import MainRanking from "../../component/mainRanking/MainRanking";
 import MainFinishedPost from "../../component/mainFinishedPost/MainFinishedPost";
 
-function Main () {
+function Main() {
     const [recommendPosts, setRecommendPosts] = useState([]);
     const [hotPosts, setHotPosts] = useState([]);
-    const [newPosts, setNewPosts] =  useState([]);
+    const [newPosts, setNewPosts] = useState([]);
     const [ranks, setRanks] = useState([]);
     const [finishedPosts, setFinishedPosts] = useState([]);
 
@@ -24,6 +24,7 @@ function Main () {
 
     useEffect(()=> {
         handlefetchData();
+
     }, []);
 
     const handlefetchRecommendPosts = async () => {
@@ -33,7 +34,7 @@ function Main () {
             });
             setRecommendPosts(response.data.result.recommendPostList);
             console.log(response.data.result);
-        } catch(error) {
+        } catch (error) {
             console.log(error);
         }
     };
@@ -47,11 +48,11 @@ function Main () {
             setNewPosts(response.data.result.latestPostList);
             setFinishedPosts(response.data.result.closedPostList);
             setRanks(response.data.result.rankingListDTO.rankingList);
-        } catch(error) {
+        } catch (error) {
             console.log(error);
         }
     };
-    
+
     return (
         <div className={styles.container}>
             <Banner />
@@ -61,38 +62,38 @@ function Main () {
                     <Category />
                 </section>
                 <section className={styles.recommend}>
-                    <Recommend posts={recommendPosts} handleClick={handlefetchRecommendPosts}/>
+                    <Recommend posts={recommendPosts} handleClick={handlefetchRecommendPosts} />
                 </section>
                 <section className={styles.hot}>
                     <div className={styles.post_header}>
                         <p>지금 뜨고 있는 투표는?</p>
                         <div>
                             <Link to="/board/hot">
-                                HOT 게시물<FiChevronRight style={{verticalAlign: 'middle', fontSize: "1.8rem"}}/>
+                                HOT 게시물<FiChevronRight style={{ verticalAlign: 'middle', fontSize: "1.8rem" }} />
                             </Link>
-                        </div>  
+                        </div>
                     </div>
-                    <MainPost posts={hotPosts} bname={'hot'}/>
+                    <MainPost posts={hotPosts} bname={'hot'} />
                 </section>
                 <section className={styles.all}>
                     <div className={styles.post_header}>
                         <p>따끈따끈 방금 올라온 투표는?</p>
                         <div>
                             <Link to="/board/all">
-                                최신 게시물<FiChevronRight style={{verticalAlign: 'middle', fontSize: "1.8rem"}}/>
+                                최신 게시물<FiChevronRight style={{ verticalAlign: 'middle', fontSize: "1.8rem" }} />
                             </Link>
-                        </div>  
+                        </div>
                     </div>
-                    <MainPost posts={newPosts} bname={'all'}/>
+                    <MainPost posts={newPosts} bname={'all'} />
                 </section>
                 <section className={styles.rank}>
                     <div className={`${styles.rank_header} ${styles.post_header}`}>
                         <p>이번주 투표왕은?</p>
                         <div>
                             <Link to="/ranking">
-                                포인트 랭킹<FiChevronRight style={{verticalAlign: 'middle', fontSize: "1.8rem"}}/>
+                                포인트 랭킹<FiChevronRight style={{ verticalAlign: 'middle', fontSize: "1.8rem" }} />
                             </Link>
-                        </div> 
+                        </div>
                     </div>
                     <MainRanking ranks={ranks} />
                 </section>
@@ -101,7 +102,7 @@ function Main () {
                         <p>투표 결과를 바로 확인해보세요</p>
                         <div>
                             <Link to="/board/all?vote=end">
-                                종료된 게시물<FiChevronRight style={{verticalAlign: 'middle', fontSize: "1.8rem"}}/>
+                                종료된 게시물<FiChevronRight style={{ verticalAlign: 'middle', fontSize: "1.8rem" }} />
                             </Link>
                         </div>
                     </div>

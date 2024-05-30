@@ -26,14 +26,131 @@
         width: calc(100% - 280px);
         padding: 0;
         margin: 0;
-        background-color: bisque;
     }
 
     .main {
         width: 100%;
         margin-top: 10px;
         display: flex;
+        flex-wrap: wrap;
+    }
+
+    .box {
+        width: calc(50% - 20px);
+        margin: 10px;
+        height: 150px;
+        border: 2px solid black;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+        display: flex;
         flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .clicked {
+        border: 2px solid #ac2323;
+    }
+
+    .tswrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #354edd;
+        text-align: center;
+        flex-grow: 1;
+        margin-top: 5px;
+        align-self: center;
+    }
+
+    .statewrapper {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .state {
+        font-size: 20px;
+        color: #ac2323;
+        margin-right: 10px;
+    }
+
+    .acquired {
+        color: green;
+    }
+
+    .explain {
+        font-size: 16px;
+        color: #333;
+        margin-left: 3%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .pbwrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
+        padding: 0 2%;
+    }
+
+    .progress {
+        font-size: 16px;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    .maxProgress {
+        font-size: 16px;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    .bar {
+        width: 90%;
+        height: 18px;
+        background-color: #ffffff;
+        border: 1.5px solid black;
+        display: flex;
+    }
+
+    .bar::after {
+        content: "";
+        display: block;
+        width: var(--bar-width);
+        height: 100%;
+        background-color: #ffd400;
+    }
+
+    .apply {
+        width: 400px;
+        height: 50px;
+        background-color: #ac2323;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        border: 2px solid black;
+        border-radius: 10px;
+        font-size: 30px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
     }
 }
 
@@ -61,13 +178,110 @@
         display: flex;
         flex-direction: column;
     }
-    
-    .edit {
-        font-size: 30px;
-        font-weight: 600;
+
+    .box {
+        width: 400px;
+        height: 90px;
+        margin: auto;
+        margin-top: 20px;
+        border: 2px solid black;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .clicked {
+        border: 2px solid #ac2323;
+    }
+
+    .tswrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #354edd;
+        margin-left: 2%;
+        margin-top: 3px;
+    }
+
+    .state {
+        font-size: 16px;
         color: #ac2323;
-        padding-left: 20px;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #ac2323;
+        margin-right: 2%;
+        margin-top: 5px;
+    }
+
+    .acquired {
+        color: green;
+    }
+
+    .epwrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .explain {
+        font-size: 16px;
+        color: #333;
+        margin-left: 2%;
+    }
+
+    .progress {
+        font-size: 14px;
+        text-align: right;
+        margin-right: 2%;
+        margin-top: -5px;
+    }
+
+    .maxProgress {
+        font-size: 16px;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    .bar {
+        width: 95%;
+        height: 15px;
+        background-color: #ffffff;
+        margin-top: 5px;
+        border: 1.5px solid black;
+        display: flex;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bar::after {
+        content: "";
+        display: block;
+        width: var(--bar-width);
+        height: 100%;
+        background-color: #ffd400;
+    }
+
+    .apply {
+        width: 400px;
+        height: 50px;
+        background-color: #ac2323;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        border: 2px solid black;
+        border-radius: 10px;
+        font-size: 30px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
     }
 }

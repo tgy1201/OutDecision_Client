@@ -48,9 +48,9 @@ function App() {
             <Route path="/edit/:postId" element={<Edit />}></Route>
             <Route path="/mypage" element={<Mypage />}></Route>
             <Route path="/mypage/edit" element={<Infoedit />}></Route>
-            <Route path='/mypage/posting' element={<Mypost active={3}/>}></Route>
-            <Route path='/mypage/vote' element={<Mypost active={4}/>}></Route>
-            <Route path='/mypage/liked' element={<Mypost active={5}/>}></Route>
+            <Route path='/mypage/posting' element={<Mypost active={3} />}></Route>
+            <Route path='/mypage/vote' element={<Mypost active={4} />}></Route>
+            <Route path='/mypage/liked' element={<Mypost active={5} />}></Route>
             <Route path="/mypage/mytitle" element={<Mytitle />}></Route>
           </Route>
         </Routes>
