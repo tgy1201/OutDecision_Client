@@ -192,7 +192,7 @@ function View({setCategory}) {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/bump`, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/bumps`, {
                 withCredentials: true,
             });
             if(response.data.isSuccess) {
