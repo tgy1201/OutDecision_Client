@@ -12,6 +12,7 @@ import { IoMdMale, IoMdFemale } from "react-icons/io";
 import { TbPencilCog } from "react-icons/tb";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { LuArrowUpWideNarrow } from "react-icons/lu";
+import ImageModal from "../../component/imageModal/ImageModal";
 
 const boardNameMap = {
     all: '전체',
@@ -47,6 +48,9 @@ function View({setCategory}) {
     const [isLiked, setIsLiked] = useState(false);
     const [isVoted, setIsVoted] = useState(false);
     const [votedOptionId, setVotedOptionId] = useState([]);
+    
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
 
     const handleOptionChange = (index) => {
         if (post.pluralVoting) {
@@ -241,6 +245,11 @@ function View({setCategory}) {
         }
     }
 
+    const handleZoomImage = (imgUrl) => {
+        setSelectedImage(imgUrl);
+        setIsOpen(true);
+    }
+
     return (
         <div className={styles.container}>
             {post? (
@@ -294,7 +303,7 @@ function View({setCategory}) {
                                                     <td className={votedOptionId?.includes(option.optionId)?`${styles.selected}`:`${styles.unselected}`}>
                                                         <div className={styles.result_wrap} style={{width: `${option.votePercentage}%`, backgroundColor: votedOptionId?.includes(option.optionId)? '#fbdbdb':'#cacaca'}}>
                                                             {option.imgUrl !== '' && 
-                                                            <div className={styles.option_img} style={{marginLeft: '8px'}}>
+                                                            <div className={styles.option_img} style={{marginLeft: '8px'}} onClick={()=>handleZoomImage(option.imgUrl)}>
                                                                 <img src={option.imgUrl} alt="옵션" />
                                                             </div>
                                                             } 
@@ -349,6 +358,7 @@ function View({setCategory}) {
                         </section>
                     </div>
                     <Comment comments={comments} setComments={setComments} postId={postId} page={page}/>
+                    <ImageModal isOpen={isOpen} setIsOpen={setIsOpen} imgUrl={selectedImage} />
                 </div>
             ) : (
                 <p>로딩 중...</p>
