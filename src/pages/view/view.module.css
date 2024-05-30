@@ -305,16 +305,27 @@
     padding: 0 10px;
 }
 
-.util_wrap button {
+.upto_btn {
     display: flex;
     align-items: center;
     gap: 3px;
     font-size: 1.0rem;
     cursor: pointer;
+    background-color: #ac2323;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 10px;
 }
 
-.util_wrap button:hover {
-    color: #ac2323;
+.util_wrap button:not(.upto_btn) {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 1.0rem;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #3c3c3c;
+    padding: 6px 10px;
 }
 
 @media (min-width: 1080px) {

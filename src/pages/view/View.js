@@ -11,6 +11,7 @@ import { FaUser } from "react-icons/fa";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
 import { TbPencilCog } from "react-icons/tb";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { LuArrowUpWideNarrow } from "react-icons/lu";
 
 const boardNameMap = {
     all: '전체',
@@ -187,6 +188,22 @@ function View({setCategory}) {
         }
     };
 
+    const handleUptoPost = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_IP}/post/${postId}/bump`, {
+                withCredentials: true,
+            });
+            if(response.data.isSuccess) {
+                alert('끌어올리기 성공');
+            }
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const handleEditPost = () => {
         if (post.participationCnt > 0) {
             alert('투표참여자가 존재하여 게시글을 수정할 수 없습니다');
@@ -315,7 +332,8 @@ function View({setCategory}) {
                                 <button onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
                             </section>
                             {post.bumps &&
-                            <section className={styles.util_wrap}>
+                            <section className={styles.util_wrap}>           
+                                <button className={styles.upto_btn} onClick={handleUptoPost}><LuArrowUpWideNarrow />끌어올리기</button>
                                 <button onClick={handleEditPost}><TbPencilCog />수정</button>
                                 <button onClick={handleRemovePost}><MdOutlineDeleteOutline />삭제</button>
                             </section>
