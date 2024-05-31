@@ -9,21 +9,20 @@ import PostList from "../../component/postList/PostList";
 function Mypage() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const posts = searchParams.get('posts'); //작성한글(written), 투표한글(voted), 좋아요한글(liked)
+    const posts = searchParams.get('posts'); // 작성한글(written), 투표한글(voted), 좋아요한글(liked)
 
-    const [postList, setPostList] = useState();
+    const [postList, setPostList] = useState([]);
     const [activeMenu, setActiveMenu] = useState('written');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [profileImage, setProfileImage] = useState('/assets/user.png');
     const [title, setTitle] = useState('새싹');
-
     const [memberInfo, setMemberInfo] = useState(null);
 
     useEffect(() => {
         const fetchMemberInfo = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/mypage/edit`, {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/mypage`, {
                     withCredentials: true
                 });
                 if (response.data.isSuccess) {
@@ -40,7 +39,6 @@ function Mypage() {
         fetchMemberInfo();
     }, []);
 
-
     useEffect(() => {
         const handlefetchPosts = async () => {
             try {
@@ -52,25 +50,16 @@ function Mypage() {
                 });
                 console.log(response.data.result);
                 setPostList(response.data.result.postList);
+                if (response.data.result.title) {
+                    setTitle(response.data.result.title);
+                }
             } catch (error) {
                 console.error(error);
             }
         };
 
         handlefetchPosts();
-    }, [posts])
-
-    /*
-    const [hoveredRow, setHoveredRow] = useState(null)
-
-    const handleMouseOver = (index) => {
-        setHoveredRow(index);
-    }
-
-    const handleMouseOut = () => {
-        setHoveredRow(null);
-    }
-    */
+    }, [posts]);
 
     const openModal = () => {
         setModalIsOpen(true);
@@ -144,18 +133,18 @@ function Mypage() {
                             <div className={styles.profile}>
                                 <div className={styles.imagebox}>
                                     <div className={styles.image}>
-                                        <img src="/assets/images/profile2.png" alt="프로필" />
+                                        <img src={memberInfo.userImg || "/assets/images/profile2.png"} alt="프로필" />
                                     </div>
                                     <div className={styles.namebox}>
                                         <div>
-                                            <div className={styles.title}>새싹</div>
+                                            <div className={styles.title}>{title}</div>
                                             <button onClick={handleChangeTitle}>변경</button>
                                         </div>
-                                        <span>{memberInfo.name} </span>님
+                                        <span>{memberInfo.nickname} </span>님
                                     </div>
                                 </div>
-                                <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
-                                <div className={styles.userinfo}>포인트 <span>7000점 (랭킹 : 3위)</span></div>
+                                <div className={styles.userinfo}>보유칭호 <span>{memberInfo.titleCnt}개</span></div>
+                                <div className={styles.userinfo}>포인트 <span>{memberInfo.point}점 (랭킹 : 3위)</span></div>
                             </div>
                         )}
                         <div className={styles.posting}>
@@ -189,18 +178,18 @@ function Mypage() {
                             <div className={styles.profile}>
                                 <div className={styles.imagebox}>
                                     <div className={styles.image}>
-                                        <img src="/assets/images/profile2.png" alt="프로필" />
+                                        <img src={memberInfo.userImg || "/assets/images/profile2.png"} alt="프로필" />
                                     </div>
                                     <div className={styles.namebox}>
                                         <div>
-                                            <div className={styles.title}>새싹</div>
+                                            <div className={styles.title}>{title}</div>
                                             <button onClick={handleChangeTitle}>변경</button>
                                         </div>
-                                        <span>{memberInfo.name} </span>님
+                                        <span>{memberInfo.nickname} </span>님
                                     </div>
                                 </div>
-                                <div className={styles.userinfo}>보유칭호 <span>3개</span></div>
-                                <div className={styles.userinfo}>포인트 <span>7000점 (랭킹 : 3위)</span></div>
+                                <div className={styles.userinfo}>보유칭호 <span>{memberInfo.titleCnt}개</span></div>
+                                <div className={styles.userinfo}>포인트 <span>{memberInfo.point}점 (랭킹 : 3위)</span></div>
                             </div>
                         )}
                         <div className={styles.posting}>
