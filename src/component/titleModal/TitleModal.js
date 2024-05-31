@@ -1,15 +1,15 @@
 import React from "react";
-import styles from './imageModal.module.css';
 import ReactDom from 'react-dom'
+import styles from './titleModal.module.css'
 import Modal from 'react-modal'
-import { VscChromeClose } from "react-icons/vsc";
 
-function ImageModal({isOpen, setIsOpen, imgUrl}) {
+function TitleModal({isOpen, setIsOpen, children}) {
     return ReactDom.createPortal(
         <Modal
             isOpen={isOpen}
             onRequestClose={()=> setIsOpen(false)}
             ariaHideApp={false}
+            className={styles.modal}
             style={{
                 overlay: {
                   position: 'fixed',
@@ -17,7 +17,7 @@ function ImageModal({isOpen, setIsOpen, imgUrl}) {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.6)',
                   zIndex: 10,
                 },
                 content: {
@@ -31,20 +31,16 @@ function ImageModal({isOpen, setIsOpen, imgUrl}) {
                   WebkitOverflowScrolling: 'touch',
                   borderRadius: '4px',
                   outline: 'none',
-                  padding: '5px',
-                  width: 'fit-content',
+                  padding: '10px',
+                  width: '350px',
                   height: 'fit-content',
-                  maxWidth: '80vw',
-                  maxHeight: '80vh',
+                  maxHeight: '85vh',
                 }
               }}
         >
-            <div className={styles.image_wrap}>
-                <img src={imgUrl} alt='옵션사진' />
-                <button onClick={()=>setIsOpen(false)}><VscChromeClose style={{fontSize: '1.3rem', color: '#626262'}}/></button>
-            </div>
+            {children}
         </Modal>
     , document.getElementById("root"));
 }
 
-export default ImageModal;
+export default TitleModal;

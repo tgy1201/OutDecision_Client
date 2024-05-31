@@ -14,6 +14,71 @@
     padding: 10px 0;
 }
 
+.title_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.titleEdit {
+    margin-bottom: 20px;
+}
+.titleList {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+.titleItem {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.titleItem:hover {
+    background-color: #fceeee;
+}
+
+.selected {
+    outline: 2px solid #ac2323;
+    outline-offset: -2px;
+    border: 1px solid #ac2323;
+}
+
+.unselected {
+    border: 1px solid #5a5a5a;
+}
+
+.title_submit {
+    border-radius: 6px;
+    width: 100%;
+    padding: 10px;
+    background-color: #ac2323;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0 10px;
+}
+
+.title_submit:hover {
+    background-color: #932929;
+}
+
+.title_cancel {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+}
+
 @media (min-width: 1080px) {
     .pc_mypage {
         max-width: 1200px;

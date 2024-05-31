@@ -5,6 +5,9 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import PostList from "../../component/postList/PostList";
 
+import { VscChromeClose } from "react-icons/vsc";
+import TitleModal from "../../component/titleModal/TitleModal";
+
 function Mypage() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -12,10 +15,10 @@ function Mypage() {
 
     const [postList, setPostList] = useState([]);
     const [activeMenu, setActiveMenu] = useState('written');
-    const [isChecked, setIsChecked] = useState(false);
-    const [profileImage, setProfileImage] = useState('/assets/user.png');
-    const [title, setTitle] = useState('새싹');
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [titles, setTitles] = useState([]);
     const [memberInfo, setMemberInfo] = useState(null);
+    const [selectedTitle, setSelectedTitle] = useState('');
 
     useEffect(() => {
         const fetchMemberInfo = async () => {
@@ -25,6 +28,7 @@ function Mypage() {
                 });
                 if (response.data.isSuccess) {
                     setMemberInfo(response.data.result);
+                    setSelectedTitle(response.data.result.memberTitle);
                 } else {
                     console.error(response.data.message);
                 }
@@ -48,9 +52,6 @@ function Mypage() {
                 });
                 console.log(response.data.result);
                 setPostList(response.data.result.postList);
-                if (response.data.result.title) {
-                    setTitle(response.data.result.title);
-                }
             } catch (error) {
                 console.error(error);
             }
@@ -59,28 +60,51 @@ function Mypage() {
         handlefetchPosts();
     }, [posts]);
 
-    const handleImageUpload = (e) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
+    const openModal = async (e) => {
+        e.preventDefault();
 
-        return new Promise((resolve) => {
-            reader.onload = () => {
-                setProfileImage(reader.result);
-                resolve();
-            };
-        });
-    };
+        setModalIsOpen(true);
+        
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/mypage/title`, {
+                withCredentials: true
+            });
+            if (response.data.isSuccess) {
+                setTitles(response.data.result);
+            } else {
+                console.error(response.data.message);
+            }
+        } catch (error) {
+            console.error("Error fetching titles:", error);
+        }
+    }
 
-    const handleChangeTitle = async () => {
+    useEffect(() => {
+        if (modalIsOpen) {
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        } else {
+          document.body.style.overflow = "auto";
+          document.body.style.touchAction = "auto";
+        }
+    }, [modalIsOpen]);
+
+    const handleChangeTitle = async (newTitle) => {
         try {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_IP}/mypage/title`, {
-                title: "변경된 칭호"
+                title: newTitle
             }, {
                 withCredentials: true
             });
 
             if (response.data.isSuccess && response.data.code === "2000") {
-                setTitle("변경된 칭호");
+                if (memberInfo) {
+                    setMemberInfo({
+                        ...memberInfo,
+                        memberTitle: newTitle
+                    });
+                }
+                setModalIsOpen(false);
             } else {
                 console.error("칭호 변경 실패:", response.data.message);
             }
@@ -123,7 +147,7 @@ function Mypage() {
                                     <div className={styles.namebox}>
                                         <div>
                                             <div className={styles.title} style={{color: memberInfo.memberTitle? '#354edd' : '#bbbbbb'}}>{memberInfo.memberTitle?memberInfo.memberTitle: '칭호없음'}</div>
-                                            <button onClick={handleChangeTitle}>변경</button>
+                                            <button onClick={openModal}>변경</button>
                                         </div>
                                         <span>{memberInfo.nickname} </span>님
                                     </div>
@@ -170,7 +194,7 @@ function Mypage() {
                                     <div className={styles.namebox}>
                                         <div>
                                             <div className={styles.title} style={{color: memberInfo.memberTitle? '#354edd' : '#bbbbbb'}}>{memberInfo.memberTitle?memberInfo.memberTitle: '칭호없음'}</div>
-                                            <button onClick={handleChangeTitle}>변경</button>
+                                            <button onClick={openModal}>변경</button>
                                         </div>
                                         <span>{memberInfo.nickname} </span>님
                                     </div>
@@ -202,6 +226,20 @@ function Mypage() {
                     </div>
                 </section>
             </div>
+            <TitleModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen}>
+                <div className={styles.title_container}>
+                    <h2 className={styles.titleEdit}>보유 칭호</h2>
+                    <ul className={styles.titleList}>
+                        {titles && titles.map((title, idx) => (
+                            <li key={idx} onClick={() => setSelectedTitle(title)} className={selectedTitle === title ? `${styles.titleItem} ${styles.selected}` : `${styles.titleItem} ${styles.unselected}`}>
+                                {title}
+                            </li>
+                        ))}
+                    </ul>
+                    <button className={styles.title_submit} onClick={()=>handleChangeTitle(selectedTitle)}>칭호 변경</button>
+                    <button className={styles.title_cancel} onClick={()=>setModalIsOpen(false)}><VscChromeClose style={{fontSize: '1.3rem', color: '#626262'}}/></button>
+                </div>
+            </TitleModal>
         </div>
     )
 }
