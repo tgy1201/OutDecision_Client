@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from './mypage.module.css';
 import MypageMenu from "../../component/mypageMenu/MypageMenu";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import Modal from 'react-modal';
 import axios from "axios";
 import PostList from "../../component/postList/PostList";
 
@@ -13,7 +12,6 @@ function Mypage() {
 
     const [postList, setPostList] = useState([]);
     const [activeMenu, setActiveMenu] = useState('written');
-    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [profileImage, setProfileImage] = useState('/assets/user.png');
     const [title, setTitle] = useState('새싹');
@@ -60,19 +58,6 @@ function Mypage() {
 
         handlefetchPosts();
     }, [posts]);
-
-    const openModal = () => {
-        setModalIsOpen(true);
-        document.body.style.overflow = "hidden";
-        document.getElementById('header').style.zIndex = 0;
-        window.scrollTo(0, 0);
-    }
-
-    const closeModal = () => {
-        setModalIsOpen(false);
-        document.body.style.overflow = "unset";
-        document.getElementById('header').style.zIndex = 100;
-    }
 
     const handleImageUpload = (e) => {
         const reader = new FileReader();
@@ -133,18 +118,18 @@ function Mypage() {
                             <div className={styles.profile}>
                                 <div className={styles.imagebox}>
                                     <div className={styles.image}>
-                                        <img src={memberInfo.userImg || "/assets/images/profile2.png"} alt="프로필" />
+                                        <img src={memberInfo.userImg} alt="프로필" />
                                     </div>
                                     <div className={styles.namebox}>
                                         <div>
-                                            <div className={styles.title}>{title}</div>
+                                            <div className={styles.title} style={{color: memberInfo.memberTitle? '#354edd' : '#bbbbbb'}}>{memberInfo.memberTitle?memberInfo.memberTitle: '칭호없음'}</div>
                                             <button onClick={handleChangeTitle}>변경</button>
                                         </div>
                                         <span>{memberInfo.nickname} </span>님
                                     </div>
                                 </div>
                                 <div className={styles.userinfo}>보유칭호 <span>{memberInfo.titleCnt}개</span></div>
-                                <div className={styles.userinfo}>포인트 <span>{memberInfo.point}점 (랭킹 : 3위)</span></div>
+                                <div className={styles.userinfo}>포인트 <span>{memberInfo.point}점</span></div>
                             </div>
                         )}
                         <div className={styles.posting}>
@@ -163,7 +148,9 @@ function Mypage() {
                                     ))}
                                 </tbody>
                             </table>
-                            <div className={styles.plus} onClick={handleMorePost}>더보기</div>
+                            <div className={styles.plus_wrap}>
+                                <button className={styles.plus} onClick={handleMorePost}>더보기</button>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -178,18 +165,18 @@ function Mypage() {
                             <div className={styles.profile}>
                                 <div className={styles.imagebox}>
                                     <div className={styles.image}>
-                                        <img src={memberInfo.userImg || "/assets/images/profile2.png"} alt="프로필" />
+                                        <img src={memberInfo.userImg} alt="프로필" />
                                     </div>
                                     <div className={styles.namebox}>
                                         <div>
-                                            <div className={styles.title}>{title}</div>
+                                            <div className={styles.title} style={{color: memberInfo.memberTitle? '#354edd' : '#bbbbbb'}}>{memberInfo.memberTitle?memberInfo.memberTitle: '칭호없음'}</div>
                                             <button onClick={handleChangeTitle}>변경</button>
                                         </div>
                                         <span>{memberInfo.nickname} </span>님
                                     </div>
                                 </div>
                                 <div className={styles.userinfo}>보유칭호 <span>{memberInfo.titleCnt}개</span></div>
-                                <div className={styles.userinfo}>포인트 <span>{memberInfo.point}점 (랭킹 : 3위)</span></div>
+                                <div className={styles.userinfo}>포인트 <span>{memberInfo.point}점</span></div>
                             </div>
                         )}
                         <div className={styles.posting}>
@@ -208,7 +195,9 @@ function Mypage() {
                                     ))}
                                 </tbody>
                             </table>
-                            <div className={styles.plus} onClick={handleMorePost}>더보기</div>
+                            <div className={styles.plus_wrap}>
+                                <button className={styles.plus} onClick={handleMorePost}>더보기</button>
+                            </div>
                         </div>
                     </div>
                 </section>

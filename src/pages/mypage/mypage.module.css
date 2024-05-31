@@ -97,7 +97,6 @@
 
     .namebox .title {
         font-size: 20px;
-        color: #468FD3;
     }
 
     .namebox span {
@@ -162,12 +161,27 @@
         position: relative;
     }
 
+    .plus_wrap {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .plus {
-        position: absolute;
-        top: 510px;
-        right: 180px;
-        color: gray;
+        background-color: #f7f7f7;
+        border: 1px solid gray;
+        border-radius: 50px;
+        padding: 5px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+        color: black;
         cursor: pointer;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
     }
 
     .post {
@@ -256,7 +270,6 @@
 
     .namebox .title {
         font-size: 20px;
-        color: #468FD3;
     }
 
     .namebox button {
@@ -322,6 +335,13 @@
         position: relative;
     }
 
+    .plus_wrap {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .plus {
         background-color: #f7f7f7;
         border: 1px solid gray;
@@ -330,12 +350,13 @@
         text-align: center;
         display: flex;
         flex-direction: column;
-        position: absolute;
         font-size: 20px;
-        top: 500px;
         color: black;
         cursor: pointer;
         width: 100%;
+        margin-bottom: 20px;
+        justify-content: center;
+        align-items: center;
     }
 
 
