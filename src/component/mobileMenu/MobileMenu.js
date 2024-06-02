@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from './mobileMenu.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import axios from "axios";
 
 import { TbLogout, TbLogin } from "react-icons/tb";
 
-function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) { 
+function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen, info}) { 
     const navigate = useNavigate();
-    const [info, setInfo] = useState();
 
     const isMobile = useMediaQuery({
         query: "(max-width: 1079px)"
@@ -37,25 +35,6 @@ function MobileMenu({isSidebarOpen, setIsSidebarOpen, handleSidebarOpen}) {
             console.error("로그아웃 중 오류 발생", error);
         }
     }
-
-    useEffect(()=> {
-        const handlefetchInfo = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/loginSuccess`, {
-                    withCredentials: true,
-                });
-
-                setInfo(response.data.result);
-                console.log(response.data);
-            } catch (error) {
-            console.error(error);
-            }
-        };
-
-        if(sessionStorage.isLogin) {
-            handlefetchInfo();
-        }
-    }, [])
 
     useEffect(() => {
         if (isSidebarOpen && isMobile) {

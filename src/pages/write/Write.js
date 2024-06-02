@@ -321,7 +321,7 @@ function Write ({edit, postId}) {
                         </tr>
                         <tr>
                             <td>투표 제목</td>
-                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={12}/><div className={styles.limit}>{title.length} / 12</div></td>
+                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={15}/><div className={styles.limit}>{title.length} / 12</div></td>
                         </tr>
                         <tr>
                             <td>투표 항목</td>

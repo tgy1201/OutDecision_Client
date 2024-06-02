@@ -7,10 +7,13 @@ const initialBoxData = [
     { id: 'foodie', title: '🍴미식가', state: '미획득', explain: "'음식'게시판에서 인기글 10회", progress: 0, maxProgress: 10, barWidth: '0%' },
     { id: 'romantist', title: '💖로맨티스트', state: '미획득', explain: "'연애'게시판에서 인기글 10회", progress: 0, maxProgress: 10, barWidth: '0%' },
     { id: 'fashionista', title: '🕶️패셔니스타', state: '미획득', explain: "'패션'게시판에서 인기글 10회", progress: 0, maxProgress: 10, barWidth: '0%' },
-    { id: 'hobbyist', title: '취미가', state: '미획득', explain: "'취미'게시판에서 인기글 10회", progress: 0, maxProgress: 10, barWidth: '0%' },
+    { id: 'hobbyist', title: '🎨취미부자', state: '미획득', explain: "'취미'게시판에서 인기글 10회", progress: 0, maxProgress: 10, barWidth: '0%' },
     { id: 'ceo', title: '💸사장', state: '미획득', explain: "'취업'게시판에서 인기글 10회", progress: 0, maxProgress: 10, barWidth: '0%' },
     { id: 'traveler', title: '✈️트래블러', state: '미획득', explain: "'여행'게시판에서 인기글 10회", progress: 0, maxProgress: 10, barWidth: '0%' },
     { id: 'greedy', title: '😏욕심쟁이', state: '미획득', explain: "모든 칭호 수집", progress: 0, maxProgress: 6, barWidth: '0%' },
+    { id: 'first', title: '🥇1위', state: '미획득', explain: "포인트 랭킹 1위 달성(매주 초기화)", progress: 0, maxProgress: 1, barWidth: '0%' },
+    { id: 'second', title: '🥈2위', state: '미획득', explain: "포인트 랭킹 2위 달성(매주 초기화)", progress: 0, maxProgress: 1, barWidth: '0%' },
+    { id: 'third', title: '🥉3위', state: '미획득', explain: "포인트 랭킹 3위 달성(매주 초기화)", progress: 0, maxProgress: 1, barWidth: '0%' },
     { id: 'newbie', title: '🌱새싹', state: '획득', explain: "최초 회원가입", progress: 1, maxProgress: 1, barWidth: '100%' },
 ];
 

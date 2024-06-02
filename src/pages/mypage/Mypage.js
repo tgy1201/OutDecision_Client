@@ -236,7 +236,7 @@ function Mypage() {
                             </li>
                         ))}
                     </ul>
-                    <button className={styles.title_submit} onClick={()=>handleChangeTitle(selectedTitle)}>칭호 변경</button>
+                    <button className={styles.title_submit} onClick={()=>handleChangeTitle(selectedTitle)}>칭호 적용</button>
                     <button className={styles.title_cancel} onClick={()=>setModalIsOpen(false)}><VscChromeClose style={{fontSize: '1.3rem', color: '#626262'}}/></button>
                 </div>
             </TitleModal>

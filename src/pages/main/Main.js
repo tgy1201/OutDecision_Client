@@ -16,6 +16,7 @@ function Main() {
     const [hotPosts, setHotPosts] = useState([]);
     const [newPosts, setNewPosts] = useState([]);
     const [ranks, setRanks] = useState([]);
+    const [imminentPosts, setImminentPosts] = useState([]);
     const [finishedPosts, setFinishedPosts] = useState([]);
 
     useEffect(() => {   
@@ -46,6 +47,7 @@ function Main() {
             });
             setHotPosts(response.data.result.hotPostList);
             setNewPosts(response.data.result.latestPostList);
+            setImminentPosts(response.data.result.imminentPostList);
             setFinishedPosts(response.data.result.closedPostList);
             setRanks(response.data.result.rankingListDTO.rankingList);
         } catch (error) {
@@ -96,6 +98,17 @@ function Main() {
                         </div>
                     </div>
                     <MainRanking ranks={ranks} />
+                </section>
+                <section className={styles.end}>
+                    <div className={`${styles.end_header} ${styles.post_header}`}>
+                        <p>투표 종료 직전 라스트 찬스!</p>
+                        <div>
+                            <Link to="/board/all?vote=progress">
+                                마감임박 게시물<FiChevronRight style={{ verticalAlign: 'middle', fontSize: "1.8rem" }} />
+                            </Link>
+                        </div>
+                    </div>
+                    <MainFinishedPost posts={imminentPosts} />
                 </section>
                 <section className={styles.end}>
                     <div className={`${styles.end_header} ${styles.post_header}`}>

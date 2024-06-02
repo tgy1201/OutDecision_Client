@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from './header.module.css';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import MobileMenu from "../mobileMenu/MobileMenu";
+import axios from "axios";
 
 function CommonHeader ({children}) {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ function CommonHeader ({children}) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
     const [searchText, setSearchText]= useState('');
+    const [info, setInfo] = useState();
 
     /* 스크롤 시 헤더 높이 감소를 위한 감지 이벤트 */
     useEffect(() => {
@@ -28,8 +30,21 @@ function CommonHeader ({children}) {
         setIsSearchOpen(!isSearchOpen);
     }
 
-    const handleSidebarOpen = () => {
+    const handleSidebarOpen = async () => {
         setIsSidebarOpen(!isSidebarOpen);
+
+        if(isSidebarOpen || !sessionStorage.isLogin) return; //isSidebarOpen이 true일때
+
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/loginSuccess`, {
+                withCredentials: true,
+            });
+
+            setInfo(response.data.result);
+            console.log(response.data);
+        } catch (error) {
+        console.error(error);
+        }
     }
 
     const handleChangeSearch = (e) => {
@@ -167,7 +182,7 @@ function CommonHeader ({children}) {
                 </div>
             </div>
         </header>
-        <MobileMenu isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} handleSidebarOpen={handleSidebarOpen}/>
+        <MobileMenu isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} handleSidebarOpen={handleSidebarOpen} info={info}/>
         </>
     )
 }

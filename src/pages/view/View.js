@@ -273,7 +273,7 @@ function View({setCategory}) {
                                 <img src={post.profileUrl} alt="프로필"/>
                             </div>
                             <div className={styles.user_wrap}>
-                                <p>{post.nickname}</p>
+                                <p>{post.memberTitle &&<span style={{color: '#354edd', fontSize: '1.1rem'}}>{post.memberTitle} </span>}{post.nickname}</p>
                                 <p>{post.createdAt}</p>
                             </div>
                             <ul>
