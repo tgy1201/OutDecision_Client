@@ -299,7 +299,7 @@ function View({setCategory}) {
                                     <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
                                 </section>
                                 <section className={styles.voteTitle_wrap}>
-                                    <p>Q. {post.title}</p>
+                                    <p>{post.title}</p>
                                     <div>{post.deadline} 종료</div>
                                 </section>
                                 <section className={styles.vote_wrap}>                          
@@ -356,7 +356,7 @@ function View({setCategory}) {
                                 {post.content}
                             </section>
                             <section className={styles.like_wrap} style={{marginBottom: post.bumps? 0 : '40px'}}>
-                                <button onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
+                                <button className={isLiked?`${styles.disliked}`:`${styles.liked}`} onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
                             </section>
                             {!(post.bumps === null) &&
                             <section className={styles.util_wrap}>           

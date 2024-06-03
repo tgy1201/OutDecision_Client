@@ -72,10 +72,10 @@
         align-items: center;
         justify-content: center;
         margin-top: 7px;
+        font-size: 1.2rem;
     }
 
     .title_wrap p{
-        font-size: 1.2rem;
         text-overflow: ellipsis;
         overflow: hidden;
         word-break: break-all;
@@ -270,10 +270,10 @@
         align-items: center;
         justify-content: center;
         margin-top: 7px;
+        font-size: 1.2rem;
     }
 
     .title_wrap p{
-        font-size: 1.2rem;
         text-overflow: ellipsis;
         overflow: hidden;
         word-break: break-all;

@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSearchParams } from 'react-router-dom';
 import styles from './ourteam.module.css';
 
 function Ourteam() {
+    const [searchParams] = useSearchParams();
+    const content = searchParams.get('content');
+    
+    const scrollToElement = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    useEffect(() => {
+        if (content === 'service' || content === 'team') {
+            scrollToElement(content);
+        }
+    }, [content]);
+
     return (
         <div className={styles.container}>
 
@@ -14,7 +31,7 @@ function Ourteam() {
                     <p>빠른 의사결정을 위한 투표 플랫폼, 결정잘해</p>
                 </div>
                 <section className={styles.grid}>
-                    <div className={styles.service}>
+                    <div className={styles.service} id="service">
                         <div className={styles.gridinner}>
                             <h3 className={styles.tit}>
                                 서비스 소개
@@ -68,7 +85,7 @@ function Ourteam() {
 
                         </div>
                     </div>
-                    <div className={styles.team}>
+                    <div className={styles.team} id="team">
                         <div className={styles.gridinner}>
                             <h3 className={styles.tit}>
                                 팀 소개
