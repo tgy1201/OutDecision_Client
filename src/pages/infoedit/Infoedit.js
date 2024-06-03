@@ -47,14 +47,15 @@ function Infoedit() {
     }, []);
 
     const handleImageUpload = async (e) => {
-        const file = e.target.files[0];
-        // 파일이 존재하지 않으면 업로드를 시도하지 않음
-        if (!file) {
+        if (!e.target.files || e.target.files.length === 0) {
             console.error("No file selected");
             return;
         }
+
+        const file = e.target.files[0];
+
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("userImg", file);
 
         try {
             const response = await axios.patch(`${process.env.REACT_APP_SERVER_IP}/mypage/edit/profile`, formData, {
@@ -64,6 +65,7 @@ function Infoedit() {
                 }
             });
             if (response.data.isSuccess) {
+                // 이미지 경로 업데이트
                 setFormData(prevData => ({
                     ...prevData,
                     userImg: response.data.result
@@ -86,7 +88,7 @@ function Infoedit() {
             if (response.data.isSuccess) {
                 setFormData(prevData => ({
                     ...prevData,
-                    userImg: "profile.png"
+                    userImg: "/assets/images/profile.png"
                 }));
             } else {
                 console.error(response.data.message);
@@ -189,9 +191,13 @@ function Infoedit() {
                                         <div className={styles.image}>
                                             <img src={formData.userImg} alt="프로필" />
                                         </div>
+                                        <div className={styles.filebox}>
+                                            <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
+                                        </div>
+                                        {formData.userImg !== '/assets/images/profile.png' &&
+                                        <button onClick={handleDeleteProfile}>삭제</button>
+                                    }
                                     </td>
-                                    <button onClick={handleImageUpload}>등록</button>
-                                    <button onClick={handleDeleteProfile}>삭제</button>
                                 </tr>
                                 <tr>
                                     <td>이름 <span>*</span></td>
@@ -274,15 +280,17 @@ function Infoedit() {
                                 </colgroup>
                                 <tr>
                                     <td>프로필 사진</td>
-                                    <td className="imagebox">
-                                        <div className="image">
+                                    <td className={styles.imagebox}>
+                                        <div className={styles.image}>
                                             <img src={formData.userImg} alt="프로필" />
                                         </div>
-                                        <div className="buttons">
-                                            <button onClick={handleImageUpload}>등록</button>
-                                            <button onClick={handleDeleteProfile}>삭제</button>
+                                        <div className={styles.filebox}>
+                                            <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
                                         </div>
                                     </td>
+                                    {formData.userImg !== '/assets/images/profile.png' &&
+                                        <button onClick={handleDeleteProfile}>삭제</button>
+                                    }
                                 </tr>
                                 <tr>
                                     <td>이름 <span>*</span></td>
