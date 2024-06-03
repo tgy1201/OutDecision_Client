@@ -89,6 +89,14 @@ function Mypage() {
         }
     }, [modalIsOpen]);
 
+    const handleSelectTitle = (newTitle) => {
+        if (selectedTitle === newTitle) {
+            setSelectedTitle(''); //선택한 옵션을 한번 더 클릭할 경우 선택 취소
+        } else {
+            setSelectedTitle(newTitle);
+        }
+    }
+
     const handleChangeTitle = async (newTitle) => {
         try {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_IP}/mypage/title`, {
@@ -231,7 +239,7 @@ function Mypage() {
                     <h2 className={styles.titleEdit}>보유 칭호</h2>
                     <ul className={styles.titleList}>
                         {titles && titles.map((title, idx) => (
-                            <li key={idx} onClick={() => setSelectedTitle(title)} className={selectedTitle === title ? `${styles.titleItem} ${styles.selected}` : `${styles.titleItem} ${styles.unselected}`}>
+                            <li key={idx} onClick={() => handleSelectTitle(title)} className={selectedTitle === title ? `${styles.titleItem} ${styles.selected}` : `${styles.titleItem} ${styles.unselected}`}>
                                 {title}
                             </li>
                         ))}
