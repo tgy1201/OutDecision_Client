@@ -101,7 +101,10 @@ function PostCard({post, bname}) {
             }
             console.log(response.data);
         } catch (error) {
-            console.error(error);
+            console.log(error);
+            if(error.response.data.code === '403') {
+                alert(error.response.data.message);
+            }
         }
     }
 

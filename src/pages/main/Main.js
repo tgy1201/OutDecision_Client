@@ -25,7 +25,6 @@ function Main() {
 
     useEffect(()=> {
         handlefetchData();
-
     }, []);
 
     const handlefetchRecommendPosts = async () => {

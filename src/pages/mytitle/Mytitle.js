@@ -68,24 +68,6 @@ function Mytitle({onTitleChange}) {
         fetchMissionData();
     }, []);
 
-    const handleChangeTitle = async () => {
-        try {
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_IP}/mypage/title`, {
-                title: "변경된 칭호"
-            }, {
-                withCredentials: true
-            });
-
-            if (response.data.isSuccess && response.data.code === "2000") {
-                onTitleChange("변경된 칭호"); // 변경된 칭호를 부모 컴포넌트로 전달
-            } else {
-                console.error("칭호 변경 실패:", response.data.message);
-            }
-        } catch (error) {
-            console.error("칭호 변경 중 오류:", error);
-        }
-    };
-
     const applyTitle = async () => {
         if (selectedBoxIndex === null) {
             setApplyMessage("선택된 칭호가 없습니다.");

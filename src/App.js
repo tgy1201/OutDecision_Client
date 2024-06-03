@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 import './App.css';
 
 import Header from './component/header/header';
 import Footer from './component/footer/Footer';
 import Tabbar from './component/tabbar/Tabbar';
 import FloatingBanner from './component/floatingBanner/FloatingBanner';
+import PrivateRoute from './component/PrivateRoute';
 
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
@@ -14,6 +16,7 @@ import SignupSuccess from './pages/signupSuccess/SignupSuccess';
 import Main from './pages/main/Main';
 import Board from './pages/board/Board';
 import Write from './pages/write/Write';
+import Edit from './pages/edit/Edit';
 import View from './pages/view/View';
 import Ourteam from './pages/ourteam/Ourteam';
 
@@ -22,11 +25,30 @@ import Infoedit from './pages/infoedit/Infoedit';
 import Mypost from './pages/mypost/Mypost';
 import Mytitle from './pages/mytitle/Mytitle';
 import Ranking from './pages/ranking/Ranking';
-import Edit from './pages/edit/Edit';
-import PrivateRoute from './component/PrivateRoute';
 
 function App() {
   const [category, setCategory] = useState('');
+
+  useEffect(() => {
+    const handleCheckLogin = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_IP}/loginSuccess`, {
+            withCredentials: true,
+        });
+        if(response.data.isSuccess) {
+          sessionStorage.setItem('isLogin', true);
+        } else {
+          sessionStorage.removeItem("isLogin");
+        }
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+        sessionStorage.removeItem("isLogin");
+      }
+    }
+    
+    handleCheckLogin();
+  }, []);
 
   return (
     <div className="App">
