@@ -151,7 +151,7 @@ function SocialSignup () {
                                     type="text" 
                                     placeholder="닉네임" 
                                     name="nickname"
-                                    vale={inputValue.nickname}
+                                    value={inputValue.nickname}
                                     onChange={handleChange}
                                     onBlur={handleValidNickname}
                                     className={
