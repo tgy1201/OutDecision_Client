@@ -198,7 +198,7 @@ function PostCard({post, bname}) {
             <section className={styles.title_wrap}>
                 <Link to={bname ? `/board/${bname}/view/${post.postId}` : `/board/${post.category}/view/${post.postId}`}>
                     <div style={{display: "flex", gap: '5px'}}>
-                        <p>{!bname || bname === 'hot' || bname === 'all' ? `[${boardNameMap[post.category]}]` : ''}</p>
+                        <span>{!bname || bname === 'hot' || bname === 'all' ? `[${boardNameMap[post.category]}]` : ''}</span>
                         <p dangerouslySetInnerHTML={ {__html: highlightText(post.title, search, 'title')} }></p>
                     </div>
                 </Link>

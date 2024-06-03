@@ -282,7 +282,6 @@
 
 .like_wrap {
     width: 100%;
-    color: #ac2323;
     margin-top: 20px;
     display: flex;
     align-items: center;
@@ -291,9 +290,19 @@
 
 .like_wrap button {
     padding: 7px 10px;
-    border-radius: 4px;
-    border: 1px solid #ac2323;
+    border-radius: 4px;  
     font-size: 1.0rem;
+}
+
+.liked {
+    color: #ac2323;
+    border: 1px solid #ac2323;
+}
+
+.disliked {
+    color: white;
+    background-color: #ac2323;
+    border: 1px solid transparent;
 }
 
 .util_wrap {

@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./footer.module.css"
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Footer () {
+    const navigate = useNavigate();
+
     return (
         <div className={styles.container}>
             <div className={`${styles.pc_footer} ${styles.pc}`}>
@@ -16,8 +18,8 @@ function Footer () {
                         <li>Copyrightⓒ2024 OutDecision, All rights reserved.</li>
                     </ul>
                     <ul>
-                        <li><Link to="/Ourteam">Our service</Link></li>
-                        <li><Link to="/Ourteam">Our Team</Link></li>
+                        <li onClick={()=>navigate('/ourteam?content=service')}>Our service</li>
+                        <li onClick={()=>navigate('/ourteam?content=team')}>Our Team</li>
                         <li>
                             <div style={{width: "30px"}}>
                                 <img src="/assets/images/youtube.png" alt="화이트로고" />
@@ -38,7 +40,7 @@ function Footer () {
             </div>
             <div className={`${styles.mobile_footer} ${styles.mobile}`}>
                 <div className={styles.footer_wrap}>
-                <ul>
+                    <ul>
                         <li>
                             <div style={{width: "30px"}}>
                                 <img src="/assets/images/youtube.png" alt="화이트로고" />
@@ -56,8 +58,8 @@ function Footer () {
                         </li>
                     </ul>
                     <ul>
-                        <li>Our service</li>
-                        <li>Our Team</li>
+                        <li onClick={()=>navigate('/ourteam?content=service')}>Our service</li>
+                        <li onClick={()=>navigate('/ourteam?content=team')}>Our Team</li>
                     </ul>
                     <div style={{width: "120px"}}>
                         <img style={{width: "100%"}} src="/assets/images/logo_w.png" alt="화이트로고" />

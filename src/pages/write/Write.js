@@ -199,8 +199,35 @@ function Write ({edit, postId}) {
         navigate('/board/all');
     }
 
+    const handleValidInput = (title, selectedCategory, options, startDate, selectedHours, selectedMinutes) => {
+         const formattedDateSeconds = selectedHours * 3600 + selectedMinutes * 60;
+         const currentDateSeconds = now.getHours() * 3600 + now.getMinutes() * 60;
+
+        if (!selectedCategory) {
+            alert('카테고리를 선택해주세요');
+            return false;
+        }
+        if (!title) {
+            alert('투표 제목을 입력해주세요');
+            return false;
+        }
+        if (!options.every(option => option.text)) {
+            alert('투표옵션을 입력해주세요');
+            return false;
+        }
+        if (startDate < now && formattedDateSeconds < currentDateSeconds) {
+            alert('현재 시간 이후로 설정 가능합니다');
+            return false;
+        }
+        return true;
+    }
+
     const handlePostUpload = async (e) => {
         e.preventDefault();
+
+        const isValid = handleValidInput(title, selectedCategory, options, startDate, selectedHours, selectedMinutes);
+
+        if (!isValid) return;
 
         const textList = options.map((option) => option.text);
         const imageFileList = options.map((option) => option.image);
@@ -321,7 +348,7 @@ function Write ({edit, postId}) {
                         </tr>
                         <tr>
                             <td>투표 제목</td>
-                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={12}/><div className={styles.limit}>{title.length} / 12</div></td>
+                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={15}/><div className={styles.limit}>{title.length} / 15</div></td>
                         </tr>
                         <tr>
                             <td>투표 항목</td>

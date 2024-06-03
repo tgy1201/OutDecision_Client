@@ -273,7 +273,7 @@ function View({setCategory}) {
                                 <img src={post.profileUrl} alt="프로필"/>
                             </div>
                             <div className={styles.user_wrap}>
-                                <p>{post.nickname}</p>
+                                <p>{post.memberTitle &&<span style={{color: '#354edd', fontSize: '1.1rem'}}>{post.memberTitle} </span>}{post.nickname}</p>
                                 <p>{post.createdAt}</p>
                             </div>
                             <ul>
@@ -299,7 +299,7 @@ function View({setCategory}) {
                                     <div style={{backgroundColor: filterMap[post.status] === '투표중'? "#ac2323" : "gray"}}>{filterMap[post.status]}</div>
                                 </section>
                                 <section className={styles.voteTitle_wrap}>
-                                    <p>Q. {post.title}</p>
+                                    <p>{post.title}</p>
                                     <div>{post.deadline} 종료</div>
                                 </section>
                                 <section className={styles.vote_wrap}>                          
@@ -356,7 +356,7 @@ function View({setCategory}) {
                                 {post.content}
                             </section>
                             <section className={styles.like_wrap} style={{marginBottom: post.bumps? 0 : '40px'}}>
-                                <button onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
+                                <button className={isLiked?`${styles.disliked}`:`${styles.liked}`} onClick={handleLike}>♥ 좋아요 {likesCnt}</button>
                             </section>
                             {!(post.bumps === null) &&
                             <section className={styles.util_wrap}>           

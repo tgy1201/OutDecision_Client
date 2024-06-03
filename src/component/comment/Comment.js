@@ -82,7 +82,7 @@ function Comment({comments, setComments, postId, page}) {
                                 <img src={comment.profileUrl} alt="프로필"/>
                             </div>
                             <div className={styles.comment_info}>
-                                <p>{comment.nickname}</p>
+                                <p>{comment.memberTitle &&<span style={{color: '#354edd', fontSize: '1.0rem'}}>{comment.memberTitle} </span>}{comment.nickname}</p>
                                 <p>{comment.createdAt}</p>
                             </div>
                         </div>
