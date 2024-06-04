@@ -8,6 +8,7 @@ function Header({category}) {
     const location = useLocation();
 
     const isLoginPage = location.pathname  === '/login';
+    const isResetPage = location.pathname === '/checkMember' || location.pathname.includes('/resetPassword');
     const isSignPage = location.pathname.includes('/signup');
     const isMyPage = location.pathname.includes('/mypage');
     const isBoardPage = location.pathname.includes('/board/');
@@ -17,6 +18,7 @@ function Header({category}) {
     return (
         <header>
             {isLoginPage ? <MobileHeader.LoginHeader /> :
+                isResetPage ? <MobileHeader.ResetHeader /> :
                 isSignPage ? <MobileHeader.SignupHeader /> :
                 isMyPage ? <MobileHeader.MypageHeader /> :
                 isBoardPage ? <BoardHeader category={category}/> :

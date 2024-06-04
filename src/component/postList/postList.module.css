@@ -184,7 +184,7 @@
     min-height: 2.2rem;
 }
 
-.imgText {
+.imgText p{
     text-overflow: clip;
     overflow: hidden;
     word-break: break-all;
@@ -196,7 +196,7 @@
     -webkit-box-orient: vertical;
 }
 
-.text {
+.text p{
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-all;

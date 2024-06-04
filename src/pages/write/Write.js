@@ -348,7 +348,7 @@ function Write ({edit, postId}) {
                         </tr>
                         <tr>
                             <td>투표 제목</td>
-                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={15}/><div className={styles.limit}>{title.length} / 15</div></td>
+                            <td><input className={styles.vote_title} value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder={isMobile? "투표 제목" : "투표 제목을 입력해주세요"} maxLength={18}/><div className={styles.limit}>{title.length} / 18</div></td>
                         </tr>
                         <tr>
                             <td>투표 항목</td>
@@ -358,7 +358,7 @@ function Write ({edit, postId}) {
                                     {options.map((option, index) => (
                                         <div key={index} className={styles.option_wrap}>
                                             <div className={styles.options}>
-                                                <input type="text" value={options[index].text} onChange={(e) => handleTextUpload(e, index)} placeholder={`보기 ${index + 1}`} maxLength={15}/>
+                                                <input type="text" value={options[index].text} onChange={(e) => handleTextUpload(e, index)} placeholder={`보기 ${index + 1}`} maxLength={20}/>
                                                 <div className={styles.filebox}>
                                                     <label htmlFor={`file-${index}`}><LuImagePlus className={styles.image_icon}/></label>
                                                     <input id={`file-${index}`} type="file" onChange={(e) => handleImageUpload(e, index)} accept=".png,.jpg" />
@@ -377,7 +377,7 @@ function Write ({edit, postId}) {
                             <td>
                                 <div className={styles.mobile_content}>
                                     {isMobile && <span>설명</span>}
-                                    <textarea className={styles.vote_content} value={content} onChange={(e)=>handleContentChange(e.target.value)}placeholder="작성한 투표에 대해 부가적인 설명을 적어주세요" maxLength={70}/><div className={styles.limit}>{content.length} / 100</div>
+                                    <textarea className={styles.vote_content} value={content} onChange={(e)=>handleContentChange(e.target.value)}placeholder="작성한 투표에 대해 부가적인 설명을 적어주세요" maxLength={70}/><div className={styles.limit}>{content.length} / 70</div>
                                 </div>
                             </td>
                         </tr>

@@ -23,7 +23,7 @@
     max-width: 216px;
 }
 
-.rank_wrap:nth-child(1) {
+.first {
     outline: 2px solid gold;
     outline-offset: -2px;
     border: 1px solid gold;
@@ -44,7 +44,7 @@
     }
 }
 
-.rank_wrap:nth-child(2) {
+.second {
     outline: 2px solid #c0c0c0;
     outline-offset: -2px;
     border: 1px solid #c0c0c0;
@@ -65,7 +65,7 @@
     }
 }
 
-.rank_wrap:nth-child(3) {
+.third {
     outline: 2px solid #CD7F32;
     outline-offset: -2px;
     border: 1px solid #CD7F32;
