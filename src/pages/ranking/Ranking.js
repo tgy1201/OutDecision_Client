@@ -93,7 +93,7 @@ function Ranking() {
                                                 </div>
                                             )}
                                         </div>
-                                        {ranking.nickname}
+                                        {ranking.nickname} <span className={styles.title}>{ranking.memberTitle}</span>
                                     </td>
                                     <td>{ranking.point}</td>
                                 </tr>
@@ -101,119 +101,119 @@ function Ranking() {
                         </tbody>
                         {memberRanking && (
                             <tfoot>
-                            <tr>
-                                <td>{memberRanking.rank}</td>
-                                <td>
-                                    <div className={styles.profile}>
-                                        <img src={memberRanking.userImg} alt="프로필"/>
-                                        {memberRanking.rank === 1 && (
-                                            <div className={styles.wings}>
-                                                <img src="/assets/images/gold_wings.png" alt="날개" />
-                                            </div>
-                                        )}
-                                        {memberRanking.rank === 2 && (
-                                            <div className={styles.wings}>
-                                                <img src="/assets/images/silver_wings.png" alt="날개" />
-                                            </div>
-                                        )}
-                                        {memberRanking.rank === 3 && (
-                                            <div className={styles.wings}>
-                                                <img src="/assets/images/ratio_wings.png" alt="날개" />
-                                            </div>
-                                        )}
-                                    </div>
-                                    {memberRanking.nickname}
-                                </td>
-                                <td>{memberRanking.point}</td>
-                            </tr>
-                        </tfoot>
+                                <tr>
+                                    <td>{memberRanking.rank}</td>
+                                    <td>
+                                        <div className={styles.profile}>
+                                            <img src={memberRanking.userImg} alt="프로필" />
+                                            {memberRanking.rank === 1 && (
+                                                <div className={styles.wings}>
+                                                    <img src="/assets/images/gold_wings.png" alt="날개" />
+                                                </div>
+                                            )}
+                                            {memberRanking.rank === 2 && (
+                                                <div className={styles.wings}>
+                                                    <img src="/assets/images/silver_wings.png" alt="날개" />
+                                                </div>
+                                            )}
+                                            {memberRanking.rank === 3 && (
+                                                <div className={styles.wings}>
+                                                    <img src="/assets/images/ratio_wings.png" alt="날개" />
+                                                </div>
+                                            )}
+                                        </div>
+                                        {memberRanking.nickname} <span className={styles.title}>{memberRanking.memberTitle}</span>
+                                    </td>
+                                    <td>{memberRanking.point}</td>
+                                </tr>
+                            </tfoot>
                         )}
                     </table>
                 </div>
             </div>
 
-        <div className={styles.mobile_ranking}>
-            <div className={styles.contentswrap}>
-                <div className={styles.rankingtitle}>
-                    <span className={styles.decoration}>|</span>
-                    포인트랭킹
-                </div>
-                <div className={styles.rankingdescription}>
-                    포인트는 매주 월요일 자정에 초기화됩니다
-                </div>
-                <div>
-                    <div className={styles.ranktablewrap}>
-                        <table className={styles.ranktable}>
-                            <thead className={styles.rankhead}>
-                                <tr>
-                                    <th>랭킹</th>
-                                    <th>닉네임</th>
-                                    <th>포인트</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {rankings.map((ranking, index) => (
-                                    <tr key={index}>
-                                        <td>{ranking.rank}</td>
-                                        <td>
-                                            <div className={styles.profile}>
-                                                <img src={ranking.userImg} alt="프로필"/>
-                                                {ranking.rank === 1 && (
-                                                <div className={styles.wings}>
-                                                    <img src="/assets/images/gold_wings.png" alt="날개" />
-                                                </div>
-                                                )}
-                                                {ranking.rank === 2 && (
-                                                    <div className={styles.wings}>
-                                                        <img src="/assets/images/silver_wings.png" alt="날개" />
-                                                    </div>
-                                                )}
-                                                {ranking.rank === 3 && (
-                                                    <div className={styles.wings}>
-                                                        <img src="/assets/images/ratio_wings.png" alt="날개" />
-                                                    </div>
-                                                )}
-                                            </div>
-                                            {ranking.nickname}
-                                        </td>
-                                        <td>{ranking.point}</td>
+            <div className={styles.mobile_ranking}>
+                <div className={styles.contentswrap}>
+                    <div className={styles.rankingtitle}>
+                        <span className={styles.decoration}>|</span>
+                        포인트랭킹
+                    </div>
+                    <div className={styles.rankingdescription}>
+                        포인트는 매주 월요일 자정에 초기화됩니다
+                    </div>
+                    <div>
+                        <div className={styles.ranktablewrap}>
+                            <table className={styles.ranktable}>
+                                <thead className={styles.rankhead}>
+                                    <tr>
+                                        <th>랭킹</th>
+                                        <th>닉네임</th>
+                                        <th>포인트</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                            {memberRanking && (
-                            <tfoot>
-                            <tr>
-                                <td>{memberRanking.rank}</td>
-                                <td>
-                                    <div className={styles.profile}>
-                                        <img src={memberRanking.userImg} alt="프로필"/>
-                                        {memberRanking.rank === 1 && (
-                                            <div className={styles.wings}>
-                                                <img src="/assets/images/gold_wings.png" alt="날개" />
-                                            </div>
-                                        )}
-                                        {memberRanking.rank === 2 && (
-                                            <div className={styles.wings}>
-                                                <img src="/assets/images/silver_wings.png" alt="날개" />
-                                            </div>
-                                        )}
-                                        {memberRanking.rank === 3 && (
-                                            <div className={styles.wings}>
-                                                <img src="/assets/images/ratio_wings.png" alt="날개" />
-                                            </div>
-                                        )}
-                                    </div>
-                                    {memberRanking.nickname}
-                                </td>
-                                <td>{memberRanking.point}</td>
-                            </tr>
-                        </tfoot>
-                        )}
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {rankings.map((ranking, index) => (
+                                        <tr key={index}>
+                                            <td>{ranking.rank}</td>
+                                            <td>
+                                                <div className={styles.profile}>
+                                                    <img src={ranking.userImg} alt="프로필" />
+                                                    {ranking.rank === 1 && (
+                                                        <div className={styles.wings}>
+                                                            <img src="/assets/images/gold_wings.png" alt="날개" />
+                                                        </div>
+                                                    )}
+                                                    {ranking.rank === 2 && (
+                                                        <div className={styles.wings}>
+                                                            <img src="/assets/images/silver_wings.png" alt="날개" />
+                                                        </div>
+                                                    )}
+                                                    {ranking.rank === 3 && (
+                                                        <div className={styles.wings}>
+                                                            <img src="/assets/images/ratio_wings.png" alt="날개" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                {ranking.nickname} <span className={styles.title}>{ranking.memberTitle}</span>
+                                            </td>
+                                            <td>{ranking.point}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                                {memberRanking && (
+                                    <tfoot>
+                                        <tr>
+                                            <td>{memberRanking.rank}</td>
+                                            <td>
+                                                <div className={styles.profile}>
+                                                    <img src={memberRanking.userImg} alt="프로필" />
+                                                    {memberRanking.rank === 1 && (
+                                                        <div className={styles.wings}>
+                                                            <img src="/assets/images/gold_wings.png" alt="날개" />
+                                                        </div>
+                                                    )}
+                                                    {memberRanking.rank === 2 && (
+                                                        <div className={styles.wings}>
+                                                            <img src="/assets/images/silver_wings.png" alt="날개" />
+                                                        </div>
+                                                    )}
+                                                    {memberRanking.rank === 3 && (
+                                                        <div className={styles.wings}>
+                                                            <img src="/assets/images/ratio_wings.png" alt="날개" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                {memberRanking.nickname} <span className={styles.title}>{memberRanking.memberTitle}</span>
+                                            </td>
+                                            <td>{memberRanking.point}</td>
+                                        </tr>
+                                    </tfoot>
+                                )}
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 }

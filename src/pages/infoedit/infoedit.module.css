@@ -39,47 +39,86 @@
         font-size: 30px;
         font-weight: 600;
         color: #ac2323;
-        padding-left: 20px;
         padding-bottom: 8px;
-        border-bottom: 2px solid #ac2323;
-    }
-
-    .editform {
-        width: 400px;
-        height: 500px;
-        margin-top: 80px;
-        background-color: #f7f7f7;
-        padding: 20px;
     }
 
     .required {
-        font-size: 30px;
-        position: absolute;
-        right: 5px;
-        top: -45px;
+        font-size: 20px;
+        color: #ac2323;
+        font-weight: 600;
+    }
+
+    .editform {
+        width: 100%;
+        margin: 0 auto;
+        background-color: #f7f7f7;
+        margin-top: 10px;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+    }
+
+    .editform span {
+        color: #ac2323;
+        font-weight: 600;
     }
 
     .imagebox {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         margin-bottom: 20px;
     }
 
     .image {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         overflow: hidden;
         background-color: white;
-        margin-right: 15px;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
     .image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+
+    .filecontainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 30px;
+        padding: 10px;
+    }
+
+    .filebox,
+    .filebox2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .filebox label,
+    .filebox2 button {
+        cursor: pointer;
+        width: 45px;
+        height: 25px;
+        background-color: lightgray;
+        border-radius: 8px;
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .filebox input {
+        display: none;
     }
 
     .edittable {
@@ -97,7 +136,7 @@
         letter-spacing: 1.5px;
     }
 
-    .edittable td:first-child {
+    .edittable td:nth-child(1) {
         width: 30%;
     }
 
@@ -105,8 +144,19 @@
         padding-left: 20px;
     }
 
-    .edittable tr td button {
-        padding: 10px;
+    .edittable tr:nth-child(5) button {
+        width: 120px;
+        height: 35px;
+        font-size: 15px;
+        background-color: #ac2323;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
     }
 
     .buttonbox {
@@ -194,6 +244,7 @@
 
     .buttonbox2 button:first-child {
         background-color: #ac2323;
+        color: white;
     }
 
     .buttonbox2 button:last-child {
@@ -250,8 +301,7 @@
         width: 100%;
         margin: 0 auto;
         background-color: #f7f7f7;
-        padding: 20px;
-        margin-top: 20px;
+        margin-top: 10px;
         border-top: 2px solid black;
         border-bottom: 2px solid black;
     }
@@ -264,16 +314,16 @@
     .imagebox {
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        justify-content: space-between;
+        margin: 10px 0;
     }
 
     .image {
-        width: 80px;
-        height: 80px;
-        border-radius: 70%;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
         overflow: hidden;
         background-color: white;
-        margin-right: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -285,25 +335,55 @@
         object-fit: cover;
     }
 
+    .filecontainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filebox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .filebox2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+    .filebox label,
+    .filebox2 button {
+        cursor: pointer;
+        width: 50px;
+        height: 30px;
+        background-color: lightgray;
+        border-radius: 8px;
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .filebox input {
+        display: none;
+    }
+
     .edittable {
         border-collapse: separate;
         border-spacing: 0;
         width: 100%;
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .edittable td {
-        padding: 10px 20px;
-        border-bottom: 1px solid darkgray;
-        vertical-align: middle;
-    }
-
-    .edittable tr:last-child td {
-        border-bottom: none;
-    }
-
-    .edittable tr:first-child td {
-        border-top: 1px solid darkgray;
+        padding: 10px;
     }
 
     .edittable tr td input {
@@ -316,20 +396,32 @@
     }
 
     .edittable td:nth-child(1) {
-        width: 30%;
+        vertical-align: middle;
+        width: 40%;
+        padding-left: 20px;
     }
 
     .edittable td:nth-child(2) {
-        width: 70%;
+        width: 95%;
     }
 
-    .edittable tr td button {
-        padding: 10px;
-        margin-left: 10px;
+    .edittable tr:nth-child(5) button {
+        width: 120px;
+        height: 35px;
+        font-size: 15px;
+        background-color: #ac2323;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
     }
 
     .buttonbox {
-        margin-top: 20px;
+        margin-top: 40px;
         display: flex;
         justify-content: center;
         margin-bottom: 30px;
@@ -355,7 +447,6 @@
         border-radius: 8px;
         background-color: #C2C2C2;
         color: white;
-        cursor: pointer;
     }
 
     .modal {
@@ -364,7 +455,7 @@
         left: 50%;
         transform: translateX(-50%);
 
-        width: 400px;
+        width: 90%;
         height: 300px;
 
         background-color: #f7f7f7;
@@ -395,7 +486,7 @@
     }
 
     .passwordtable tr td input {
-        width: 300px;
+        width: 100%;
         height: 30px;
     }
 
