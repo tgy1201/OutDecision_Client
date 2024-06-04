@@ -226,12 +226,11 @@ function View({setCategory}) {
 
     const handleRemovePost = async (e) => {
         e.preventDefault();
-        /*
+        
         if (post.participationCnt > 0) {
             alert('투표참여자가 존재하여 게시글을 삭제할 수 없습니다');
             return;
         }
-        */
 
         try {
             const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/post/${postId}`, {
