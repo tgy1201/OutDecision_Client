@@ -4,7 +4,7 @@ import HomeHeader from "./HomeHeader";
 import BoardHeader from "./BoardHeader";
 import MobileHeader from "./MobileHeader";
 
-function Header({category}) {
+function Header({category, isLogin}) {
     const location = useLocation();
 
     const isLoginPage = location.pathname  === '/login';
@@ -24,7 +24,7 @@ function Header({category}) {
                 isBoardPage ? <BoardHeader category={category}/> :
                 isRankingPage ? <MobileHeader.RankingHeader /> :
                 isWritePage ? <MobileHeader.WriteHeader /> :
-                <HomeHeader />
+                <HomeHeader isLogin={isLogin}/>
             }             
         </header>
     );

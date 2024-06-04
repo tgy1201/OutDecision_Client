@@ -31,6 +31,7 @@ import ResetPassword from './pages/resetPassword/ResetPassword';
 function App() {
   const [category, setCategory] = useState('');
   const [memberId, setMemberId] = useState();
+  const [isLogin, setIsLogin] = useState(false)
   const location = useLocation();
 
   useEffect(() => {
@@ -40,13 +41,16 @@ function App() {
             withCredentials: true,
         });
         if(response.data.isSuccess) {
+          setIsLogin(true)
           sessionStorage.setItem('isLogin', true);
         } else {
+          setIsLogin(false)
           sessionStorage.removeItem("isLogin");
         }
         console.log(response.data);
       } catch (error) {
         console.log(error);
+        setIsLogin(false)
         sessionStorage.removeItem("isLogin");
       }
     }
@@ -56,7 +60,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header category={category} />
+      <Header category={category} isLogin={isLogin}/>
       <div className='main'>
         <Routes>
           <Route path="/" element={<Main />}></Route>
