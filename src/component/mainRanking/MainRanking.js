@@ -51,7 +51,15 @@ function MainRanking ({ranks}) {
             {ranks.length > 0 ? (
                 ranks.map((rank, idx)=>
                 (
-                    <SwiperSlide key={idx} className={styles.rank_wrap}>
+                    <SwiperSlide 
+                        key={idx} 
+                        className={
+                            rank.rank===1 ? `${styles.rank_wrap} ${styles.first}` : 
+                            rank.rank===2 ? `${styles.rank_wrap} ${styles.second}` :
+                            rank.rank===3 ? `${styles.rank_wrap} ${styles.third}` :
+                            `${styles.rank_wrap}`
+                            }
+                        >
                         <p className={styles.rank}>
                             <GiCurlyWing className={styles.left_wing}/>
                             {rank.rank}

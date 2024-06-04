@@ -18,6 +18,21 @@ function LoginHeader () {
     )
 }
 
+function ResetHeader () {
+    const navigate = useNavigate();
+
+    const handleGoBack = () => {
+        navigate(-1);
+    }
+
+    return (
+        <CommonHeader>
+            <button className={styles.menu_back} onClick={handleGoBack}><img src="/assets/images/back.png" alt="뒤로가기" /></button>
+            <span style={{fontSize: "1.4rem", marginLeft: "35px"}}>비밀번호 재설정</span>
+        </CommonHeader>
+    )
+}
+
 function SignupHeader () {
     const navigate = useNavigate();
 
@@ -80,6 +95,7 @@ function WriteHeader () {
 
 const MobileHeader = {
     LoginHeader,
+    ResetHeader,
     SignupHeader,
     MypageHeader,
     RankingHeader,

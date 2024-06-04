@@ -37,6 +37,10 @@ function Login () {
             }
         } catch (error) {
             console.error( error);
+            if(error.response.data.status === 404) {
+                setAlertMessage('아이디 또는 비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요.');
+                return;
+            }
         }
     }
 
@@ -79,7 +83,7 @@ function Login () {
                             ))}
                             </div>
                         </div>
-                        <Link to="/" className={styles.find_pwd}>비밀번호 찾기</Link>
+                        <Link to="/checkMember" className={styles.find_pwd}>비밀번호 재설정</Link>
                         <button onClick={handleLogin}>로그인</button>
                         <div className={styles.account}>계정이 없으신가요? <Link to="/signup">Sign up</Link></div>
                         <p><span>간편로그인</span></p>

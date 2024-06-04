@@ -25,9 +25,12 @@ import Infoedit from './pages/infoedit/Infoedit';
 import Mypost from './pages/mypost/Mypost';
 import Mytitle from './pages/mytitle/Mytitle';
 import Ranking from './pages/ranking/Ranking';
+import CheckMember from './pages/resetPassword/CheckMemeber';
+import ResetPassword from './pages/resetPassword/ResetPassword';
 
 function App() {
   const [category, setCategory] = useState('');
+  const [memberId, setMemberId] = useState();
 
   useEffect(() => {
     const handleCheckLogin = async () => {
@@ -57,6 +60,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/checkMember" element={<CheckMember setMemberId={setMemberId}/>}></Route>
+          <Route path="/resetPassword/:email" element={<ResetPassword memberId={memberId}/>}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/signup/social" element={<SocialSignup />}></Route>
           <Route path="/signup/success" element={<SignupSuccess />}></Route>

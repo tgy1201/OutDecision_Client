@@ -55,6 +55,7 @@ function PostList ({post, bname}) {
         setIsAlarmCheck(post?.loginMemberPostInfoDTO?.receiveAlert || false);
         setPostOptions(post?.optionsList);
         setSelectedOptions([]); //선택한 투표옵션 초기화
+        setIsOpenResult(false);
     }, [post, type, page]) 
 
     const handleOptionChange = (index) => {
@@ -117,6 +118,7 @@ function PostList ({post, bname}) {
             console.log(error);
             if(error.response.data.code === '403') {
                 alert(error.response.data.message);
+                window.location.replace('/')
             }
         }
     }
