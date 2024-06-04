@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
@@ -31,6 +31,7 @@ import ResetPassword from './pages/resetPassword/ResetPassword';
 function App() {
   const [category, setCategory] = useState('');
   const [memberId, setMemberId] = useState();
+  const location = useLocation();
 
   useEffect(() => {
     const handleCheckLogin = async () => {
@@ -51,7 +52,7 @@ function App() {
     }
     
     handleCheckLogin();
-  }, []);
+  }, [location]);
 
   return (
     <div className="App">
