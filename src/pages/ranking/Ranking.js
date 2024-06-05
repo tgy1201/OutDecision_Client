@@ -6,6 +6,7 @@ function Ranking() {
     const [rankings, setRankings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [memberRanking, setMemberRanking] = useState(null);
+    const [timeLeft, setTimeLeft] = useState('');
 
     useEffect(() => {
         const fetchRankings = async () => {
@@ -47,6 +48,40 @@ function Ranking() {
         }
     }, [loading]);
 
+    useEffect(() => {
+        const calculateTimeLeft = () => {
+            const now = new Date();
+            const nextMonday = new Date(now);
+            nextMonday.setDate(now.getDate() + ((1 + 7 - now.getDay()) % 7));
+            nextMonday.setHours(0, 0, 0, 0);
+            const timeDiff = nextMonday - now;
+
+            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            setTimeLeft(`${hours}시간 ${minutes}분 ${seconds}초`);
+        };
+
+        calculateTimeLeft();
+
+        const timer = setInterval(calculateTimeLeft, 1000); // 1초마다 업데이트
+
+        return () => clearInterval(timer); // 타이머 정리
+    }, []);
+
+    const renderNickname = (nickname) => {
+        if (nickname.length > 4) {
+            // 닉네임이 4글자보다 길 경우 블러처리
+            return (
+                <span className={styles.blurred} data-fullname={nickname}>
+                    {nickname.slice(0, 5)}
+                </span>
+            );
+        }
+        return nickname;
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -60,7 +95,7 @@ function Ranking() {
                         포인트랭킹
                     </div>
                     <div className={styles.rankingdescription}>
-                        포인트는 매주 월요일 자정에 초기화됩니다
+                        초기화까지 남은 시간: {timeLeft}
                     </div>
                     <table className={styles.rankingtable}>
                         <thead className={styles.rankinghead}>
@@ -93,7 +128,7 @@ function Ranking() {
                                                 </div>
                                             )}
                                         </div>
-                                        {ranking.nickname} <span className={styles.title}>{ranking.memberTitle}</span>
+                                        <span className={styles.title}>{ranking.memberTitle}</span> {ranking.nickname}
                                     </td>
                                     <td>{ranking.point}</td>
                                 </tr>
@@ -122,7 +157,7 @@ function Ranking() {
                                                 </div>
                                             )}
                                         </div>
-                                        {memberRanking.nickname} <span className={styles.title}>{memberRanking.memberTitle}</span>
+                                        <span className={styles.title}>{memberRanking.memberTitle}</span> {memberRanking.nickname}
                                     </td>
                                     <td>{memberRanking.point}</td>
                                 </tr>
@@ -139,7 +174,8 @@ function Ranking() {
                         포인트랭킹
                     </div>
                     <div className={styles.rankingdescription}>
-                        포인트는 매주 월요일 자정에 초기화됩니다
+                        초기화까지 남은 시간<br />
+                        {timeLeft}
                     </div>
                     <div>
                         <div className={styles.ranktablewrap}>
@@ -174,7 +210,7 @@ function Ranking() {
                                                         </div>
                                                     )}
                                                 </div>
-                                                {ranking.nickname} <span className={styles.title}>{ranking.memberTitle}</span>
+                                                <span className={styles.title}>{ranking.memberTitle}</span> {renderNickname(ranking.nickname)}
                                             </td>
                                             <td>{ranking.point}</td>
                                         </tr>
@@ -203,7 +239,7 @@ function Ranking() {
                                                         </div>
                                                     )}
                                                 </div>
-                                                {memberRanking.nickname} <span className={styles.title}>{memberRanking.memberTitle}</span>
+                                                <span className={styles.title}>{memberRanking.memberTitle}</span> {renderNickname(memberRanking.nickname)}
                                             </td>
                                             <td>{memberRanking.point}</td>
                                         </tr>

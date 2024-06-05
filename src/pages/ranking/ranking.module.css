@@ -3,11 +3,6 @@
     height: auto;
 }
 
-.title {
-    font-size: 15px;
-    color: blue;
-}
-
 @media (min-width: 1080px) {
     .pc_ranking {
         max-width: 1200px;
@@ -47,7 +42,6 @@
     .rankinghead {
         min-width: 1000px;
         display: table;
-
     }
 
     .rankingtable th {
@@ -153,6 +147,11 @@
         display: table;
         width: 99%;
     }
+
+    .title {
+        font-size: 15px;
+        color: blue;
+    }
 }
 
 @media (max-width: 1079px) {
@@ -179,7 +178,7 @@
 
     .divinner {
         position: relative;
-        padding: 0 40px;
+        padding: 0 20px;
         width: 100%;
         height: 100%;
         margin: 0 auto;
@@ -191,7 +190,7 @@
         height: 100%;
         position: relative;
         overflow: hidden;
-        padding: 0 40px;
+        padding: 0 20px;
         margin: 0 auto;
     }
 
@@ -252,7 +251,7 @@
     .ranktable tbody {
         unicode-bidi: isolate;
         display: block;
-        max-height: 280px;
+        max-height: 400px;
         overflow-y: scroll;
     }
 
@@ -273,11 +272,9 @@
         width: 97%;
     }
 
-
     .ranktable tfoot td:nth-child(3) {
         padding-left: 10px;
     }
-
 
     .ranktable td {
         padding: 8px 5px;
@@ -341,5 +338,30 @@
         width: 15%;
         color: #ac2323;
         font-weight: 600;
+    }
+
+    .title {
+        font-size: 13px;
+        color: blue;
+    }
+
+    .blurred {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 4ch;
+        position: relative;
+    }
+
+    .blurred::after {
+        content: attr(data-fullname);
+        position: absolute;
+        left: 4ch;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        color: transparent;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     }
 }

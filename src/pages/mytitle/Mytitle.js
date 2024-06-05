@@ -127,9 +127,9 @@ function Mytitle({ onTitleChange }) {
                                 <div className={styles.explain}>{box.explain}</div>
                             </div>
                         ))}
-                        <button className={styles.apply} onClick={() => applyTitle(selectedBoxIndex)}>칭호 적용</button>
-                        {applyMessage && <div className={styles.applyMessage}></div>}
                     </div>
+                    <button className={styles.apply} onClick={() => applyTitle(selectedBoxIndex)}>칭호 적용</button>
+                    {applyMessage && <div className={styles.applyMessage}></div>}
                 </section>
             </div>
             <div className={styles.mobile_mytitle}>
