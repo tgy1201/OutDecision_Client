@@ -17,7 +17,7 @@ const initialBoxData = [
     { id: 'newbie', title: '🌱새싹', state: '획득', explain: "최초 회원가입", progress: 1, maxProgress: 1, barWidth: '100%' },
 ];
 
-function Mytitle({onTitleChange}) {
+function Mytitle({ onTitleChange }) {
     const [boxData, setBoxData] = useState(initialBoxData);
     const [selectedBoxIndex, setSelectedBoxIndex] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -127,9 +127,9 @@ function Mytitle({onTitleChange}) {
                                 <div className={styles.explain}>{box.explain}</div>
                             </div>
                         ))}
-                        <button className={styles.apply} onClick={() => applyTitle(selectedBoxIndex)}>칭호 적용</button>
-                        {applyMessage && <div className={styles.applyMessage}>{applyMessage}</div>}
                     </div>
+                    <button className={styles.apply} onClick={() => applyTitle(selectedBoxIndex)}>칭호 적용</button>
+                    {applyMessage && <div className={styles.applyMessage}></div>}
                 </section>
             </div>
             <div className={styles.mobile_mytitle}>
@@ -158,7 +158,7 @@ function Mytitle({onTitleChange}) {
                             </div>
                         ))}
                         <button className={styles.apply} onClick={() => applyTitle(selectedBoxIndex)}>칭호 적용</button>
-                        {applyMessage && <div className={styles.applyMessage}>{applyMessage}</div>}
+                        {applyMessage && <div className={styles.applyMessage}></div>}
                     </div>
                 </section>
             </div>

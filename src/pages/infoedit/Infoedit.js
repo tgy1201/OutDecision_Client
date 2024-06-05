@@ -176,10 +176,11 @@ function Infoedit() {
                 </section>
                 <section className={styles.content}>
                     <div className={styles.main}>
-                        <div className={styles.edit}>회원정보</div>
-
-                        <div className={styles.editform}>
+                        <div className={styles.editwrap}>
+                            <div className={styles.edit}>회원정보</div>
                             <div className={styles.required}><span>*</span> 필수</div>
+                        </div>
+                        <div className={styles.editform}>
                             <table className={styles.edittable}>
                                 <colgroup>
                                     <col width="30%" />
@@ -191,12 +192,17 @@ function Infoedit() {
                                         <div className={styles.image}>
                                             <img src={formData.userImg} alt="프로필" />
                                         </div>
-                                        <div className={styles.filebox}>
-                                            <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
+                                        <div className={styles.filecontainer}>
+                                            <div className={styles.filebox}>
+                                                <label htmlFor="file">변경</label>
+                                                <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
+                                            </div>
+                                            {formData.userImg !== '/assets/images/profile.png' && (
+                                                <div className={styles.filebox2}>
+                                                    <button onClick={handleDeleteProfile}>삭제</button>
+                                                </div>
+                                            )}
                                         </div>
-                                        {formData.userImg !== '/assets/images/profile.png' &&
-                                        <button onClick={handleDeleteProfile}>삭제</button>
-                                    }
                                     </td>
                                 </tr>
                                 <tr>
@@ -274,23 +280,24 @@ function Infoedit() {
                         </div>
                         <div className={styles.editform}>
                             <table className={styles.edittable}>
-                                <colgroup>
-                                    <col width="30%" />
-                                    <col width="70%" />
-                                </colgroup>
                                 <tr>
                                     <td>프로필 사진</td>
                                     <td className={styles.imagebox}>
                                         <div className={styles.image}>
                                             <img src={formData.userImg} alt="프로필" />
                                         </div>
-                                        <div className={styles.filebox}>
-                                            <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
+                                        <div className={styles.filecontainer}>
+                                            <div className={styles.filebox}>
+                                                <label htmlFor="file">변경</label>
+                                                <input id="file" type="file" onChange={(e) => handleImageUpload(e)} accept=".png,.jpg" />
+                                            </div>
+                                            {formData.userImg !== '/assets/images/profile.png' && (
+                                                <div className={styles.filebox2}>
+                                                    <button onClick={handleDeleteProfile}>삭제</button>
+                                                </div>
+                                            )}
                                         </div>
                                     </td>
-                                    {formData.userImg !== '/assets/images/profile.png' &&
-                                        <button onClick={handleDeleteProfile}>삭제</button>
-                                    }
                                 </tr>
                                 <tr>
                                     <td>이름 <span>*</span></td>
@@ -301,7 +308,7 @@ function Infoedit() {
                                     <td><input name="nickname" value={formData.nickname} onChange={handleInputChange}></input></td>
                                 </tr>
                                 <tr>
-                                    <td>이메일 <span>*</span></td>
+                                    <td>이메일</td>
                                     <td>{formData.email}</td>
                                 </tr>
                                 <tr>
