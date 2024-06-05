@@ -17,33 +17,27 @@ function MainRanking ({ranks}) {
     return (
         <Swiper
             slidesPerView={2.7}
-            spaceBetween={15}
             freeMode={true}
-            slidesOffsetBefore={20}
-            slidesOffsetAfter={20}
+            slidesOffsetBefore={15}
+            slidesOffsetAfter={15}
             modules={[FreeMode, Pagination]}
             className={styles.myswiper}
             breakpoints={{      
                 600:{
-                    slidesPerView: 3.2,
-                    spaceBetween: 16         
+                    slidesPerView: 3.2,      
                 },
                 700:{
-                    slidesPerView: 3.7,
-                    spaceBetween: 17         
+                    slidesPerView: 3.7,     
                 },
                 880:{
-                    slidesPerView: 4.2,
-                    spaceBetween: 18         
+                    slidesPerView: 4.2,      
                 },
                 980:{
                     slidesPerView: 4.7,
-                    spaceBetween: 19 
                 }
                 ,
                 1080:{
                     slidesPerView: 'auto',
-                    spaceBetween: 20,
                 }
                 }
             }

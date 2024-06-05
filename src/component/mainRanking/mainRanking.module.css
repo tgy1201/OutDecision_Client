@@ -129,3 +129,21 @@
     align-items: center;
     gap: 4px;
 }
+
+@media (max-width: 699px) {
+    .rank_wrap {
+        margin: 0 8px;
+    }
+}
+
+@media (max-width: 979px) and (min-width: 700px) {
+    .rank_wrap {
+        margin: 0 9px;
+    }
+}
+
+@media (min-width: 980px) {
+    .rank_wrap {
+        margin: 0 10px;
+    }
+}

@@ -16,9 +16,8 @@ function MainFinishedPost ({posts}) {
             <Swiper
             slidesPerView={'auto'}
             centeredSlides={false}
-            spaceBetween={30}
-            slidesOffsetBefore={20}
-            slidesOffsetAfter={20}
+            slidesOffsetBefore={10}
+            slidesOffsetAfter={10}
             className={styles.myswiper}
             >
             {posts.map((post, idx)=>
