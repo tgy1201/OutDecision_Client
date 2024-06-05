@@ -29,6 +29,8 @@ function Recommend ({posts, handleClick}) {
             centeredSlides={true}
             spaceBetween={30}
             slidesOffsetAfter={20}
+            observer={true}
+            observeParents={true}
             pagination={{
                 clickable: true,
                 dynamicBullets: true,
