@@ -294,7 +294,7 @@
 
     .ranktable tfoot tr {
         display: table;
-        width: 97%;
+        width: 100%;
     }
 
     .ranktable tfoot td:nth-child(3) {
@@ -352,15 +352,15 @@
         width: 20px;
         height: 20px;
         position: absolute;
-        bottom: 25px;
+        bottom: 28px;
     }
 
     .left_wing {
-        left: -3px;
+        left: -2px;
     }
 
     .right_wing {
-        right: -3px;
+        right: -2px;
         transform: scaleX(-1);
     }
 
@@ -389,7 +389,7 @@
     }
 
     .ranktable td:nth-child(3) {
-        width: 15%;
+        width: 20%;
         color: #ac2323;
         font-weight: 600;
     }
@@ -404,7 +404,7 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        width: 4ch;
+        width: 8ch;
         position: relative;
     }
 
