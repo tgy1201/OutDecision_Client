@@ -8,14 +8,19 @@
 .title_wrap {
     display: flex;
     gap: 0 5px;
-    padding-right: 20px;
+    padding-right: 23px;
 }
 .title_wrap > div{
     padding: 3px 6px;
     border-radius: 4px;
     color: white;
 }
-.title_wrap p{
+
+.title_wrap p {
+    font-size: 1.2rem;
+}
+
+.title_wrap p:nth-child(2){
     font-size: 1.2rem;
     text-overflow: ellipsis;
     overflow: hidden;
