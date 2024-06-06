@@ -21,17 +21,17 @@ function Footer () {
                         <li onClick={()=>navigate('/ourteam?content=service')}>Our service</li>
                         <li onClick={()=>navigate('/ourteam?content=team')}>Our Team</li>
                         <li>
-                            <div style={{width: "30px"}}>
+                            <div style={{width: "30px"}} onClick={()=>{window.open("https://www.youtube.com/")}}>
                                 <img src="/assets/images/youtube.png" alt="화이트로고" />
                             </div>
                         </li>
                         <li>
-                            <div style={{width: "25px"}}>
+                            <div style={{width: "25px"}} onClick={()=>{window.open("https://github.com/OutDecision")}}>
                                 <img src="/assets/images/github.png" alt="화이트로고" />
                             </div>
                         </li>
                         <li>
-                            <div style={{width: "23px"}}>
+                            <div style={{width: "23px"}} onClick={()=>{window.open("https://www.instagram.com/qorthal_/")}}>
                                 <img src="/assets/images/instagram.png" alt="화이트로고" />
                             </div>
                         </li>
