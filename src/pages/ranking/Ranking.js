@@ -71,7 +71,7 @@ function Ranking() {
     }, []);
 
     const renderNickname = (nickname) => {
-        if (nickname.length > 4) {
+        if (nickname.length > 6) {
             // 닉네임이 4글자보다 길 경우 블러처리
             return (
                 <span className={styles.blurred} data-fullname={nickname}>
@@ -108,25 +108,21 @@ function Ranking() {
                         <tbody>
                             {rankings.map((ranking, index) => (
                                 <tr key={index}>
-                                    <td>{ranking.rank}</td>
+                                    <td>
+                                        {ranking.rank}
+                                        {ranking.rank === 1 && (
+                                            <img className={styles.wings} src="/assets/images/gold_wings.png" alt="날개" />
+                                        )}
+                                        {ranking.rank === 2 && (
+                                            <img className={styles.wings} src="/assets/images/silver_wings.png" alt="날개" />
+                                        )}
+                                        {ranking.rank === 3 && (
+                                            <img className={styles.wings} src="/assets/images/ratio_wings.png" alt="날개" />
+                                        )}
+                                    </td>
                                     <td>
                                         <div className={styles.profile}>
                                             <img src={ranking.userImg} alt="프로필" />
-                                            {ranking.rank === 1 && (
-                                                <div className={styles.wings}>
-                                                    <img src="/assets/images/gold_wings.png" alt="날개" />
-                                                </div>
-                                            )}
-                                            {ranking.rank === 2 && (
-                                                <div className={styles.wings}>
-                                                    <img src="/assets/images/silver_wings.png" alt="날개" />
-                                                </div>
-                                            )}
-                                            {ranking.rank === 3 && (
-                                                <div className={styles.wings}>
-                                                    <img src="/assets/images/ratio_wings.png" alt="날개" />
-                                                </div>
-                                            )}
                                         </div>
                                         <span className={styles.title}>{ranking.memberTitle}</span> {ranking.nickname}
                                     </td>
@@ -137,25 +133,21 @@ function Ranking() {
                         {memberRanking && (
                             <tfoot>
                                 <tr>
-                                    <td>{memberRanking.rank}</td>
+                                    <td>
+                                        {memberRanking.rank}
+                                        {memberRanking.rank === 1 && (
+                                            <img className={styles.wings} src="/assets/images/gold_wings.png" alt="날개" />
+                                        )}
+                                        {memberRanking.rank === 2 && (
+                                            <img className={styles.wings} src="/assets/images/silver_wings.png" alt="날개" />
+                                        )}
+                                        {memberRanking.rank === 3 && (
+                                            <img className={styles.wings} src="/assets/images/ratio_wings.png" alt="날개" />
+                                        )}
+                                    </td>
                                     <td>
                                         <div className={styles.profile}>
                                             <img src={memberRanking.userImg} alt="프로필" />
-                                            {memberRanking.rank === 1 && (
-                                                <div className={styles.wings}>
-                                                    <img src="/assets/images/gold_wings.png" alt="날개" />
-                                                </div>
-                                            )}
-                                            {memberRanking.rank === 2 && (
-                                                <div className={styles.wings}>
-                                                    <img src="/assets/images/silver_wings.png" alt="날개" />
-                                                </div>
-                                            )}
-                                            {memberRanking.rank === 3 && (
-                                                <div className={styles.wings}>
-                                                    <img src="/assets/images/ratio_wings.png" alt="날개" />
-                                                </div>
-                                            )}
                                         </div>
                                         <span className={styles.title}>{memberRanking.memberTitle}</span> {memberRanking.nickname}
                                     </td>
@@ -190,25 +182,21 @@ function Ranking() {
                                 <tbody>
                                     {rankings.map((ranking, index) => (
                                         <tr key={index}>
-                                            <td>{ranking.rank}</td>
+                                            <td>
+                                                {ranking.rank}
+                                                {ranking.rank === 1 && (
+                                                    <img className={styles.wings} src="/assets/images/gold_wings.png" alt="날개" />
+                                                )}
+                                                {ranking.rank === 2 && (
+                                                    <img className={styles.wings} src="/assets/images/silver_wings.png" alt="날개" />
+                                                )}
+                                                {ranking.rank === 3 && (
+                                                    <img className={styles.wings} src="/assets/images/ratio_wings.png" alt="날개" />
+                                                )}
+                                            </td>
                                             <td>
                                                 <div className={styles.profile}>
                                                     <img src={ranking.userImg} alt="프로필" />
-                                                    {ranking.rank === 1 && (
-                                                        <div className={styles.wings}>
-                                                            <img src="/assets/images/gold_wings.png" alt="날개" />
-                                                        </div>
-                                                    )}
-                                                    {ranking.rank === 2 && (
-                                                        <div className={styles.wings}>
-                                                            <img src="/assets/images/silver_wings.png" alt="날개" />
-                                                        </div>
-                                                    )}
-                                                    {ranking.rank === 3 && (
-                                                        <div className={styles.wings}>
-                                                            <img src="/assets/images/ratio_wings.png" alt="날개" />
-                                                        </div>
-                                                    )}
                                                 </div>
                                                 <span className={styles.title}>{ranking.memberTitle}</span> {renderNickname(ranking.nickname)}
                                             </td>
@@ -219,25 +207,21 @@ function Ranking() {
                                 {memberRanking && (
                                     <tfoot>
                                         <tr>
-                                            <td>{memberRanking.rank}</td>
+                                            <td>
+                                                {memberRanking.rank}
+                                                {memberRanking.rank === 1 && (
+                                                    <img className={styles.wings} src="/assets/images/gold_wings.png" alt="날개" />
+                                                )}
+                                                {memberRanking.rank === 2 && (
+                                                    <img className={styles.wings} src="/assets/images/silver_wings.png" alt="날개" />
+                                                )}
+                                                {memberRanking.rank === 3 && (
+                                                    <img className={styles.wings} src="/assets/images/ratio_wings.png" alt="날개" />
+                                                )}
+                                            </td>
                                             <td>
                                                 <div className={styles.profile}>
                                                     <img src={memberRanking.userImg} alt="프로필" />
-                                                    {memberRanking.rank === 1 && (
-                                                        <div className={styles.wings}>
-                                                            <img src="/assets/images/gold_wings.png" alt="날개" />
-                                                        </div>
-                                                    )}
-                                                    {memberRanking.rank === 2 && (
-                                                        <div className={styles.wings}>
-                                                            <img src="/assets/images/silver_wings.png" alt="날개" />
-                                                        </div>
-                                                    )}
-                                                    {memberRanking.rank === 3 && (
-                                                        <div className={styles.wings}>
-                                                            <img src="/assets/images/ratio_wings.png" alt="날개" />
-                                                        </div>
-                                                    )}
                                                 </div>
                                                 <span className={styles.title}>{memberRanking.memberTitle}</span> {renderNickname(memberRanking.nickname)}
                                             </td>
