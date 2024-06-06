@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from './ranking.module.css';
+import { GiCurlyWing } from "react-icons/gi";
 
 function Ranking() {
     const [rankings, setRankings] = useState([]);
@@ -107,18 +108,21 @@ function Ranking() {
                         </thead>
                         <tbody>
                             {rankings.map((ranking, index) => (
-                                <tr key={index}>
+                                <tr
+                                    key={index}
+                                    className={
+                                        ranking.rank === 1 ? `${styles.rank_wrap} ${styles.first}` :
+                                            ranking.rank === 2 ? `${styles.rank_wrap} ${styles.second}` :
+                                                ranking.rank === 3 ? `${styles.rank_wrap} ${styles.third}` :
+                                                    `${styles.rank_wrap}`
+                                    }
+                                >
                                     <td>
-                                        {ranking.rank}
-                                        {ranking.rank === 1 && (
-                                            <img className={styles.wings} src="/assets/images/gold_wings.png" alt="날개" />
-                                        )}
-                                        {ranking.rank === 2 && (
-                                            <img className={styles.wings} src="/assets/images/silver_wings.png" alt="날개" />
-                                        )}
-                                        {ranking.rank === 3 && (
-                                            <img className={styles.wings} src="/assets/images/ratio_wings.png" alt="날개" />
-                                        )}
+                                        <p className={styles.rank}>
+                                            {ranking.rank <= 3 && <GiCurlyWing className={styles.left_wing} />}
+                                            {ranking.rank}
+                                            {ranking.rank <= 3 && <GiCurlyWing className={styles.right_wing} />}
+                                        </p>
                                     </td>
                                     <td>
                                         <div className={styles.profile}>
@@ -130,6 +134,7 @@ function Ranking() {
                                 </tr>
                             ))}
                         </tbody>
+
                         {memberRanking && (
                             <tfoot>
                                 <tr>
@@ -181,24 +186,28 @@ function Ranking() {
                                 </thead>
                                 <tbody>
                                     {rankings.map((ranking, index) => (
-                                        <tr key={index}>
+                                        <tr
+                                            key={index}
+                                            className={
+                                                ranking.rank === 1 ? `${styles.rank_wrap} ${styles.first}` :
+                                                    ranking.rank === 2 ? `${styles.rank_wrap} ${styles.second}` :
+                                                        ranking.rank === 3 ? `${styles.rank_wrap} ${styles.third}` :
+                                                            `${styles.rank_wrap}`
+                                            }
+                                        >
                                             <td>
-                                                {ranking.rank}
-                                                {ranking.rank === 1 && (
-                                                    <img className={styles.wings} src="/assets/images/gold_wings.png" alt="날개" />
-                                                )}
-                                                {ranking.rank === 2 && (
-                                                    <img className={styles.wings} src="/assets/images/silver_wings.png" alt="날개" />
-                                                )}
-                                                {ranking.rank === 3 && (
-                                                    <img className={styles.wings} src="/assets/images/ratio_wings.png" alt="날개" />
-                                                )}
+                                                <p className={styles.rank}>
+                                                    {ranking.rank <= 3 && <GiCurlyWing className={styles.left_wing} />}
+                                                    {ranking.rank}
+                                                    {ranking.rank <= 3 && <GiCurlyWing className={styles.right_wing} />}
+                                                </p>
                                             </td>
                                             <td>
                                                 <div className={styles.profile}>
                                                     <img src={ranking.userImg} alt="프로필" />
                                                 </div>
-                                                <span className={styles.title}>{ranking.memberTitle}</span> {renderNickname(ranking.nickname)}
+                                                <span className={styles.title}>{ranking.memberTitle}</span> <br />
+                                                <span className={styles.nickname}>{ranking.nickname}</span>
                                             </td>
                                             <td>{ranking.point}</td>
                                         </tr>
@@ -223,7 +232,8 @@ function Ranking() {
                                                 <div className={styles.profile}>
                                                     <img src={memberRanking.userImg} alt="프로필" />
                                                 </div>
-                                                <span className={styles.title}>{memberRanking.memberTitle}</span> {renderNickname(memberRanking.nickname)}
+                                                <span className={styles.title}>{memberRanking.memberTitle}</span> <br />
+                                                <span className={styles.nickname}>{memberRanking.nickname}</span>
                                             </td>
                                             <td>{memberRanking.point}</td>
                                         </tr>

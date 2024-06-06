@@ -86,17 +86,40 @@
         border-radius: 70%;
         z-index: 1;
         background-color: white;
-        border: 1px solid black;
+        border: 1px solid lightgrey;
     }
 
-    .wings {
+    .rank_wrap {
+        position: relative;
+    }
+
+    .rank_wrap.first .rank {
+        color: gold;
+    }
+
+    .rank_wrap.second .rank {
+        color: silver;
+    }
+
+    .rank_wrap.third .rank {
+        color: #CD7F32;
+    }
+
+    .left_wing,
+    .right_wing {
+        width: 30px;
+        height: 30px;
         position: absolute;
-        width: 78px;
-        height: 32px;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 5px;
-        z-index: 0;
+        bottom: 15px;
+    }
+
+    .left_wing {
+        left: 14px;
+    }
+
+    .right_wing {
+        right: 15px;
+        transform: scaleX(-1);
     }
 
     .rankingtable td:nth-child(2) {
@@ -239,7 +262,7 @@
 
     .ranktable tr th {
         font-weight: bold;
-        font-size: 18px;
+        font-size: 15px;
         color: white;
         text-align: center;
         height: 40px;
@@ -290,12 +313,12 @@
         width: 30px;
         height: 30px;
         background-color: white;
-        display: flex;
         float: left;
-        position: relative;
+        display: flex;
+        justify-content: center;
         align-items: center;
         margin-right: 15px;
-        margin-top: 0px !important;
+        margin-top: 7%;
     }
 
     .profile img {
@@ -305,17 +328,44 @@
         border-radius: 70%;
         z-index: 1;
         background-color: white;
-        border: 1px solid black;
+        border: 1px solid lightgrey;
     }
 
-    .wings {
+    .rank_wrap {
+        position: relative;
+    }
+
+    .rank_wrap.first .rank {
+        color: gold;
+    }
+
+    .rank_wrap.second .rank {
+        color: silver;
+    }
+
+    .rank_wrap.third .rank {
+        color: #CD7F32;
+    }
+
+    .left_wing,
+    .right_wing {
+        width: 20px;
+        height: 20px;
         position: absolute;
-        width: 78px;
-        height: 32px;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 5px;
-        z-index: 0;
+        bottom: 25px;
+    }
+
+    .left_wing {
+        left: -3px;
+    }
+
+    .right_wing {
+        right: -3px;
+        transform: scaleX(-1);
+    }
+
+    .nickname {
+        font-size: 18px;
     }
 
     .ranktable td:nth-child(2) {
