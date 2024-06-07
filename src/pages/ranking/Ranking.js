@@ -72,7 +72,7 @@ function Ranking() {
     }, []);
 
     const renderNickname = (nickname) => {
-        if (nickname.length > 6) {
+        if (nickname.length > 8) {
             // 닉네임이 4글자보다 길 경우 블러처리
             return (
                 <span className={styles.blurred} data-fullname={nickname}>
@@ -137,24 +137,25 @@ function Ranking() {
 
                         {memberRanking && (
                             <tfoot>
-                                <tr>
+                                <tr
+                                    className={
+                                        memberRanking.rank === 1 ? `${styles.rank_wrap} ${styles.first}` :
+                                            memberRanking.rank === 2 ? `${styles.rank_wrap} ${styles.second}` :
+                                                memberRanking.rank === 3 ? `${styles.rank_wrap} ${styles.third}` :
+                                                    `${styles.rank_wrap}`
+                                    }>
                                     <td>
-                                        {memberRanking.rank}
-                                        {memberRanking.rank === 1 && (
-                                            <img className={styles.wings} src="/assets/images/gold_wings.png" alt="날개" />
-                                        )}
-                                        {memberRanking.rank === 2 && (
-                                            <img className={styles.wings} src="/assets/images/silver_wings.png" alt="날개" />
-                                        )}
-                                        {memberRanking.rank === 3 && (
-                                            <img className={styles.wings} src="/assets/images/ratio_wings.png" alt="날개" />
-                                        )}
+                                        <p className={styles.rank}>
+                                            {memberRanking.rank <= 3 && <GiCurlyWing className={styles.left_wing} />}
+                                            {memberRanking.rank}
+                                            {memberRanking.rank <= 3 && <GiCurlyWing className={styles.right_wing} />}
+                                        </p>
                                     </td>
                                     <td>
                                         <div className={styles.profile}>
                                             <img src={memberRanking.userImg} alt="프로필" />
                                         </div>
-                                        <span className={styles.title}>{memberRanking.memberTitle}</span> {memberRanking.nickname}
+                                        <span className={styles.title}>{memberRanking.memberTitle}</span> {renderNickname(memberRanking.nickname)}
                                     </td>
                                     <td>{memberRanking.point}</td>
                                 </tr>
@@ -206,33 +207,35 @@ function Ranking() {
                                                 <div className={styles.profile}>
                                                     <img src={ranking.userImg} alt="프로필" />
                                                 </div>
-                                                <span className={styles.title}>{ranking.memberTitle}</span> {ranking.nickname}
+                                                <span className={styles.title}>{ranking.memberTitle}</span> <br />
+                                                <span className={styles.nickname}>{ranking.nickname}</span>
                                             </td>
                                             <td>{ranking.point}</td>
                                         </tr>
                                     ))}
                                 </tbody>
-
                                 {memberRanking && (
                                     <tfoot>
-                                        <tr>
+                                        <tr
+                                            className={
+                                                memberRanking.rank === 1 ? `${styles.rank_wrap} ${styles.first}` :
+                                                    memberRanking.rank === 2 ? `${styles.rank_wrap} ${styles.second}` :
+                                                        memberRanking.rank === 3 ? `${styles.rank_wrap} ${styles.third}` :
+                                                            `${styles.rank_wrap}`
+                                            }>
                                             <td>
-                                                {memberRanking.rank}
-                                                {memberRanking.rank === 1 && (
-                                                    <img className={styles.wings} src="/assets/images/gold_wings.png" alt="날개" />
-                                                )}
-                                                {memberRanking.rank === 2 && (
-                                                    <img className={styles.wings} src="/assets/images/silver_wings.png" alt="날개" />
-                                                )}
-                                                {memberRanking.rank === 3 && (
-                                                    <img className={styles.wings} src="/assets/images/ratio_wings.png" alt="날개" />
-                                                )}
+                                                <p className={styles.rank}>
+                                                    {memberRanking.rank <= 3 && <GiCurlyWing className={styles.left_wing} />}
+                                                    {memberRanking.rank}
+                                                    {memberRanking.rank <= 3 && <GiCurlyWing className={styles.right_wing} />}
+                                                </p>
                                             </td>
                                             <td>
                                                 <div className={styles.profile}>
                                                     <img src={memberRanking.userImg} alt="프로필" />
                                                 </div>
-                                                <span className={styles.title}>{memberRanking.memberTitle}</span> {renderNickname(memberRanking.nickname)}
+                                                <span className={styles.title}>{memberRanking.memberTitle}</span> <br />
+                                                <span className={styles.nickname}>{renderNickname(memberRanking.nickname)}</span>
                                             </td>
                                             <td>{memberRanking.point}</td>
                                         </tr>

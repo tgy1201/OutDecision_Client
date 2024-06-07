@@ -262,7 +262,7 @@
 
     .ranktable tr th {
         font-weight: bold;
-        font-size: 18px;
+        font-size: 15px;
         color: white;
         text-align: center;
         height: 40px;
@@ -294,7 +294,7 @@
 
     .ranktable tfoot tr {
         display: table;
-        width: 97%;
+        width: 100%;
     }
 
     .ranktable tfoot td:nth-child(3) {
@@ -313,12 +313,12 @@
         width: 30px;
         height: 30px;
         background-color: white;
-        display: flex;
         float: left;
-        position: relative;
+        display: flex;
+        justify-content: center;
         align-items: center;
         margin-right: 15px;
-        margin-top: 0px !important;
+        margin-top: 7%;
     }
 
     .profile img {
@@ -352,16 +352,20 @@
         width: 20px;
         height: 20px;
         position: absolute;
-        bottom: 10px;
+        bottom: 28px;
     }
 
     .left_wing {
-        left: 4px;
+        left: -2px;
     }
 
     .right_wing {
-        right: 4px;
+        right: -2px;
         transform: scaleX(-1);
+    }
+
+    .nickname {
+        font-size: 18px;
     }
 
     .ranktable td:nth-child(2) {
@@ -385,7 +389,7 @@
     }
 
     .ranktable td:nth-child(3) {
-        width: 15%;
+        width: 20%;
         color: #ac2323;
         font-weight: 600;
     }
@@ -400,7 +404,7 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        width: 4ch;
+        width: 8ch;
         position: relative;
     }
 

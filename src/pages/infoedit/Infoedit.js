@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styles from './infoedit.module.css';
 import { useNavigate } from "react-router-dom";
 import MypageMenu from "../../component/mypageMenu/MypageMenu";
-import Modal from 'react-modal';
 import axios from "axios";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
@@ -17,7 +16,8 @@ function Infoedit() {
         socialType: "",
         userImg: ""
     });
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+    const [passwordModalIsOpen, setPasswordModalIsOpen] = useState(false);
     const [passwordData, setPasswordData] = useState({
         currentPassword: "",
         newPassword: "",
@@ -145,7 +145,7 @@ function Infoedit() {
                 withCredentials: true
             });
             if (response.data.isSuccess) {
-                closeModal();
+                closePasswordModal();
                 setPasswordError("");
             } else {
                 setPasswordError(response.data.message);
@@ -157,15 +157,45 @@ function Infoedit() {
         }
     }
 
+    const handleDeleteAccount = async () => {
+        try {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_IP}/user/revoke`, {
+                withCredentials: true
+            });
 
-    const openModal = () => {
-        setModalIsOpen(true);
-        disableBodyScroll();
+            if (response.data.isSuccess) {
+                alert('회원탈퇴가 완료되었습니다.');
+                // 로그아웃 처리 등
+                navigate('/');
+            } else {
+                alert(`회원탈퇴 실패: ${response.data.message}`);
+            }
+        } catch (error) {
+            console.error('회원탈퇴 에러:', error);
+            alert('회원탈퇴 중 오류가 발생했습니다.');
+        } finally {
+            closeDeleteModal();  // 모달을 닫기
+        }
+    };
+
+    const openDeleteModal = () => {
+        setDeleteModalIsOpen(true);
+        disableBodyScroll(document);
     }
 
-    const closeModal = () => {
-        setModalIsOpen(false);
-        enableBodyScroll();
+    const closeDeleteModal = () => {
+        setDeleteModalIsOpen(false);
+        enableBodyScroll(document);
+    }
+
+    const openPasswordModal = () => {
+        setPasswordModalIsOpen(true);
+        disableBodyScroll(document);
+    }
+
+    const closePasswordModal = () => {
+        setPasswordModalIsOpen(false);
+        enableBodyScroll(document);
     }
 
     return (
@@ -219,7 +249,7 @@ function Infoedit() {
                                 </tr>
                                 <tr>
                                     <td>비밀번호 <span>*</span></td>
-                                    <td><button onClick={openModal}>비밀번호 변경</button></td>
+                                    <td><button onClick={openPasswordModal}>비밀번호 변경</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -230,44 +260,60 @@ function Infoedit() {
                         <button onClick={() => navigate('/mypage')}>취소</button>
                     </div>
 
-                    <Modal className={styles.modal} isOpen={modalIsOpen}>
-                        <div className={styles.modalheader}>
-                            <span>비밀번호 변경</span>
-                        </div>
-                        <div className={styles.modalbody}>
-                            <table className={styles.passwordtable}>
-                                <colgroup>
-                                    <col width="40%" />
-                                    <col width="60%" />
-                                </colgroup>
-                                <tbody>
-                                    <tr>
-                                        <td>현재 비밀번호</td>
-                                        <td><input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>새 비밀번호</td>
-                                        <td><input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>새 비밀번호 확인</td>
-                                        <td><input type="password" name="confirmNewPassword" value={passwordData.confirmNewPassword} onChange={handlePasswordChange} /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div className={styles.deletebox}>
+                        <button onClick={openDeleteModal}>회원탈퇴</button>
+                    </div>
+                </section>
+                {passwordModalIsOpen && (
+                    <div>
+                        <div className={styles.pwdmodal}>
+                            <div className={styles.modalheader}>
+                                <span>비밀번호 변경</span>
+                            </div>
+                            <div className={styles.modalbody}>
+                                <table className={styles.passwordtable}>
+                                    <colgroup>
+                                        <col width="40%" />
+                                        <col width="60%" />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>현재 비밀번호</td>
+                                            <td><input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>새 비밀번호</td>
+                                            <td><input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>새 비밀번호 확인</td>
+                                            <td><input type="password" name="confirmNewPassword" value={passwordData.confirmNewPassword} onChange={handlePasswordChange} /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                            {passwordError && <div className={styles.error}>{passwordError}</div>}
+                                {passwordError && <div className={styles.error}>{passwordError}</div>}
 
-                            <div className={styles.buttonbox2}>
-                                <button onClick={handlePasswordSubmit}>변경</button>
-                                <button onClick={closeModal}>취소</button>
+                                <div className={styles.buttonbox2}>
+                                    <button onClick={handlePasswordSubmit}>변경</button>
+                                    <button onClick={closePasswordModal}>취소</button>
+                                </div>
                             </div>
                         </div>
-                    </Modal>
+                    </div>
+                )}
 
-
-                </section>
+                {deleteModalIsOpen && (
+                    <div>
+                        <div className={styles.deletemodal}>
+                            <p>정말 탈퇴하시겠습니까?</p>
+                            <button onClick={handleDeleteAccount}>네</button>
+                            <button onClick={closeDeleteModal}>아니오</button>
+                        </div>
+                    </div>
+                )}
             </div>
+
             <div className={styles.mobile_infoedit}>
                 <section className={styles.topbar_wrap}>
                     <MypageMenu active={2} />
@@ -313,54 +359,69 @@ function Infoedit() {
                                 </tr>
                                 <tr>
                                     <td>비밀번호 <span>*</span></td>
-                                    <td><button onClick={openModal}>비밀번호 변경</button></td>
+                                    <td><button onClick={openPasswordModal}>비밀번호 변경</button></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-
                     <div className={styles.buttonbox}>
                         <button onClick={handleSubmit}>수정</button>
                         <button onClick={() => navigate('/mypage')}>취소</button>
                     </div>
-
-
-                </section>
-            </div>
-            <Modal className={styles.modal} isOpen={modalIsOpen}>
-                <div className={styles.modalheader}>
-                    <span>비밀번호 변경</span>
-                </div>
-                <div className={styles.modalbody}>
-                    <table className={styles.passwordtable}>
-                        <colgroup>
-                            <col width="40%" />
-                            <col width="60%" />
-                        </colgroup>
-                        <tbody>
-                            <tr>
-                                <td>현재 비밀번호</td>
-                                <td><input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} /></td>
-                            </tr>
-                            <tr>
-                                <td>새 비밀번호</td>
-                                <td><input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} /></td>
-                            </tr>
-                            <tr>
-                                <td>새 비밀번호 확인</td>
-                                <td><input type="password" name="confirmNewPassword" value={passwordData.confirmNewPassword} onChange={handlePasswordChange} /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    {passwordError && <div className={styles.error}>{passwordError}</div>}
-
-                    <div className={styles.buttonbox2}>
-                        <button onClick={handlePasswordSubmit}>변경</button>
-                        <button onClick={closeModal}>취소</button>
+                    <div className={styles.deletebox}>
+                        <button onClick={openDeleteModal}>회원탈퇴</button>
                     </div>
-                </div>
-            </Modal>
+                </section>
+                {passwordModalIsOpen && (
+                    <div>
+                        <div className={styles.pwdmodal}>
+                            <div className={styles.modalheader}>
+                                <span>비밀번호 변경</span>
+                            </div>
+                            <div className={styles.modalbody}>
+                                <table className={styles.passwordtable}>
+                                    <colgroup>
+                                        <col width="40%" />
+                                        <col width="60%" />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>현재 비밀번호</td>
+                                            <td><input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>새 비밀번호</td>
+                                            <td><input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>새 비밀번호 확인</td>
+                                            <td><input type="password" name="confirmNewPassword" value={passwordData.confirmNewPassword} onChange={handlePasswordChange} /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                {passwordError && <div className={styles.error}>{passwordError}</div>}
+
+                                <div className={styles.buttonbox2}>
+                                    <button onClick={handlePasswordSubmit}>변경</button>
+                                    <button onClick={closePasswordModal}>취소</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {deleteModalIsOpen && (
+                    <div>
+                        <div className={styles.deletemodal}>
+                            <p>정말 탈퇴하시겠습니까?</p>
+                            <button onClick={handleDeleteAccount}>네</button>
+                            <button onClick={closeDeleteModal}>아니오</button>
+                        </div>
+                    </div>
+                )}
+
+            </div>
 
         </div>
     )
