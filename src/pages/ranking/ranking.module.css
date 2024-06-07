@@ -22,8 +22,8 @@
         font-size: 30px;
         font-weight: 600;
         color: #ac2323;
-        margin-top: 20px;
-        margin-bottom: 15px;
+        max-width: 700px;
+        margin: 20px auto 15px;
     }
 
     .rankingdescription {
@@ -35,12 +35,12 @@
 
     .rankingtable {
         border-collapse: collapse;
-        min-width: 1000px;
-        margin: 50px auto;
+        min-width: 700px;
+        margin: 25px auto 50px;
     }
 
     .rankinghead {
-        min-width: 1000px;
+        min-width: 700px;
         display: table;
     }
 
@@ -129,7 +129,7 @@
 
     .rankingtable tbody {
         display: block;
-        max-height: 400px;
+        max-height: 450px;
         overflow-y: scroll;
     }
 
@@ -304,15 +304,12 @@
     }
 
     .profile {
-        width: 30px;
-        height: 30px;
+        width: 37px;
+        height: 37px;
         background-color: white;
-        float: left;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-right: 15px;
-        margin-top: 7%;
     }
 
     .profile img {
@@ -387,6 +384,17 @@
         font-weight: 600;
     }
 
+    .nickname_wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .title_wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
     .title {
         font-size: 13px;
         color: blue;

@@ -204,11 +204,15 @@ function Ranking() {
                                                 </p>
                                             </td>
                                             <td>
-                                                <div className={styles.profile}>
-                                                    <img src={ranking.userImg} alt="프로필" />
+                                                <div className={styles.nickname_wrap}>
+                                                    <div className={styles.profile}>
+                                                        <img src={ranking.userImg} alt="프로필" />
+                                                    </div>
+                                                    <div className={styles.title_wrap}>
+                                                        {ranking.memberTitle?<div className={styles.title}>{ranking.memberTitle}</div>:''}
+                                                        <div className={styles.nickname}>{ranking.nickname}</div>
+                                                    </div>
                                                 </div>
-                                                <span className={styles.title}>{ranking.memberTitle}</span> <br />
-                                                <span className={styles.nickname}>{ranking.nickname}</span>
                                             </td>
                                             <td>{ranking.point}</td>
                                         </tr>
