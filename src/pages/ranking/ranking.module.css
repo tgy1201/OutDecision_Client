@@ -105,21 +105,15 @@
         color: #CD7F32;
     }
 
-    .left_wing,
-    .right_wing {
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        bottom: 15px;
-    }
-
     .left_wing {
-        left: 14px;
+        left: 25px;
+        position: absolute;
     }
 
     .right_wing {
-        right: 15px;
+        right: 25px;
         transform: scaleX(-1);
+        position: absolute;
     }
 
     .rankingtable td:nth-child(2) {
@@ -347,20 +341,19 @@
         color: #CD7F32;
     }
 
-    .left_wing,
-    .right_wing {
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        bottom: 28px;
+    .rank {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .left_wing {
-        left: -2px;
+        margin-right: 4px;
     }
 
     .right_wing {
-        right: -2px;
+        margin-left: 4px;
         transform: scaleX(-1);
     }
 
