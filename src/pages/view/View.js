@@ -206,7 +206,7 @@ function View({setCategory}) {
             });
 
             console.log(response.data);
-            if(response.data.data) {
+            if(response.data.result) {
                 alert('끌어올리기 성공');
                 setPost((preState)=> ({...preState,
                     bumps: post.bumps - 1,
