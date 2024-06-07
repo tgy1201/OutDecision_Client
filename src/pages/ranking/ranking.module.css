@@ -105,15 +105,19 @@
         color: #CD7F32;
     }
 
+    .rank {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .left_wing {
-        left: 25px;
-        position: absolute;
+        margin-right: 4px;
     }
 
     .right_wing {
-        right: 25px;
+        margin-left: 4px;
         transform: scaleX(-1);
-        position: absolute;
     }
 
     .rankingtable td:nth-child(2) {
