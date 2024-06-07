@@ -237,7 +237,7 @@ function Ranking() {
                                             <td>
                                                 <div className={styles.nickname_wrap}>
                                                     <div className={styles.profile}>
-                                                        <img src={memberRanking.userImgg} alt="프로필" />
+                                                        <img src={memberRanking.userImg} alt="프로필" />
                                                     </div>
                                                     <div className={styles.title_wrap}>
                                                         {memberRanking.memberTitle?<div className={styles.title}>{memberRanking.memberTitle}</div>:''}
