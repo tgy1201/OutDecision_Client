@@ -150,6 +150,7 @@ function Board ({setCategory}) {
         if(searchText) {
             searchParams.set('search', searchText);
             searchParams.set('searchType', searchTextType);
+            searchParams.delete('page');
             navigate(`?${searchParams.toString()}`);
         } else {
             alert('검색어를 입력하세요');

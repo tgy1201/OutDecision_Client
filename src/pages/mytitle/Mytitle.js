@@ -85,6 +85,7 @@ function Mytitle({ onTitleChange }) {
             const data = response.data;
             if (data.isSuccess && data.code === "2000") {
                 setApplyMessage("칭호가 성공적으로 변경되었습니다.");
+                alert('칭호 변경 성공');
             } else {
                 setApplyMessage("칭호 변경에 실패하였습니다.");
             }

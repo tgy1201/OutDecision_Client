@@ -148,9 +148,8 @@
         width: 120px;
         height: 35px;
         font-size: 15px;
-        background-color: #ac2323;
-        color: white;
-        border: none;
+        background-color: white;
+        border: 1px solid #5a5a5a;
         border-radius: 8px;
         cursor: pointer;
         display: flex;
@@ -252,19 +251,16 @@
     }
 
     .deletebox {
-        padding-top: 50px;
+        margin-top: 5px;
         display: flex;
-        justify-content: center;
+        align-items: center;
+        justify-content: flex-end;
     }
 
     .deletebox button {
-        width: 230px;
         height: 40px;
-        background-color: #C2C2C2;
-        color: white;
-        font-size: 20px;
-        border-radius: 8px;
-        align-items: center;
+        text-decoration-line: underline;
+        font-size: 1.1rem
     }
 
     .deletemodal {
@@ -462,9 +458,8 @@
         width: 120px;
         height: 35px;
         font-size: 15px;
-        background-color: #ac2323;
-        color: white;
-        border: none;
+        background-color: white;
+        border: 1px solid #5a5a5a;
         border-radius: 8px;
         cursor: pointer;
         display: flex;
@@ -477,7 +472,7 @@
         margin-top: 40px;
         display: flex;
         justify-content: center;
-        margin-bottom: 30px;
+        margin-bottom: 5px;
     }
 
     .buttonbox button:nth-child(1) {
@@ -574,16 +569,17 @@
     }
 
     .deletebox {
-        padding-bottom: 20px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 20px;
     }
 
     .deletebox button {
-        width: 100%;
         height: 40px;
-        background-color: #C2C2C2;
-        color: white;
-        font-size: 20px;
-        border-radius: 8px;
+        text-decoration-line: underline;
+        font-size: 1.0rem
     }
 
     .deletemodal {

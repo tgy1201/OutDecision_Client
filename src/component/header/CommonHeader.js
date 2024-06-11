@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import MobileMenu from "../mobileMenu/MobileMenu";
 import axios from "axios";
 
-function CommonHeader ({children}) {
+function CommonHeader ({children, isLogin}) {
     const navigate = useNavigate();
     const location = useLocation();
     const path = location.pathname.split('?')[0]; //쿼리스트링을 제외한 주소 추출
@@ -94,7 +94,7 @@ function CommonHeader ({children}) {
             <div className={styles.pc_header}>
                 <div className={scrollPosition > 160 ? `${styles.scroll_topbar}` : `${styles.topbar}`}>
                     <ul>
-                        <li>{!sessionStorage.isLogin?(<Link to="/login">로그인</Link>):(<span onClick={()=> handleLogout()}>로그아웃</span>)}</li>
+                        <li>{sessionStorage.isLogin || isLogin ? (<span onClick={()=> handleLogout()}>로그아웃</span>):(<Link to="/login">로그인</Link>)}</li>
                         <li><Link to="/signup">회원가입</Link></li>
                     </ul>
                 </div>

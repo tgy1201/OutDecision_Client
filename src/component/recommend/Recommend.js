@@ -16,7 +16,7 @@ import PostCard from '../postCard/PostCard';
 import { GrPowerReset } from "react-icons/gr";
 
 function Recommend ({posts, handleClick}) {
-
+    
     return (
         <>
             <div className={styles.recommend_header}>
@@ -27,7 +27,6 @@ function Recommend ({posts, handleClick}) {
             <Swiper
             slidesPerView={'auto'}
             centeredSlides={true}
-            spaceBetween={30}
             slidesOffsetAfter={20}
             pagination={{
                 clickable: true,
