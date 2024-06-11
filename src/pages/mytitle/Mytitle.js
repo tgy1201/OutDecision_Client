@@ -75,6 +75,7 @@ function Mytitle({ onTitleChange }) {
         }
         if (boxData[selectedBoxIndex].state === '미획득') {
             setApplyMessage("미획득한 칭호는 변경할 수 없습니다.");
+            alert('미획득한 칭호는 변경할 수 없습니다.');
             return;
         }
         try {
