@@ -95,7 +95,7 @@ function Comment({comments, setComments, postId, page}) {
     const handleSubmitReply = async (commentsId) => {
         const updatedComments = comments.map((c) => {
             if (c.commentsId === commentsId) {
-              return { ...c, replies: [ ...c.replies, { replyId: 4, isOwn: true, profileUrl: '', memberTitle: null, nickname: '테스트', createdAt: '2024.06.23 18:00', body: newReplyText }] };
+              return { ...c, replies: [ { replyId: 4, isOwn: true, profileUrl: '', memberTitle: null, nickname: '테스트', createdAt: '2024.06.23 18:00', body: newReplyText }] };
             }
             return c;
         });
