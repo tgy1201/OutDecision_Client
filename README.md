@@ -1,17 +1,16 @@
 # OutDecision_Client
-OutDecision - 결정 장애들을 위한 고민 투표 커뮤니티, 결정잘해(Outdecision) 🤔 Server Repo.
+OutDecision - 결정 장애들을 위한 고민 투표 커뮤니티, 결정잘해(Outdecision) 🤔 Client Repo.
 
 <div align="center">
 
 ![OutDecision_logo](https://github.com/OutDecision/OutDecision_Server/assets/97323941/5ebb1243-1714-4b8f-8389-63fc5deb5bbb)
-
 
 </div>
 
 # Outdecision Project
 > **경기대학교 컴퓨터공학부 2024학년도 심화캡스톤디자인프로젝트 결정잘해팀** <br/> **개발기간: 2024.03 ~ ing**
 
-## 배포 주소
+## 배포 주소 (현재 중단)
 
 > **개발** : [https://www.outdecision.com/](https://www.outdecision.com/)<br>
 > **프론트 서버** : [https://www.outdecision.com/](https://www.outdecision.com/)<br>
