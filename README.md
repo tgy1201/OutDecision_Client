@@ -102,58 +102,62 @@ OutDecision - 결정 장애들을 위한 고민 투표 커뮤니티, 결정잘�
 
 ### 프로젝트 구조
 ```
-📦OutDecision_Client-master
- ├─ 📂public
- │ ├─ 📂assets
- │ │ └─ 📂images
- │ ├─ 📜icon.ico
- │ └─ 📜index.html
- ├─ 📂src
- │ ├─ 📂component
- │ │ ├─ 📂banner
- │ │ ├─ 📂category
- │ │ ├─ 📂comment
- │ │ ├─ 📂Dashboard
- │ │ ├─ 📂filterSheet
- │ │ ├─ 📂floatingBanner
- │ │ ├─ 📂footer
- │ │ ├─ 📂header
- │ │ ├─ 📂imageModal
- │ │ ├─ 📂List
- │ │ ├─ 📂mainFinishedPost
- │ │ ├─ 📂mainPost
- │ │ ├─ 📂mainRanking
- │ │ ├─ 📂mobileMenu
- │ │ ├─ 📂mypageMenu
- │ │ ├─ 📂pagination
- │ │ ├─ 📂postCard
- │ │ ├─ 📂postList
- │ │ ├─ 📂recommend
- │ │ ├─ 📂tabbar
- │ │ ├─ 📂titleModal
- │ │ └─ 📜PrivateRoute.js
- │ ├─ 📂pages
- │ │ ├─ 📂board
- │ │ ├─ 📂edit
- │ │ ├─ 📂infoedit
- │ │ ├─ 📂login
- │ │ ├─ 📂main
- │ │ ├─ 📂mypage
- │ │ ├─ 📂mypost
- │ │ ├─ 📂mytitle
- │ │ ├─ 📂ourteam
- │ │ ├─ 📂ranking
- │ │ ├─ 📂resetPassword
- │ │ ├─ 📂signup
- │ │ ├─ 📂signupSuccess
- │ │ ├─ 📂view
- │ │ └─ 📂write
- │ ├─ 📜App.css
- │ ├─ 📜App.js
- │ ├─ 📜index.js
- ├─ 📜.gitignore
- ├─ 📜package.json
- └─ 📜README.md
+📦OutDecision_Client
+ ├─.gitignore
+ ├─package.json
+ ├─README.md
+ │
+ ├─public
+ │  ├─icon.ico
+ │  ├─index.html
+ │  │
+ │  └─assets
+ │      └─images
+ └─src
+     ├─App.css
+     ├─App.js
+     ├─index.js
+     │
+     ├─component
+     │  ├─PrivateRoute.js
+     │  ├─banner
+     │  ├─category
+     │  ├─comment
+     │  ├─Dashboard
+     │  ├─filterSheet
+     │  ├─floatingBanner
+     │  ├─footer
+     │  ├─header
+     │  ├─imageModal
+     │  ├─List
+     │  ├─mainFinishedPost
+     │  ├─mainPost
+     │  ├─mainRanking
+     │  ├─mobileMenu
+     │  ├─mypageMenu
+     │  ├─pagination
+     │  ├─postCard
+     │  ├─postList
+     │  ├─recommend
+     │  ├─tabbar
+     │  └─titleModal
+     │
+     └─pages
+         ├─board
+         ├─edit
+         ├─infoedit
+         ├─login
+         ├─main
+         ├─mypage
+         ├─mypost
+         ├─mytitle
+         ├─ourteam
+         ├─ranking
+         ├─resetPassword
+         ├─signup
+         ├─signupSuccess
+         ├─view
+         └─write
 ```
 
 ## 팀원
