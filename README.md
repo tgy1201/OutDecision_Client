@@ -5,7 +5,6 @@ OutDecision - 결정 장애들을 위한 고민 투표 커뮤니티, 결정잘�
 
 ![OutDecision_logo](https://github.com/OutDecision/OutDecision_Server/assets/97323941/5ebb1243-1714-4b8f-8389-63fc5deb5bbb)
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FOutDecision%2FOutDecision_Server.git&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 </div>
 
